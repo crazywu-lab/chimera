@@ -1,5 +1,5 @@
 {
-  "name": "fritter-starter",
+  "name": "chimera",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -54,6 +54,6 @@
     "last 2 versions",
     "not dead"
   ],
-  "_id": "fritter-starter@0.0.0",
+  "_id": "chimera@0.0.0",
   "readme": "ERROR: No README data found!"
 }

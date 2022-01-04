@@ -1,7 +1,8 @@
 <template>
   <div class="freets-page">
     <Navbar />
-    <div class="body-container">
+    <ListRooms />
+    <!-- <div class="body-container">
       <div class="freet-col">
           <ListAllFreets/>
           <ListAllRefreets/>
@@ -11,23 +12,25 @@
         <CreatFreetForm  v-show="userName"/> 
         <SearchFreet />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 
 <script>
-import ListAllFreets from '@/components/Freets/ListAllFreets.vue'
-import CreatFreetForm from '@/components/Freets/CreatFreetForm.vue'
-import SearchFreet from '@/components/Freets/SearchFreet.vue'
+// import ListAllFreets from '@/components/Freets/ListAllFreets.vue'
+// import CreatFreetForm from '@/components/Freets/CreatFreetForm.vue'
+// import SearchFreet from '@/components/Freets/SearchFreet.vue'
 import Navbar from '@/components/NavBar/Navbar.vue';
+import ListRooms from '../components/Rooms/ListRooms.vue';
 
-import ListAllRefreets from "@/components/Freets/ListAllRefreets.vue";
+// import ListAllRefreets from "@/components/Freets/ListAllRefreets.vue";
 
 export default {
-  name: 'Freets',
+  name: 'Rooms',
   components:{
-    ListAllFreets, CreatFreetForm, SearchFreet, Navbar, ListAllRefreets
+    // ListAllFreets, CreatFreetForm, SearchFreet, Navbar, ListAllRefreets
+    Navbar, ListRooms
     
   },
   data(){

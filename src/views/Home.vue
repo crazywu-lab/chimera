@@ -6,12 +6,12 @@
                 <h1 class="welcome"> Welcome, {{ userName }}!</h1>
             </div>
             <div v-else class="body-container">
-                <h1 class="welcome">Welcome to Fritter!</h1>
+                <h1 class="welcome">Welcome to Chimera!</h1>
                 <p>This is the best place to see what’s happening in your world.</p>
                 <p>Find some people and topics to follow now.</p>
             </div>
             <br>
-            <router-link class="freets-link" to="/freets">Let's go!</router-link>
+            <router-link class="freets-link" to="/rooms">Let's go!</router-link>
         </section>
     </div>
 </template>

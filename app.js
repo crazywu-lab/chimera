@@ -14,6 +14,8 @@ const indexRouter = require('./routes/index');
 const freetsRouter = require('./routes/freets');
 const usersRouter = require('./routes/users');
 const refreetsRouter = require('./routes/refreets');
+const roomsRouter = require('./routes/rooms');
+
 // Create our app
 const app = express();
 
@@ -50,5 +52,6 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/freets', freetsRouter);
 app.use('/api/refreets', refreetsRouter);
+app.use('/api/rooms', roomsRouter);
 
 module.exports = app;

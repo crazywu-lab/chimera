@@ -1,6 +1,6 @@
 <template>
     <div class="navbar">
-        <router-link class="logo-home" to="/">Fritter</router-link>
+        <router-link class="logo-home" to="/">Chimera</router-link>
         <div v-if="!userName" class="nav-btn">
             <router-link class="nav-router-link" to="/signup">Sign Up</router-link>
             <router-link class="nav-router-link" to="/signin">Sign In</router-link>
