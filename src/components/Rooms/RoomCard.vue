@@ -1,7 +1,7 @@
 <template>
   <div class="fridge-card">
     <router-link :to="{name: 'room', params: {fridge: fridge, name: fridge.name}}" class="f-subcard"  >
-        <p>Fridge</p>
+        <p>Reading Room</p>
         <h2>{{fridge.name}}</h2>
         <p>Creator: {{ fridge.creator }}</p>
     </router-link>
@@ -19,7 +19,7 @@ import { eventBus } from "../../main";
 import axios from "axios";
 
 export default {
-    name: "FridgeCard",
+    name: "RoomCard",
     props: {
         fridge: {
             type: Object,

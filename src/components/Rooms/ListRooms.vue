@@ -2,7 +2,7 @@
 <div class="fridge-container">
     <div class="row justify-content-center title-div">
         <div class="col-12 title-col">
-            <h2 id="title">My Fridges</h2>
+            <h2 id="title">Reading Rooms</h2>
         </div>
     </div>
     <div class="row justify-content-center content-div">

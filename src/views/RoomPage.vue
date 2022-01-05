@@ -1,21 +1,13 @@
 <template>
 <div class="fridge-page">
-
-     <router-link class="router-link" to="/home"></router-link>
+    <Navbar />
+    <router-link class="router-link" to="/rooms">Home</router-link>
     <br>
     <br>
     <!-- <div v-if="signedInUser"> -->
-    <h2> Fridge Name: {{ this.$route.params.name }}</h2>
+    <h2> Reading Room Name: {{ this.$route.params.name }}</h2>
 
     <br /><br />
-    <!-- </div>
-    <div v-else>
-      You are not signed in! 
-       <router-link class="router-link btn btn-text" to="/signin"
-        >Sign In</router-link
-      >
-    </div> -->
-   
     <br>
     <router-link class="create-btn" :to="{name: 'item', params: {fridge: this.$route.params.fridge, name: this.$route.params.name}}">Create Item</router-link><br>
     <br/>
@@ -33,51 +25,10 @@
                     <input type="text" id="newmember" placeholder="username" v-model="newMembers.newmember" required>
                     <input type="submit" value="Add Member">
                 </form>
-
             </div>
         </div>
     </div>
-    
-    <div class="display-container">
-    <div class="search-col">
-        <p><strong>Search:</strong><input type="text" v-model="keyword" placeholder="keyword..." /></p>
-
-        <p><strong>Utilities:</strong><br/>
-            For Free <input type="checkbox" v-model="utilities" value="Free" /> 
-            For Swap <input type="checkbox" v-model="utilities" value="Swap" />
-        </p>
-        <p>
-            <strong>Category:</strong><br/>
-            Fruits & Vegetables
-            <input type="checkbox" v-model="Categories" value="Fruits & Vegetables" /><br/>
-
-            Canned Goods
-            <input type="checkbox" v-model="Categories" value="Canned Goods" /><br/>
-            Frozen
-            Foods
-            <input type="checkbox" v-model="Categories" value="Frozen Foods" /><br/>
-            Condiments & Spices
-            <input type="checkbox" v-model="Categories" value="Condiments & Spices" /><br/>
-            Sauces & Oils
-            <input type="checkbox" v-model="Categories" value="Sauces & Oils" /><br/>
-            Snacks
-            <input type="checkbox" v-model="Categories" value="Snacks" /> <br/>Bread &
-            Bakery
-            <input type="checkbox" v-model="Categories" value="Bread & Bakery" /><br/>
-            Pasta/Rice
-            <input type="checkbox" v-model="Categories" value="Pasta/Rice" /><br/>
-            Beverages
-            <input type="checkbox" v-model="Categories" value="Beverages" /> <br/>Others
-            <input type="checkbox" v-model="Categories" value="Others" /><br/>
-        </p>
-    </div>
-    
-    <div class="item-col">
-        <div class="items">
-            <Item class="item" v-for="item in filteredList" :key="item.id" :item="item" />
-        </div>
-    </div>
-    </div>
+    <Todo />
     <br>
 
 </div>
@@ -85,8 +36,10 @@
 
 <script>
 // import Item from "@/components/item/Item.vue";
-// import MemberCard from "../components/item/MemberCard.vue";
-// import HostMemberCard from '../components/item/HostMemberCard.vue';
+import MemberCard from "../components/Rooms/Members/MemberCard.vue";
+import HostMemberCard from '../components/Rooms/Members/HostMemberCard.vue';
+import Navbar from '../components/NavBar/Navbar.vue';
+import Todo from '../components/Room/Todo.vue';
 
 import axios from "axios";
 import {
@@ -96,9 +49,10 @@ export default {
     name: "FridgePage",
     props: ["signedInUser", "response"],
     components: {
-        // Item,
-        // MemberCard,
-        // HostMemberCard
+        Navbar,
+        MemberCard,
+        HostMemberCard,
+        Todo
     },
     data() {
         return {
@@ -180,7 +134,6 @@ export default {
 .fridge-page {
     padding: 13.5vh;
     height: auto;
-    background-color: #FCF8F2;
     font-family: "Montserrat", sans-serif;
 }
 
@@ -279,6 +232,7 @@ export default {
     width: 100%;
     height: 100%;
     background: white;
+    border: black 3px dashed;
 }
 .add-member-card{
     width: 80px;

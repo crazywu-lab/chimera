@@ -2,17 +2,7 @@
   <div class="freets-page">
     <Navbar />
     <ListRooms />
-    <!-- <div class="body-container">
-      <div class="freet-col">
-          <ListAllFreets/>
-          <ListAllRefreets/>
-      </div>
-      
-      <div class="side-col">
-        <CreatFreetForm  v-show="userName"/> 
-        <SearchFreet />
-      </div>
-    </div> -->
+
   </div>
 </template>
 

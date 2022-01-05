@@ -57,25 +57,7 @@
          
             </div>
 
-            <div 
-            class='posted-freets'
-            v-show='showMyFreets'>
-            <Freet
-            v-for='freet in myFreets'
-            :key='freet.id'
-            :freet='freet'
-            />
-            </div>
-            
-            <div 
-            class='upvoted-freets'
-            v-show='showMyRefreets'>
-            <Refreet
-            v-for='refreet in myRefreets'
-            :key='refreet.id'
-            :refreet='refreet'
-            />
-            </div>
+
 
             <div 
             class='followings'
@@ -103,8 +85,7 @@
 <script>
 import { eventBus } from "../../main";
 import axios from 'axios';
-import Freet from '@/components/Freets/Freet.vue';
-import Refreet from '@/components/Freets/Refreet.vue';
+
 import Followings from '@/components/Users/Followings.vue';
 
 export default {
@@ -129,8 +110,7 @@ export default {
         }
     },
     components: {
-        Freet,
-        Refreet,
+
         Followings
     
     },
