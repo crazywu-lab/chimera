@@ -1,7 +1,7 @@
 const express = require('express');
 
 const Users = require('../models/Users');
-const Freets = require('../models/Freets');
+// const Freets = require('../models/Freets');
 
 const validateThat = require('../middleware/validation');
 const authorizeThat = require('../middleware/authorization');
