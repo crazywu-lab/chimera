@@ -1,4 +1,4 @@
-const Freets = require('../models/Freets');
+//const Freets = require('../models/Freets');
 const Users = require('../models/Users');
 const alphaExp = /^[a-zA-Z0-9]+$/;
 //freets

@@ -127,11 +127,6 @@ router.put(
 
     // when changing username, update all usernames of this person's freets
     const user = Users.changeUsername(req.session.username, req.body.username);
-    for(let i = 0; i < Freets.findAll().length; i++){
-      if (Freets.findAll()[i].author === req.session.username){
-        Freets.findAll()[i].author = user.username;
-      }
-    }
     req.session.destroy();
     res.clearCookie('connect.sid');
     res.status(200).json({ message: `Successfully updated username. Your current username is ${user.username}. Please sign in again with your new username.`, });
