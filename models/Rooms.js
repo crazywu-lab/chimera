@@ -69,26 +69,26 @@ class Rooms {
     return roomsData.filter((room) => room.creatorID === creatorID);
   }
 
-  static addItem(itemID, roomID) {
-    const room = rooms.findById(roomID);
-    room.items.push(itemID);
+  static addItem(item, roomID) {
+    const room = Rooms.findById(roomID);
+    room.items.push(item);
     console.log(room)
     return room;
   }
 
   static addMember(roomID, username) {
-    const room = rooms.findById(roomID);
+    const room = Rooms.findById(roomID);
     room.members.push(username);
     return room;
   }
 
   static findMemberInroom(roomID, username) {
-    const room = rooms.findById(roomID);
+    const room = Rooms.findById(roomID);
     return room.members.filter((member) => member === username);
   }
 
   static deleteMember(roomID, username) {
-    const room = rooms.findById(roomID);
+    const room = Rooms.findById(roomID);
     console.log(username);
     room.members = room.members.filter((member) => member !== username);
     console.log(room);

@@ -20,10 +20,11 @@
 
 <script>
 import axios from "axios";
+import { eventBus } from "../../main";
 
 export default {
   name: "simpleUpload",
-
+  props: ['roomID'],
   data() {
     return {
       file: "",
@@ -53,9 +54,14 @@ export default {
     async sendFile() {
       const formData = new FormData();
       formData.append("file", this.file);
-
+      formData.append("roomID", this.roomID);
       try {
-        await axios.post("/api/upload/uploadPDF", formData);
+        await axios.post("/api/upload/uploadPDF", formData)
+        .then((response) => {
+          eventBus.$emit("upload-pdf-success", {
+            data: response.data
+          });
+        });
         this.message = "File has been uploaded";
         this.file = "";
         this.error = false;

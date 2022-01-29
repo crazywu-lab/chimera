@@ -1,7 +1,7 @@
 <template>
     <div>
         <Navbar />
-        <section class="body-container">
+        <!-- <section class="body-container">
             <div v-if="userName">
                 <h1 class="welcome"> Welcome, {{ userName }}!</h1>
             </div>
@@ -11,8 +11,10 @@
                 <p>Find some people and topics to follow now.</p>
             </div>
             <br>
-            <router-link class="freets-link" to="/adminpage">Let's go!</router-link>
-        </section>
+            
+        </section> -->
+        <router-link class="freets-link home-link" to="/adminpage">Let's go!</router-link>
+        
     </div>
 </template>
 
@@ -55,5 +57,10 @@ export default {
 }
 .welcome {
     font-size: 3rem;
+}
+.home-link {
+    position: absolute;
+    left: 40vw;
+    top: 70vh;
 }
 </style>

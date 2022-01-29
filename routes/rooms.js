@@ -52,6 +52,19 @@ router.post("/", (req, res) => {
   console.log(req.body);
 });
 
+/**
+ * Create an Item. You have to be a signed in user.
+ * 
+ * @name POST /api/Rooms/create
+ * @return {Item} - the created Item, as well as 200 status code for success, 403 for user not logged in 
+ */
+//  router.post("/create", (req, res) => {
+//   const item = Items.addOne(req.body.newItem, req.session.userID, req.session.username);
+//   Users.addItem(item.id, req.session.userID);
+//   Fridges.addItem(item.id, item.fridge)
+//   res.status(200).json(item).end();
+// });
+
 // /**
 //  * Edit a freet.
 //  *
