@@ -13,6 +13,7 @@ const history = require('connect-history-api-fallback');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const roomsRouter = require('./routes/rooms');
+const uploadRouter = require('./routes/uploadPDF');
 
 // Create our app
 const app = express();
@@ -49,5 +50,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/rooms', roomsRouter);
+app.use('/api/upload', uploadRouter);
 
 module.exports = app;

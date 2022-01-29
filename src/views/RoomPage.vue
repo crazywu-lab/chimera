@@ -28,9 +28,9 @@
             </div>
         </div>
     </div>
-    <Todo />
+    <simpleUpload />
     <br>
-
+    <PdfViewer />
 </div>
 </template>
 
@@ -39,7 +39,8 @@
 import MemberCard from "../components/Rooms/Members/MemberCard.vue";
 import HostMemberCard from '../components/Rooms/Members/HostMemberCard.vue';
 import Navbar from '../components/NavBar/Navbar.vue';
-import Todo from '../components/Room/Todo.vue';
+import simpleUpload from '../components/Room/simpleUpload.vue';
+import PdfViewer from '../components/Room/PdfViewer.vue';
 
 import axios from "axios";
 import {
@@ -52,7 +53,8 @@ export default {
         Navbar,
         MemberCard,
         HostMemberCard,
-        Todo
+        simpleUpload,
+        PdfViewer
     },
     data() {
         return {
@@ -69,7 +71,6 @@ export default {
         };
     },
     created() {
-        this.getItems();
         eventBus.$on(["delete-member-success"], () => {
             console.log(this.$route.params.fridge);
             this.getFridge();
@@ -84,9 +85,6 @@ export default {
             ],
             () => {
               this.$router.go()
-                this.getItems();
-                
-                
             }
         )
     },
@@ -102,16 +100,6 @@ export default {
 
     },
     methods: {
-        getItems() {
-            axios
-                .get("/api/item/fridgeItems/" + this.fridge.fridgeID)
-                .then((response) => {
-                    this.items = response.data;
-                })
-                .catch((error) => {
-                    alert(error);
-                });
-        },
         addMember() {
             axios
                 .put("/api/Fridges/addMember/" + this.fridge.fridgeID, this.newMembers)

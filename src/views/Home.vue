@@ -11,7 +11,7 @@
                 <p>Find some people and topics to follow now.</p>
             </div>
             <br>
-            <router-link class="freets-link" to="/rooms">Let's go!</router-link>
+            <router-link class="freets-link" to="/adminpage">Let's go!</router-link>
         </section>
     </div>
 </template>
