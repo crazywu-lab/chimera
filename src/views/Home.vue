@@ -14,6 +14,7 @@
             
         </section> -->
         <router-link class="freets-link home-link" to="/adminpage">Let's go!</router-link>
+        
     </div>
 </template>
 
