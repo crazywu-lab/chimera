@@ -8,7 +8,7 @@ const router = express.Router();
  * @name GET /
  */
 router.get('/', (req, res) => {
-  res.render('index', { title: 'Fritter' });
+  res.render('index', { title: 'Chimera' });
 });
 
 

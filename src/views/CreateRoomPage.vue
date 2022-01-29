@@ -67,7 +67,7 @@ export default {
           eventBus.$emit("create-fridge-success", {
             data: response.data,
           });
-          this.$router.push("/rooms").catch(()=>{});
+          this.$router.push("/adminpage").catch(()=>{});
           // window.location.reload();
         })
         .catch((error) => {
