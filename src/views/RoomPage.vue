@@ -1,7 +1,7 @@
 <template>
 <div class="fridge-page">
     <Navbar />
-    <router-link class="router-link" to="/rooms">Home</router-link>
+    <router-link class="router-link" to="/">Home</router-link>
     <br>
     <br>
     <!-- <div v-if="signedInUser"> -->
@@ -28,9 +28,10 @@
             </div>
         </div>
     </div>
-    <simpleUpload />
+    <simpleUpload v-bind:roomID="this.$route.params.fridge.roomID"/>
     <br>
-    <PdfViewer />
+    <PdfCard v-for="file in fridge.items" :key="file.filename" :file="file" />
+    <!-- <PdfViewer /> -->
 </div>
 </template>
 
@@ -40,7 +41,8 @@ import MemberCard from "../components/Rooms/Members/MemberCard.vue";
 import HostMemberCard from '../components/Rooms/Members/HostMemberCard.vue';
 import Navbar from '../components/NavBar/Navbar.vue';
 import simpleUpload from '../components/Room/simpleUpload.vue';
-import PdfViewer from '../components/Room/PdfViewer.vue';
+import PdfCard from '../components/Room/PdfCard.vue';
+//import PdfViewer from '../components/Room/PdfViewer.vue';
 
 import axios from "axios";
 import {
@@ -54,7 +56,8 @@ export default {
         MemberCard,
         HostMemberCard,
         simpleUpload,
-        PdfViewer
+        PdfCard
+        // PdfViewer
     },
     data() {
         return {
@@ -72,32 +75,21 @@ export default {
     },
     created() {
         eventBus.$on(["delete-member-success"], () => {
-            console.log(this.$route.params.fridge);
             this.getFridge();
         });
-
+        this.getFridge();
     },
     mounted() {
         eventBus.$on(
             ["create-item-success",
               "delete-item-success",
-              "claim-item-success"
+              "claim-item-success",
+              "upload-pdf-success"
             ],
             () => {
               this.$router.go()
             }
         )
-    },
-    computed: {
-        filteredList() {
-            return this.items
-                .filter((item) => {
-                    return (this.keyword.length === 0 || item.name.toLowerCase().includes(this.keyword.toLowerCase())) &&
-                        (this.utilities.length === 0 || this.utilities.includes(item.utility)) &&
-                        (this.Categories.length === 0 || this.Categories.includes(item.category))
-                })
-        }
-
     },
     methods: {
         addMember() {
@@ -112,7 +104,7 @@ export default {
             this.newMembers.newmember = '';
         },
         getFridge(){
-            this.fridge = this.$route.params.fridge
+            this.fridge = this.$route.params.fridge;
         }
     },
 };
