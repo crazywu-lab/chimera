@@ -1,6 +1,3 @@
-require('dotenv').config();
-
-const isProduction = process.env.NODE_ENV === 'production';
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -8,8 +5,10 @@ const logger = require('morgan');
 const session = require('express-session');
 const cors = require('cors');
 const db = require('./db/db_config');
-
+require('dotenv').config();
+const isProduction = process.env.NODE_ENV === 'production';
 const history = require('connect-history-api-fallback');
+
 // Import all the express routes we will be using
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
