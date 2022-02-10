@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Users = require('../models/Users');
+const controller = require("./users-controller");
 // const Freets = require('../models/Freets');
 
 const validateThat = require('../middleware/validation');
@@ -16,7 +16,7 @@ const router = express.Router();
  */
 
 router.get('/', (req, res) => {
-  res.status(200).json(Users.findAll()).end();
+  res.status(200).json(controller.findAll()).end();
 });
 
 
@@ -45,7 +45,7 @@ router.post(
     req.session.password = req.body.password;
     res.status(200).json({
       username: req.session.username,
-      message: `Hello ${req.session.username}! You have successfully signed in! Now you can post, edit, or delete your Freets!`
+      message: `Hello ${req.session.username}! You have successfully signed in!`
     }).end();
  
 })
@@ -94,7 +94,7 @@ router.post(
     validateThat.passwordLength,
   ],
   (req, res) => {
-    const user = Users.addOne(req.body.username, req.body.password);
+    const user = controller.addOne(req.body.username, req.body.password);
     res.status(200).json({ 
       message: `You have created a new account with username ${user.username}. Please sign in to make your first freet now!` 
     }).end();
@@ -126,7 +126,7 @@ router.put(
   (req, res) => {
 
     // when changing username, update all usernames of this person's freets
-    const user = Users.changeUsername(req.session.username, req.body.username);
+    const user = controller.changeUsername(req.session.username, req.body.username);
     req.session.destroy();
     res.clearCookie('connect.sid');
     res.status(200).json({ message: `Successfully updated username. Your current username is ${user.username}. Please sign in again with your new username.`, });
@@ -150,7 +150,7 @@ router.put(
     validateThat.passwordUnchanged,
   ],
   (req, res) => {
-    const user = Users.changePassword(req.session.username, req.body.password);
+    const user = controller.changePassword(req.session.username, req.body.password);
     req.session.destroy();
     res.clearCookie('connect.sid');
     res.status(200).json({ message: `${user.username}, you have successfully updated your password. Please sign in again with your new password.`, });
@@ -169,7 +169,7 @@ router.delete(
     authorizeThat.signedIn,
   ] ,
   (req, res) => {
-    const user = Users.deleteOne(req.session.username);
+    const user = controller.deleteOne(req.session.username);
     req.session.destroy();
     res.clearCookie('connect.sid');
     res.status(200).json({
@@ -188,48 +188,10 @@ router.get(
     authorizeThat.signedIn,
   ],
   (req, res) => {
-    const user = Users.findOne(req.session.username);
+    const user = controller.findOne(req.session.username);
     res.status(200).json({
       user, message: "Return user's profile information."
     }).end();
 });
-
-/**
- * Follow a User.
- * @name POST /api/users/following/:username?
- * @throws {401,400} - 401 if user is not signed in 400 if try to follow yourself
- */
-/*current user following other user*/
-router.post(
-  '/following/:username?',
-  [
-    authorizeThat.signedIn,
-    validateThat.followSelf,
-  ],
-  (req, res) => {
-    const user = Users.addFollowing(req.session.username, req.params.username)
-    res.status(200).json({
-      user, message: "Successfully following."
-    }).end();
-});
-
-/**
- * Unfollow a User.
- * @name PUT /api/users//unfollowing/:username?
- * @throws {401,400} - 401 if user is not signed in 400 if try to follow yourself
- */
-router.put(
-  '/unfollowing/:username?',
-  [
-    authorizeThat.signedIn,
-    validateThat.followSelf,
-  ],
-  (req, res) => {
-    const user = Users.removeFollowing(req.session.username, req.params.username)
-    res.status(200).json({
-      user, message: "Successfully unfollowing."
-    }).end();
-});
-
 
 module.exports = router;
