@@ -65,4 +65,26 @@ app.use('/api/users', usersRouter);
 app.use('/api/rooms', roomsRouter);
 app.use('/api/upload', uploadRouter);
 
+app.all('*', (req, res) => {
+  const errorMessage = `
+    Cannot find the resource <b>${req.url}</b>
+    <br>
+    Please use only supported routes below
+    <br><br>
+
+    <b>Home Page and Chimera</b>
+    <br>
+    GET / -- Go to home page
+    <br>
+
+    <br><br>
+
+    <b>Authentication</b>
+    <br>
+    POST /api/session -- Authenticate with username into the server
+  `;
+
+  res.status(404).send(errorMessage);
+});
+
 module.exports = app;
