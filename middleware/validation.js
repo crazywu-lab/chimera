@@ -1,7 +1,7 @@
-//const Freets = require('../models/Freets');
-const Users = require('../models/Users');
+const Users = require('../routes/users-controller');
 const alphaExp = /^[a-zA-Z0-9]+$/;
-//freets
+
+
 const inputAuthorEmpty = (req, res, next) => {
     const author = req.params.author;
     if(author === undefined || author === ''){
@@ -24,81 +24,6 @@ const authorExists = (req, res, next) =>{
     next();
 };
 
-const inputContentMinimum = (req, res, next)=>{
-    const inputContent = req.body.content;
-    if (inputContent === undefined || inputContent === ''){
-        res.status(403).json({
-            error: 'Minimum 1 character.'
-        }).end();
-        return;
-    }
-    next();
-};
-
-const inputContentMaximum = (req, res, next) => {
-    const inputContent = req.body.content;
-    if (inputContent !== undefined && inputContent.length > 140){
-        res.status(403).json({
-            error: 'Maximum 140 character.'
-        }).end();
-        return;
-    }
-    next();
-};
-
-const inputIdEmpty = (req, res, next) => {
-    const freetId = req.params.id;
-    if(freetId === undefined || freetId === ''){
-        res.status(400).json({
-            eror: "Must enter the id of a freet."
-        }).end();
-        return;
-    }
-    next();
-};
-
-const freetIdExists = (req, res, next) => {
-    const freetId = Freets.findById(req.params.id) 
-    if(freetId === undefined){
-        res.status(400).json({
-            error: `Ooops! Content has been deleted by author.`
-        }).end();
-        return;
-    }
-    next();
-};
-const refreetIdExists = (req, res, next) => {
-    const refreetId = Freets.findById(req.params.id) 
-    if(refreetId === undefined){
-        res.status(400).json({
-            error: `Refreet with id ${req.params.id} not found, please try another one.`
-        }).end();
-        return;
-    }
-    next();
-};
-const editSelfFreet = (req, res, next) => {
-    const freetAuthor = Freets.findById(req.params.id).author;
-    const username = req.session.username;
-    if(freetAuthor !== username){
-        res.status(401).json({
-            error: `Freet with id ${req.params.id} does not belong to you, you cannot make change to it.`
-        }).end();
-        return;
-    }
-    next();
-};
-const editSelfRefreet = (req, res, next) => {
-    const refreeter = Freets.findById(req.params.id).refreeter;
-    const username = req.session.username;
-    if(refreeter !== username){
-        res.status(401).json({
-            error: `Refreet with id ${req.params.id} does not belong to you, you cannot make change to it.`
-        }).end();
-        return;
-    }
-    next();
-};
 //users
 const usernameEmpty = (req, res, next) => {
     const username = req.body.username 
@@ -246,13 +171,6 @@ const followSelf = (req, res, next) => {
 module.exports = Object.freeze({
     inputAuthorEmpty,
     authorExists,
-    inputContentMinimum,
-    inputContentMaximum,
-    inputIdEmpty,
-    freetIdExists,
-    refreetIdExists,
-    editSelfFreet,
-    editSelfRefreet,
     usernameEmpty,
     passwordEmpty,
     usernameMatch,
