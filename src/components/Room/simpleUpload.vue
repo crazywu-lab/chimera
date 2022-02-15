@@ -12,7 +12,7 @@
         <input type="file" ref="file" @change="selectFile" />
       </div>
 
-      <div class="field">
+      <div v-if="file" class="field">
         <button class="button is-info">Upload</button>
       </div>
     </form>

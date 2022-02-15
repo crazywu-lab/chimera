@@ -22,18 +22,6 @@ router.get("/getItems/:roomID?", (req, res) => {
   res.status(200).json(Rooms.findById(req.params.roomID)).end();
 });
 
-/**
- * View Rooms by one
- *
- * @name GET /api/Rooms/:author?
- * @param {string} authorID - author ID to filter by (query parameter, optional)
- *
- * @return {freet[]} - list of all stored Rooms if author is not given, else list of stored Rooms with given author
- * */
-router.get("/:author?", (req, res) => {
-  res.status(200).json(Rooms.findAuthorAll(req.params.author)).end();
-});
-
 
 /**
  * Create a room (must signed in first)

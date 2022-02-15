@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import VueCookie from "vue-cookie";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from "./App.vue";
 import Home from "./views/Home.vue";

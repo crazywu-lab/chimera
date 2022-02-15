@@ -29,13 +29,13 @@ export default {
     SignInForm, Navbar
   },
     created: function() {
-        let auth = this.$cookie.get('fritter-auth');
+        let auth = this.$cookie.get('chimera-place-auth');
         if (auth) {
             this.isSignedIn = true;
         }
 
         eventBus.$on("login-success", (username) => {
-            this.$cookie.set('fritter-auth', username);
+            this.$cookie.set('chimera-place-auth', username);
             this.isSignedIn = true;
         })
     }

@@ -36,7 +36,7 @@ db.mongoose
 
 // Set up user session
 app.use(session({
-    secret: 'Chimera-place',
+    secret: 'chimera-place',
     resave: true,
     saveUninitialized: true
 }))
