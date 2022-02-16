@@ -25,7 +25,7 @@ export default {
     name: "Home",
     data(){
         return {
-            userName: this.$cookie.get('fritter-auth')
+            userName: this.$cookie.get('chimera-place-auth')
         }
     },
     components: {

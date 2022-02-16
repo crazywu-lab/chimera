@@ -24,7 +24,7 @@ export default ({
   },
   created(){
     eventBus.$on("delete-account-success", () => {
-        this.$cookie.set("fritter-auth", '');
+        this.$cookie.set("chimera-place-auth", '');
         console.log("cookie!");
         this.$router.go();
     });

@@ -1,4 +1,5 @@
 const Users = require('../routes/users-controller');
+const Rooms = require('../routes/rooms-controller');
 const alphaExp = /^[a-zA-Z0-9]+$/;
 
 
@@ -15,7 +16,7 @@ const inputAuthorEmpty = (req, res, next) => {
 
 const authorExists = (req, res, next) =>{
     const userExist = Users.findAllUsername().includes(req.params.author || req.body.author )
-    if(! userExist ){ // author not found
+    if(!userExist ){ // author not found
         res.status(404).json({
           error: `Author ${req.params.author} is not found.`
         }).end();
@@ -45,9 +46,9 @@ const passwordEmpty = (req, res, next) => {
     }
     next();
 };
-const usernameMatch = (req, res, next) =>{
-    const usernameExist = Users.findOne(req.body.username)
-    if(! usernameExist ){ // author not found
+const usernameMatch = async (req, res, next) =>{
+    const usernameExist = await Users.findOne(req.body.username)
+    if(usernameExist == false ){ // author not found
         res.status(404).json({
           error: `Username ${req.body.username} is not found.`
         }).end();
@@ -56,10 +57,11 @@ const usernameMatch = (req, res, next) =>{
     next();
 };
 
-const passwordMatch = (req, res, next) =>{
-    const passwordRecord = Users.findOne(req.body.username).password;
+const passwordMatch = async (req, res, next) =>{
+    const user = await Users.findOne(req.body.username);
+    const password = user.password;
     const passwordInput = req.body.password;
-    if(passwordInput != passwordRecord){ // author not found
+    if(passwordInput != password){ // author not found
         res.status(404).json({
           error: "The password doesn't match our records."
         }).end();
@@ -89,9 +91,9 @@ const sessionNull = (req, res, next) =>{
     next();
 };
 
-const usernameDuplicate = (req, res, next) =>{
-    const username = req.body.username;
-    if (Users.findOne(username) !== undefined){
+const usernameDuplicate = async (req, res, next) =>{
+    const user = await Users.findOne(req.body.username);
+    if (user !== null){
         res.status(400).json({ 
             error: `User ${req.body.username} already exists. Please choose another username.`,
         }).end();
@@ -156,12 +158,13 @@ const passwordUnchanged = (req, res, next) =>{
     next();
 };
 
-const followSelf = (req, res, next) => {
-    const curUser = req.session.username;
-    const followingUser = req.params.username;
-    if (curUser === followingUser){
-        res.status(400).json({ 
-            error: 'You cannot follow/unfollow yourself.'
+
+// Rooms
+const roomDuplicate = async (req, res, next) =>{
+    const room = await Rooms.findOne(req.body.fname);
+    if(room !== null){
+        res.status(403).json({ 
+            error: `Room ${req.body.fname} already exists. Please choose another room name.`,
         }).end();
         return;
     }
@@ -183,5 +186,5 @@ module.exports = Object.freeze({
     passwordLength,
     usernameUnchanged,
     passwordUnchanged,
-    followSelf,
+    roomDuplicate,
   });

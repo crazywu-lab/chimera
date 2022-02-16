@@ -1,9 +1,9 @@
 <template>
   <div class="fridge-card">
-    <router-link :to="{name: 'room', params: {fridge: fridge, name: fridge.name}}" class="f-subcard"  >
+    <router-link :to="{name: 'room', params: {fridge: fridge, name: fridge.room_name}}" class="f-subcard"  >
         <p>Reading Room</p>
-        <h2>{{fridge.name}}</h2>
-        <p>Creator: {{ fridge.creator }}</p>
+        <h2>{{fridge.room_name}}</h2>
+        <p>Creator: {{ fridge.creator_id }}</p>
     </router-link>
     <button v-on:click="DeleteFridge" class="del-fridge-btn" >
             Delete
@@ -31,7 +31,7 @@ export default {
     },
     methods:{
         DeleteFridge(){
-            axios.delete("/api/Fridges/" + this.fridge.fridgeID)
+            axios.delete("/api/rooms/" + this.fridge.room_name)
                 .then((response) => {
                     eventBus.$emit("delete-fridge-success",{
                         data: response.data,
@@ -73,5 +73,6 @@ export default {
     border: none;
     border-radius: 5px;
     box-shadow: 1px 1px 6px 0 rgba(31, 38, 135, 0.3);
+    cursor: pointer;
 }
 </style>

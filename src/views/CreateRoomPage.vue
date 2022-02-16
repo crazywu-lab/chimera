@@ -6,7 +6,7 @@
           <h2 id="title">Create a reading room!</h2>
       </div>
       <div class="col-3 title-div title-left">
-        <router-link class="router-link cancel-btn" to="/rooms">Cancel</router-link>
+        <router-link class="router-link cancel-btn" to="/adminpage">Cancel</router-link>
       </div>
   </div>
 
@@ -22,9 +22,7 @@
         required
       />
 
-      <h4>Room Description</h4>
-      <input type="text" />
-
+      <h4>{{error}}</h4>
       <br />
       <br />
       <br />

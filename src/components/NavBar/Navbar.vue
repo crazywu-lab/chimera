@@ -29,12 +29,12 @@ export default ({
   name: 'Navbar',
   data() {
       return {
-          userName: this.$cookie.get('fritter-auth')
+          userName: this.$cookie.get('chimera-place-auth')
       }
   },
     created(){
         eventBus.$on("signout-success", () => {
-            this.$cookie.set("fritter-auth", '');
+            this.$cookie.set("chimera-place-auth", '');
             console.log("cookie!");
             this.$router.go();
         });
