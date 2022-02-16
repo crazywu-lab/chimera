@@ -8,8 +8,13 @@ const RoomSchema = new Schema(
             type: String,
             required: true,
         },
+        "creator_id": {
+            type: Schema.Types.ObjectId, 
+            ref: "User",
+            required: true,
+        },
         "member": {
-            type: String,
+            type: Array,
             required: false,
         },
         "reading": {

@@ -1,4 +1,5 @@
 const Users = require('../routes/users-controller');
+const Rooms = require('../routes/rooms-controller');
 const alphaExp = /^[a-zA-Z0-9]+$/;
 
 
@@ -92,7 +93,7 @@ const sessionNull = (req, res, next) =>{
 
 const usernameDuplicate = async (req, res, next) =>{
     const user = await Users.findOne(req.body.username);
-    if (user == false){
+    if (user !== null){
         res.status(400).json({ 
             error: `User ${req.body.username} already exists. Please choose another username.`,
         }).end();
@@ -158,6 +159,18 @@ const passwordUnchanged = (req, res, next) =>{
 };
 
 
+// Rooms
+const roomDuplicate = async (req, res, next) =>{
+    const room = await Rooms.findOne(req.body.fname);
+    if(room !== null){
+        res.status(403).json({ 
+            error: `Room ${req.body.fname} already exists. Please choose another room name.`,
+        }).end();
+        return;
+    }
+    next();
+};
+
 module.exports = Object.freeze({
     inputAuthorEmpty,
     authorExists,
@@ -173,4 +186,5 @@ module.exports = Object.freeze({
     passwordLength,
     usernameUnchanged,
     passwordUnchanged,
+    roomDuplicate,
   });

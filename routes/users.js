@@ -15,8 +15,9 @@ const router = express.Router();
  * @return {User[]} - list of all stored shorts
  */
 
-router.get('/', (req, res) => {
-  res.status(200).json(controller.findAll()).end();
+router.get('/', async (req, res) => {
+  const users = await controller.findAll();
+  res.status(200).json(users).end();
 });
 
 
