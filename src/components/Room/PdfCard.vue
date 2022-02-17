@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "PDFCard",
+  name: "pdfCard",
   props: ["file"],
 };
 </script>
