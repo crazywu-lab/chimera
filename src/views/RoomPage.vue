@@ -80,7 +80,7 @@ export default {
               "claim-item-success",
             ],
             () => {
-              this.$router.go()
+              this.$router.push("/").catch(()=>{});
             }
         )
     },
