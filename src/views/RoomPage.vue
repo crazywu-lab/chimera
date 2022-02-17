@@ -37,7 +37,6 @@
 <script>
 // import Item from "@/components/item/Item.vue";
 import MemberCard from "../components/Rooms/Members/MemberCard.vue";
-// import HostMemberCard from '../components/Rooms/Members/HostMemberCard.vue';
 import Navbar from '../components/NavBar/Navbar.vue';
 import simpleUpload from '../components/Room/simpleUpload.vue';
 import pdfCard from '../components/Room/pdfCard.vue';
@@ -55,7 +54,7 @@ export default {
         MemberCard,
         // HostMemberCard,
         simpleUpload,
-        pdfCard
+        pdfCard,
         // PdfViewer
     },
     data() {

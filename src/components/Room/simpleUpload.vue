@@ -30,6 +30,7 @@ export default {
       file: "",
       message: "",
       error: false,
+      userName: this.$cookie.get('chimera-place-auth')
     };
   },
 
@@ -55,6 +56,7 @@ export default {
       const formData = new FormData();
       formData.append("file", this.file);
       formData.append("room_name", this.room_name);
+      formData.append("creator", this.userName);
       try {
         await axios.post("/api/upload/uploadPDF", formData)
         .then((response) => {
