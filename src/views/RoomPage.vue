@@ -97,7 +97,15 @@ export default {
             this.newMembers.newmember = '';
         },
         getRoom(){
-            this.room = this.$route.params.room;
+            // this.room = this.$route.params.room;
+            axios
+                .get("/api/rooms/getRoom/" + this.room.room_name)
+                .then((response) => {
+                    this.room = response.data;
+                })
+                .catch((error) => {
+                    alert(error);
+                });
         }
     },
 };
