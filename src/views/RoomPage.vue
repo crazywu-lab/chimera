@@ -1,25 +1,24 @@
 <template>
-<div class="fridge-page">
+<div class="room-page">
     <Navbar />
     <router-link class="router-link" to="/">Home</router-link>
     <br>
     <br>
     <!-- <div v-if="signedInUser"> -->
-    <h2> Reading Room Name: {{ this.$route.params.name }}</h2>
+    <h2> Reading Room Name: {{ this.$route.params.room.room_name }}</h2>
 
-    <br /><br />
     <br>
-    <router-link class="create-btn" :to="{name: 'item', params: {fridge: this.$route.params.fridge, name: this.$route.params.name}}">Create Item</router-link><br>
-    <br/>
+    <br>
+    <br>
+    <br>
     <br>
     <br>
     <div>
         <h4>Members</h4>
         <div class="members-list">
-            <HostMemberCard :creator="fridge.creator" :fridge="fridge"/>
-            <MemberCard v-for="member in fridge.members" :key="member" :member="member" :fridge="fridge"/>
+            <MemberCard v-for="member in room.members" :key="member" :member="member" :room="room"/>
             <div class="add-member-card" >
-                <i class="fa fa-plus fridge-plus" v-on:click="addFriend=!addFriend"></i>
+                <i class="fa fa-plus room-plus" v-on:click="addFriend=!addFriend"></i>
 
                 <form action="" v-show="addFriend" @submit.prevent="addMember">
                     <input type="text" id="newmember" placeholder="username" v-model="newMembers.newmember" required>
@@ -28,9 +27,9 @@
             </div>
         </div>
     </div>
-    <simpleUpload v-bind:roomID="this.$route.params.fridge.roomID"/>
+    <simpleUpload v-bind:room_name="this.$route.params.room.room_name"/>
     <br>
-    <PdfCard v-for="file in fridge.items" :key="file.filename" :file="file" />
+    <pdfCard v-for="file in room.readings" :key="file.filename" :file="file" />
     <!-- <PdfViewer /> -->
 </div>
 </template>
@@ -38,10 +37,9 @@
 <script>
 // import Item from "@/components/item/Item.vue";
 import MemberCard from "../components/Rooms/Members/MemberCard.vue";
-import HostMemberCard from '../components/Rooms/Members/HostMemberCard.vue';
 import Navbar from '../components/NavBar/Navbar.vue';
 import simpleUpload from '../components/Room/simpleUpload.vue';
-import PdfCard from '../components/Room/PdfCard.vue';
+import pdfCard from '../components/Room/pdfCard.vue';
 //import PdfViewer from '../components/Room/PdfViewer.vue';
 
 import axios from "axios";
@@ -49,24 +47,20 @@ import {
     eventBus
 } from "@/main";
 export default {
-    name: "FridgePage",
+    name: "RoomPage",
     props: ["signedInUser", "response"],
     components: {
         Navbar,
         MemberCard,
-        HostMemberCard,
+        // HostMemberCard,
         simpleUpload,
-        PdfCard
+        pdfCard,
         // PdfViewer
     },
     data() {
         return {
             items: [],
-            utilities: [],
-            Categories: [],
-            sortBy: "name",
-            keyword: "",
-            fridge: this.$route.params.fridge,
+            room: this.$route.params.room,
             addFriend: false,
             newMembers: {
                 newmember: ""
@@ -75,9 +69,9 @@ export default {
     },
     created() {
         eventBus.$on(["delete-member-success"], () => {
-            this.getFridge();
+            this.getRoom();
         });
-        this.getFridge();
+        this.getRoom();
     },
     mounted() {
         eventBus.$on(
@@ -94,24 +88,24 @@ export default {
     methods: {
         addMember() {
             axios
-                .put("/api/Fridges/addMember/" + this.fridge.fridgeID, this.newMembers)
+                .put("/api/rooms/addMember/" + this.room.room_name, this.newMembers)
                 .then((response) => {
-                    this.fridge = response.data;
+                    this.room = response.data;
                 })
                 .catch((error) => {
                     alert(error.response.data.error);
                 });
             this.newMembers.newmember = '';
         },
-        getFridge(){
-            this.fridge = this.$route.params.fridge;
+        getRoom(){
+            this.room = this.$route.params.room;
         }
     },
 };
 </script>
 
 <style scoped>
-.fridge-page {
+.room-page {
     padding: 13.5vh;
     height: auto;
     font-family: "Montserrat", sans-serif;

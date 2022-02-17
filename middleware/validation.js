@@ -161,10 +161,10 @@ const passwordUnchanged = (req, res, next) =>{
 
 // Rooms
 const roomDuplicate = async (req, res, next) =>{
-    const room = await Rooms.findOne(req.body.fname);
+    const room = await Rooms.findOne(req.body.room_name);
     if(room !== null){
         res.status(403).json({ 
-            error: `Room ${req.body.fname} already exists. Please choose another room name.`,
+            error: `Room ${req.body.room_name} already exists. Please choose another room name.`,
         }).end();
         return;
     }

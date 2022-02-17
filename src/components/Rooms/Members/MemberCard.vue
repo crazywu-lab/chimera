@@ -23,7 +23,7 @@ export default {
             type: String,
             required: true,
         },
-        fridge: {
+        room: {
             type: Object,
             required: true,
         },
@@ -35,7 +35,7 @@ export default {
     },
     methods:{
         DeleteMember(){
-            axios.delete("/api/Fridges/removeMember/" + this.fridge.fridgeID + "/" + this.member, this.member)
+            axios.delete("/api/rooms/removeMember/" + this.room._id + "/" + this.member, this.member)
                 .then((response) => {
                     eventBus.$emit("delete-member-success",{
                         data: response.data,

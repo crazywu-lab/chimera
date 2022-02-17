@@ -1,7 +1,6 @@
 <template>
   <router-link class="router-link add-card" to="/createRoom">
       Add Reading Room +
-      <!-- <i class="fa fa-plus fridge-plus"></i> -->
   </router-link>
 </template>
 
@@ -14,10 +13,6 @@ export default {
 <style>
 .router-link {
   text-decoration: none;
-}
-.fridge-plus {
-  font-size: 4rem;
-  fill: black;
 }
 .add-card {
   width: 30%;

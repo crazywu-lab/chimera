@@ -1,13 +1,13 @@
 <template>
-<div class="fridge-container">
+<div class="room-container">
     <div class="row justify-content-center title-div">
         <div class="col-12 title-col">
             <h2 id="title">Reading Rooms</h2>
         </div>
     </div>
     <div class="row justify-content-center content-div">
-        <div class="fridges-grid">
-            <RoomCard v-for="fridge in fridges" :key="fridge.fridgeID" :fridge="fridge" />
+        <div class="rooms-grid">
+            <RoomCard v-for="room in rooms" :key="room._id" :room="room" />
             <AddCard />
         </div>
     </div>
@@ -28,12 +28,12 @@ export default {
     },
     data() {
         return {
-            fridges: [],
+            rooms: [],
         };
     },
     created() {
         this.getRooms();
-        eventBus.$on(["create-fridge-success", "delete-fridge-success"], () => {
+        eventBus.$on(["create-room-success", "delete-room-success"], () => {
             this.getRooms();
         });
     },
@@ -42,7 +42,7 @@ export default {
             axios
                 .get("/api/rooms/all")
                 .then((response) => {
-                    this.fridges = response.data;
+                    this.rooms = response.data;
                 })
                 .catch((error) => {
                     alert(error);
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style>
-.fridge-container {
+.room-container {
     font-family: "Montserrat", sans-serif;
     margin-top: 20vh;
     padding: 0 30px;
@@ -77,7 +77,7 @@ export default {
     margin: 4vh 2vw;
     font-size: 1.5rem;
 }
-.fridges-grid {
+.rooms-grid {
     display: flex;
     flex-wrap: wrap;
     padding: 6vh 3vw;

@@ -1,5 +1,5 @@
 <template>
-  <div class="create-fridge">
+  <div class="create-room">
 
   <div class="row justify-content-left">
       <div class="col-3 title-col">
@@ -9,15 +9,13 @@
         <router-link class="router-link cancel-btn" to="/adminpage">Cancel</router-link>
       </div>
   </div>
-
-  
     
-    <form @submit.prevent="createFridge">
+    <form @submit.prevent="createRoom">
       <h4>Reading Room Name</h4>
       <input
         type="text"
-        id="fname"
-        v-model="fridge.fname"
+        id="room_name"
+        v-model="room.room_name"
         placeholder="untitled"
         required
       />
@@ -42,27 +40,22 @@ export default {
     
   },
   beforeCreate(){
-    // let authenticated = this.$cookie.get('fritter-auth');
-    //     if (!authenticated) {
-    //     this.$router.push("/").catch(()=>{});;
-    //     } else {
-    //     this.$router.push("/createFridge").catch(()=>{});;
-    //     }
+
   },
   data() {
     return {
       error: null,
-      fridge: {
-        fname: "",
+      room: {
+        room_name: "",
       },
     };
   },
   methods: {
-    createFridge() {
+    createRoom() {
       axios
-        .post("api/rooms/", this.fridge)
+        .post("api/rooms/", this.room)
         .then((response) => {
-          eventBus.$emit("create-fridge-success", {
+          eventBus.$emit("create-room-success", {
             data: response.data,
           });
           this.$router.push("/adminpage").catch(()=>{});
@@ -79,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-.create-fridge{
+.create-room{
   background: #fcf8f2;
   min-height: 100vh;
   overflow-x: hidden;

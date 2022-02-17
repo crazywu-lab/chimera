@@ -17,8 +17,8 @@ const RoomSchema = new Schema(
             type: Array,
             required: false,
         },
-        "reading": {
-            type: Object,
+        "readings": {
+            type: Array,
             required: false,
         },
     }
