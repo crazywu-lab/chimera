@@ -9,15 +9,13 @@
         <router-link class="router-link cancel-btn" to="/adminpage">Cancel</router-link>
       </div>
   </div>
-
-  
     
-    <form @submit.prevent="createFridge">
+    <form @submit.prevent="createRoom">
       <h4>Reading Room Name</h4>
       <input
         type="text"
-        id="fname"
-        v-model="fridge.fname"
+        id="room_name"
+        v-model="room.room_name"
         placeholder="untitled"
         required
       />
@@ -52,15 +50,15 @@ export default {
   data() {
     return {
       error: null,
-      fridge: {
-        fname: "",
+      room: {
+        room_name: "",
       },
     };
   },
   methods: {
-    createFridge() {
+    createRoom() {
       axios
-        .post("api/rooms/", this.fridge)
+        .post("api/rooms/", this.room)
         .then((response) => {
           eventBus.$emit("create-fridge-success", {
             data: response.data,

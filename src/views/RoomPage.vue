@@ -5,7 +5,7 @@
     <br>
     <br>
     <!-- <div v-if="signedInUser"> -->
-    <h2> Reading Room Name: {{ this.$route.params.name }}</h2>
+    <h2> Reading Room Name: {{ this.$route.params.room.room_name }}</h2>
 
     <br /><br />
     <br>
@@ -15,8 +15,7 @@
     <div>
         <h4>Members</h4>
         <div class="members-list">
-            <!-- <HostMemberCard :creator="fridge.creator" :fridge="fridge"/> -->
-            <MemberCard v-for="member in fridge.members" :key="member" :member="member" :fridge="fridge"/>
+            <MemberCard v-for="member in room.members" :key="member" :member="member" :room="room"/>
             <div class="add-member-card" >
                 <i class="fa fa-plus fridge-plus" v-on:click="addFriend=!addFriend"></i>
 
@@ -27,9 +26,9 @@
             </div>
         </div>
     </div>
-    <simpleUpload v-bind:room_name="this.$route.params.fridge.room_name"/>
+    <simpleUpload v-bind:room_name="this.$route.params.room.room_name"/>
     <br>
-    <PdfCard v-for="file in fridge.readings" :key="file.filename" :file="file" />
+    <PDFCard v-for="file in room.readings" :key="file.filename" :file="file" />
     <!-- <PdfViewer /> -->
 </div>
 </template>
@@ -40,7 +39,7 @@ import MemberCard from "../components/Rooms/Members/MemberCard.vue";
 // import HostMemberCard from '../components/Rooms/Members/HostMemberCard.vue';
 import Navbar from '../components/NavBar/Navbar.vue';
 import simpleUpload from '../components/Room/simpleUpload.vue';
-import PdfCard from '../components/Room/PdfCard.vue';
+import PDFCard from '../components/Room/PDFCard.vue';
 //import PdfViewer from '../components/Room/PdfViewer.vue';
 
 import axios from "axios";
@@ -48,24 +47,20 @@ import {
     eventBus
 } from "@/main";
 export default {
-    name: "FridgePage",
+    name: "RoomPage",
     props: ["signedInUser", "response"],
     components: {
         Navbar,
         MemberCard,
         // HostMemberCard,
         simpleUpload,
-        PdfCard
+        PDFCard
         // PdfViewer
     },
     data() {
         return {
             items: [],
-            utilities: [],
-            Categories: [],
-            sortBy: "name",
-            keyword: "",
-            fridge: this.$route.params.fridge,
+            room: this.$route.params.room,
             addFriend: false,
             newMembers: {
                 newmember: ""
@@ -93,9 +88,9 @@ export default {
     methods: {
         addMember() {
             axios
-                .put("/api/Fridges/addMember/" + this.fridge.fridgeID, this.newMembers)
+                .put("/api/rooms/addMember/" + this.room.fridgeID, this.newMembers)
                 .then((response) => {
-                    this.fridge = response.data;
+                    this.room = response.data;
                 })
                 .catch((error) => {
                     alert(error.response.data.error);
@@ -103,17 +98,7 @@ export default {
             this.newMembers.newmember = '';
         },
         getRoom(){
-            console.log(this.$route.params.fridge);
-            this.fridge = this.$route.params.fridge;
-            // axios
-            //     .get("/api/rooms/getRoom/" + this.$route.params.fridge, {})
-            //     .then((response) => {
-            //         this.fridge = response.data;
-            //     })
-            //     .catch((error) => {
-            //         alert(error.response.data.error);
-            //     });
-            
+            this.room = this.$route.params.room;
         }
     },
 };

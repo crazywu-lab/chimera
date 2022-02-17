@@ -37,7 +37,7 @@ router.get("/getRoom/:room_name?", async (req, res) => {
  * */
 router.post("/", [validateThat.roomDuplicate], async (req, res) => {
   let creator = (req.session.username == undefined) ? 'anonymous' : req.session.username;
-  const room = await Rooms.addOne(req.body.fname, creator);
+  const room = await Rooms.addOne(req.body.room_name, creator);
   if(room !== false){
     res.status(201).json(room).end();
   }

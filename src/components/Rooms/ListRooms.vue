@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-content-center content-div">
         <div class="fridges-grid">
-            <RoomCard v-for="fridge in fridges" :key="fridge.fridgeID" :fridge="fridge" />
+            <RoomCard v-for="room in rooms" :key="room._id" :room="room" />
             <AddCard />
         </div>
     </div>
@@ -28,7 +28,7 @@ export default {
     },
     data() {
         return {
-            fridges: [],
+            rooms: [],
         };
     },
     created() {
@@ -42,7 +42,7 @@ export default {
             axios
                 .get("/api/rooms/all")
                 .then((response) => {
-                    this.fridges = response.data;
+                    this.rooms = response.data;
                 })
                 .catch((error) => {
                     alert(error);

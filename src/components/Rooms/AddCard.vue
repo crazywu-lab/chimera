@@ -1,7 +1,6 @@
 <template>
   <router-link class="router-link add-card" to="/createRoom">
       Add Reading Room +
-      <!-- <i class="fa fa-plus fridge-plus"></i> -->
   </router-link>
 </template>
 

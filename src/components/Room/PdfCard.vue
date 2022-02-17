@@ -1,6 +1,6 @@
 <template>
   <div class="pdf-card">
-    PdfCard
+    PDFCard
     <div class="pdf-name">{{file.originalname}}</div>
     <div class="pdf-size">{{file.size / 1000}} Kb</div>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "PdfCard",
+  name: "PDFCard",
   props: ["file"],
 };
 </script>
