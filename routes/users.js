@@ -1,6 +1,6 @@
 const express = require('express');
 
-const controller = require("./users-controller");
+const Users = require("./users-controller");
 // const Freets = require('../models/Freets');
 
 const validateThat = require('../middleware/validation');
@@ -16,7 +16,7 @@ const router = express.Router();
  */
 
 router.get('/', async (req, res) => {
-  const users = await controller.findAll();
+  const users = await Users.findAll();
   res.status(200).json(users).end();
 });
 
@@ -95,7 +95,7 @@ router.post(
     validateThat.passwordLength,
   ],
   (req, res) => {
-    const user = controller.addOne(req.body.username, req.body.password);
+    const user = Users.addOne(req.body.username, req.body.password);
     res.status(200).json({ 
       message: `You have created a new account with username ${user.username}. Please sign in to make your first freet now!` 
     }).end();
@@ -127,7 +127,7 @@ router.put(
   (req, res) => {
 
     // when changing username, update all usernames of this person's freets
-    const user = controller.changeUsername(req.session.username, req.body.username);
+    const user = Users.changeUsername(req.session.username, req.body.username);
     req.session.destroy();
     res.clearCookie('connect.sid');
     res.status(200).json({ message: `Successfully updated username. Your current username is ${user.username}. Please sign in again with your new username.`, });
@@ -151,7 +151,7 @@ router.put(
     validateThat.passwordUnchanged,
   ],
   (req, res) => {
-    const user = controller.changePassword(req.session.username, req.body.password);
+    const user = Users.changePassword(req.session.username, req.body.password);
     req.session.destroy();
     res.clearCookie('connect.sid');
     res.status(200).json({ message: `${user.username}, you have successfully updated your password. Please sign in again with your new password.`, });
@@ -170,7 +170,7 @@ router.delete(
     authorizeThat.signedIn,
   ] ,
   (req, res) => {
-    const user = controller.deleteOne(req.session.username);
+    const user = Users.deleteOne(req.session.username);
     req.session.destroy();
     res.clearCookie('connect.sid');
     res.status(200).json({
@@ -189,7 +189,7 @@ router.get(
     authorizeThat.signedIn,
   ],
   (req, res) => {
-    const user = controller.findOne(req.session.username);
+    const user = Users.findOne(req.session.username);
     res.status(200).json({
       user, message: "Return user's profile information."
     }).end();
