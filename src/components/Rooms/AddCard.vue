@@ -14,10 +14,6 @@ export default {
 .router-link {
   text-decoration: none;
 }
-.fridge-plus {
-  font-size: 4rem;
-  fill: black;
-}
 .add-card {
   width: 30%;
   height: 20vh;

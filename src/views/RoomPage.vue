@@ -1,5 +1,5 @@
 <template>
-<div class="fridge-page">
+<div class="room-page">
     <Navbar />
     <router-link class="router-link" to="/">Home</router-link>
     <br>
@@ -7,9 +7,10 @@
     <!-- <div v-if="signedInUser"> -->
     <h2> Reading Room Name: {{ this.$route.params.room.room_name }}</h2>
 
-    <br /><br />
     <br>
-    <br/>
+    <br>
+    <br>
+    <br>
     <br>
     <br>
     <div>
@@ -17,7 +18,7 @@
         <div class="members-list">
             <MemberCard v-for="member in room.members" :key="member" :member="member" :room="room"/>
             <div class="add-member-card" >
-                <i class="fa fa-plus fridge-plus" v-on:click="addFriend=!addFriend"></i>
+                <i class="fa fa-plus room-plus" v-on:click="addFriend=!addFriend"></i>
 
                 <form action="" v-show="addFriend" @submit.prevent="addMember">
                     <input type="text" id="newmember" placeholder="username" v-model="newMembers.newmember" required>
@@ -88,7 +89,7 @@ export default {
     methods: {
         addMember() {
             axios
-                .put("/api/rooms/addMember/" + this.room.fridgeID, this.newMembers)
+                .put("/api/rooms/addMember/" + this.room.room_name, this.newMembers)
                 .then((response) => {
                     this.room = response.data;
                 })
@@ -105,7 +106,7 @@ export default {
 </script>
 
 <style scoped>
-.fridge-page {
+.room-page {
     padding: 13.5vh;
     height: auto;
     font-family: "Montserrat", sans-serif;

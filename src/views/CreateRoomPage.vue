@@ -1,5 +1,5 @@
 <template>
-  <div class="create-fridge">
+  <div class="create-room">
 
   <div class="row justify-content-left">
       <div class="col-3 title-col">
@@ -40,12 +40,7 @@ export default {
     
   },
   beforeCreate(){
-    // let authenticated = this.$cookie.get('fritter-auth');
-    //     if (!authenticated) {
-    //     this.$router.push("/").catch(()=>{});;
-    //     } else {
-    //     this.$router.push("/createFridge").catch(()=>{});;
-    //     }
+
   },
   data() {
     return {
@@ -60,7 +55,7 @@ export default {
       axios
         .post("api/rooms/", this.room)
         .then((response) => {
-          eventBus.$emit("create-fridge-success", {
+          eventBus.$emit("create-room-success", {
             data: response.data,
           });
           this.$router.push("/adminpage").catch(()=>{});
@@ -77,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-.create-fridge{
+.create-room{
   background: #fcf8f2;
   min-height: 100vh;
   overflow-x: hidden;
