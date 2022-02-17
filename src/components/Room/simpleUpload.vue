@@ -24,7 +24,7 @@ import { eventBus } from "../../main";
 
 export default {
   name: "simpleUpload",
-  props: ['roomID'],
+  props: ['room_name'],
   data() {
     return {
       file: "",
@@ -54,7 +54,7 @@ export default {
     async sendFile() {
       const formData = new FormData();
       formData.append("file", this.file);
-      formData.append("roomID", this.roomID);
+      formData.append("room_name", this.room_name);
       try {
         await axios.post("/api/upload/uploadPDF", formData)
         .then((response) => {

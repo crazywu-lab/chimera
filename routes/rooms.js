@@ -18,9 +18,9 @@ router.get("/all", async (req, res) => {
   res.status(200).json(rooms).end();
 });
 
-router.get("/getItems/:roomID?", (req, res) => {
-  console.log(Rooms.findById(req.params.roomID))
-  res.status(200).json(Rooms.findById(req.params.roomID)).end();
+router.get("/getRoom/:room_name?", async (req, res) => {
+  const room = await Rooms.findOne(req.params.room_name);
+  res.status(200).json(room).end();
 });
 
 

@@ -9,14 +9,13 @@
 
     <br /><br />
     <br>
-    <router-link class="create-btn" :to="{name: 'item', params: {fridge: this.$route.params.fridge, name: this.$route.params.name}}">Create Item</router-link><br>
     <br/>
     <br>
     <br>
     <div>
         <h4>Members</h4>
         <div class="members-list">
-            <HostMemberCard :creator="fridge.creator" :fridge="fridge"/>
+            <!-- <HostMemberCard :creator="fridge.creator" :fridge="fridge"/> -->
             <MemberCard v-for="member in fridge.members" :key="member" :member="member" :fridge="fridge"/>
             <div class="add-member-card" >
                 <i class="fa fa-plus fridge-plus" v-on:click="addFriend=!addFriend"></i>
@@ -28,9 +27,9 @@
             </div>
         </div>
     </div>
-    <simpleUpload v-bind:roomID="this.$route.params.fridge.roomID"/>
+    <simpleUpload v-bind:room_name="this.$route.params.fridge.room_name"/>
     <br>
-    <PdfCard v-for="file in fridge.items" :key="file.filename" :file="file" />
+    <PdfCard v-for="file in fridge.readings" :key="file.filename" :file="file" />
     <!-- <PdfViewer /> -->
 </div>
 </template>
@@ -38,7 +37,7 @@
 <script>
 // import Item from "@/components/item/Item.vue";
 import MemberCard from "../components/Rooms/Members/MemberCard.vue";
-import HostMemberCard from '../components/Rooms/Members/HostMemberCard.vue';
+// import HostMemberCard from '../components/Rooms/Members/HostMemberCard.vue';
 import Navbar from '../components/NavBar/Navbar.vue';
 import simpleUpload from '../components/Room/simpleUpload.vue';
 import PdfCard from '../components/Room/PdfCard.vue';
@@ -54,7 +53,7 @@ export default {
     components: {
         Navbar,
         MemberCard,
-        HostMemberCard,
+        // HostMemberCard,
         simpleUpload,
         PdfCard
         // PdfViewer
@@ -75,9 +74,9 @@ export default {
     },
     created() {
         eventBus.$on(["delete-member-success"], () => {
-            this.getFridge();
+            this.getRoom();
         });
-        this.getFridge();
+        this.getRoom();
     },
     mounted() {
         eventBus.$on(
@@ -103,8 +102,18 @@ export default {
                 });
             this.newMembers.newmember = '';
         },
-        getFridge(){
+        getRoom(){
+            console.log(this.$route.params.fridge);
             this.fridge = this.$route.params.fridge;
+            // axios
+            //     .get("/api/rooms/getRoom/" + this.$route.params.fridge, {})
+            //     .then((response) => {
+            //         this.fridge = response.data;
+            //     })
+            //     .catch((error) => {
+            //         alert(error.response.data.error);
+            //     });
+            
         }
     },
 };

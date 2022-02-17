@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 
-const Rooms = require("../models/Rooms");
+const Rooms = require("./rooms-controller");
 
 const router = express.Router();
 
@@ -27,7 +27,8 @@ const upload = multer({
 });
 
 router.post("/uploadPDF", upload.single("file"), (req, res) => {
-  Rooms.addItem(req.file, req.body.roomID);
+  console.log(req.body);
+  Rooms.addItem(req.file, req.body.room_name);
   res.status(200).json({ file: req.file });
 });
 

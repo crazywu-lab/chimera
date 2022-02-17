@@ -14,7 +14,7 @@ async function addOne(room_name, creator){
   try {
         const user = await User.findOne({username: creator});
         const user_id = user._id;
-        const room = new Room({room_name: room_name, creator_id: user_id});
+        const room = new Room({room_name: room_name, creator_id: user_id, member: [], reading: []});
         await room.save();
         return room;
   } catch(err) {
@@ -40,10 +40,24 @@ async function deleteOne(name){
   }
 }
 
+async function addItem(item, room_name){
+  try {
+        const room = await Room.findOne({room_name: room_name});
+        console.log(room);
+        const readinglist = room.readings;
+        readinglist.push(item);
+        await room.save();
+        return room;
+  } catch(err) {
+      return false;
+  }
+}
+
 
 module.exports = Object.freeze({
   findOne,
   addOne,
   findAll,
-  deleteOne
+  deleteOne,
+  addItem
 });
