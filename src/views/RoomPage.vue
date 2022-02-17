@@ -68,7 +68,7 @@ export default {
         };
     },
     created() {
-        eventBus.$on(["delete-member-success"], () => {
+        eventBus.$on(["delete-member-success", "upload-pdf-success"], () => {
             this.getRoom();
         });
         this.getRoom();
@@ -78,7 +78,6 @@ export default {
             ["create-item-success",
               "delete-item-success",
               "claim-item-success",
-              "upload-pdf-success"
             ],
             () => {
               this.$router.go()

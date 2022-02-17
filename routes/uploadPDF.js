@@ -26,8 +26,8 @@ const upload = multer({
   },
 });
 
-router.post("/uploadPDF", upload.single("file"), (req, res) => {
-  Rooms.addItem(req.file, req.body.room_name);
+router.post("/uploadPDF", upload.single("file"), async (req, res) => {
+  await Rooms.addItem(req.file, req.body.room_name);
   res.status(200).json({ file: req.file });
 });
 
