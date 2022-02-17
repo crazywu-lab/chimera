@@ -29,7 +29,7 @@
     </div>
     <simpleUpload v-bind:room_name="this.$route.params.room.room_name"/>
     <br>
-    <pdfCard v-for="file in room.readings" :key="file.filename" :file="file" />
+    <PdfCard v-for="file in room.readings" :key="file.filename" :file="file" />
     <!-- <PdfViewer /> -->
 </div>
 </template>
@@ -39,7 +39,7 @@
 import MemberCard from "../components/Rooms/Members/MemberCard.vue";
 import Navbar from '../components/NavBar/Navbar.vue';
 import simpleUpload from '../components/Room/simpleUpload.vue';
-import pdfCard from '../components/Room/pdfCard.vue';
+import PdfCard from '../components/Room/PdfCard.vue';
 //import PdfViewer from '../components/Room/PdfViewer.vue';
 
 import axios from "axios";
@@ -54,7 +54,7 @@ export default {
         MemberCard,
         // HostMemberCard,
         simpleUpload,
-        pdfCard,
+        PdfCard,
         // PdfViewer
     },
     data() {
