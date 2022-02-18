@@ -11,9 +11,9 @@
 export default {
   name: 'App',
   beforeCreate: function() {
-    let authenticated = this.$cookie.get('fritter-auth');
+    let authenticated = this.$cookie.get('chimera-place-auth');
     if (!authenticated) {
-      this.$router.push("/");
+      if(this.$route.path !== '/') this.$router.push("/");
     }
   },
   components: {},

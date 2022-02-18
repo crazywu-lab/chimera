@@ -35,8 +35,9 @@ export default ({
     created(){
         eventBus.$on("signout-success", () => {
             this.$cookie.set("chimera-place-auth", '');
+            this.userName = '';
             console.log("cookie!");
-            this.$router.push("/").catch(()=>{});
+            if(this.$route.path !== '/') this.$router.push("/");
         });
     },
     methods:{

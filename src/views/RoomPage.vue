@@ -4,7 +4,7 @@
     <router-link class="router-link" to="/">Home</router-link>
     <br>
     <br>
-    <!-- <div v-if="signedInUser"> -->
+
     <h2> Reading Room Name: {{ this.$route.params.room.room_name }}</h2>
 
     <br>
@@ -14,17 +14,22 @@
     <br>
     <br>
     <div>
-        <h4>Members</h4>
-        <div class="members-list">
+        <h4>Reader</h4>
+        <div class="members-section">
             <MemberCard v-for="member in room.members" :key="member" :member="member" :room="room"/>
-            <div class="add-member-card" >
-                <i class="fa fa-plus room-plus" v-on:click="addFriend=!addFriend"></i>
 
-                <form action="" v-show="addFriend" @submit.prevent="addMember">
-                    <input type="text" id="newmember" placeholder="username" v-model="newMembers.newmember" required>
-                    <input type="submit" value="Add Member">
-                </form>
-            </div>
+            <button class="" v-on:click="ReaderBool = !ReaderBool">Add Reader</button>
+            <form action="" v-show="ReaderBool" @submit.prevent="addReader">
+                <select name="reader" id="reader">
+                    <option value="">Charles</option>
+                    <option value="">Queenie</option>
+                    <option value="">Kii</option>
+                    <option value="">Weihan</option>
+                    <option value="">Joel</option>
+                </select>
+                <input type="submit" value="Submit">
+            </form>
+
         </div>
     </div>
     <simpleUpload v-bind:room_name="this.$route.params.room.room_name"/>
@@ -35,7 +40,6 @@
 </template>
 
 <script>
-// import Item from "@/components/item/Item.vue";
 import MemberCard from "../components/Rooms/Members/MemberCard.vue";
 import Navbar from '../components/NavBar/Navbar.vue';
 import simpleUpload from '../components/Room/simpleUpload.vue';
@@ -52,7 +56,6 @@ export default {
     components: {
         Navbar,
         MemberCard,
-        // HostMemberCard,
         simpleUpload,
         PdfCard,
         // PdfViewer
@@ -61,10 +64,8 @@ export default {
         return {
             items: [],
             room: this.$route.params.room,
-            addFriend: false,
-            newMembers: {
-                newmember: ""
-            }
+            ReaderBool: false,
+            reader: ''
         };
     },
     created() {
@@ -85,16 +86,16 @@ export default {
         )
     },
     methods: {
-        addMember() {
+        addReader() {
             axios
-                .put("/api/rooms/addMember/" + this.room.room_name, this.newMembers)
+                .put("/api/rooms/addMember/" + this.room.room_name, this.reader)
                 .then((response) => {
                     this.room = response.data;
                 })
                 .catch((error) => {
                     alert(error.response.data.error);
                 });
-            this.newMembers.newmember = '';
+            this.reader = '';
         },
         getRoom(){
             // this.room = this.$route.params.room;
@@ -120,22 +121,6 @@ export default {
 
 .row-zero {
     height: 10vh;
-}
-
-.item-col {
-    display: flex;
-    justify-content: flex-start;
-    height: 80vh auto;
-    background: transparent;
-    padding: 20px;
-    width: 80%;
-    background: white;
-    margin: 0 20px;
-    /* display: grid;
-    align-items: center;
-    flex-direction: column; */
-    
-    
 }
 
 .item {
@@ -204,7 +189,7 @@ export default {
     justify-content: space-between;
     
 }
-.members-list {
+.members-section {
     display: flex;
     flex: wrap;
     justify-content: flex-start;
@@ -212,8 +197,6 @@ export default {
     margin-bottom: 20px;
     width: 100%;
     height: 100%;
-    background: white;
-    border: black 3px dashed;
 }
 .add-member-card{
     width: 80px;
