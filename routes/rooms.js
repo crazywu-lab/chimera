@@ -68,7 +68,6 @@ router.post("/", [validateThat.roomDuplicate], async (req, res) => {
 //Delete a pdf
  router.delete("/deletePDF/:room_name?/:filename?", [authorizeThat.signedIn], async (req, res) => {
   // return the updated freet list created by the current account to show the success of deletion
-  console.log(req.body);
   const room = await Rooms.deleteItem(req.params.filename, req.params.room_name);
   res
     .status(200)

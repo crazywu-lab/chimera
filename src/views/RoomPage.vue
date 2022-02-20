@@ -65,6 +65,7 @@ export default {
             items: [],
             room: this.$route.params.room,
             ReaderBool: false,
+            readerList: [],
             reader: ''
         };
     },
@@ -73,6 +74,7 @@ export default {
             this.getRoom();
         });
         this.getRoom();
+        this.getReaders();
     },
     mounted() {
         eventBus.$on(
@@ -102,6 +104,16 @@ export default {
                 .get("/api/rooms/getRoom/" + this.room.room_name)
                 .then((response) => {
                     this.room = response.data;
+                })
+                .catch((error) => {
+                    alert(error);
+                });
+        },
+        getReaders(){
+            axios
+                .get("/api/users")
+                .then((response) => {
+                    this.readerList = response.data;
                 })
                 .catch((error) => {
                     alert(error);
