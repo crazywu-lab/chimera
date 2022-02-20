@@ -17,7 +17,10 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const users = await Users.findAll();
-  res.status(200).json(users).end();
+  if(users !== false){
+    res.status(200).json(users).end();
+  }
+  
 });
 
 

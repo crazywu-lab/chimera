@@ -1,5 +1,14 @@
 const User = require("../models/User");
 
+async function findAll(){
+  try{
+    const users = await User.find();
+    return users;
+  } catch(err){
+    return false;
+  }
+}
+
 async function findOne(name){
   try{
     const user = await User.findOne({username: name});
@@ -22,5 +31,6 @@ async function addOne(username, password){
 
 module.exports = Object.freeze({
   findOne,
-  addOne
+  addOne,
+  findAll
 });
