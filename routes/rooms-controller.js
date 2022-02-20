@@ -43,9 +43,20 @@ async function deleteOne(name){
 async function addItem(item, room_name){
   try {
         const room = await Room.findOne({room_name: room_name});
-        console.log(room);
         const readinglist = room.readings;
         readinglist.push(item);
+        await room.save();
+        return room;
+  } catch(err) {
+      return false;
+  }
+}
+
+async function deleteItem(item, room_name){
+  try {
+        const room = await Room.findOne({room_name: room_name});
+        const readinglist = room.readings;
+        room.readings = readinglist.filter((reading) => reading.filename !== item);
         await room.save();
         return room;
   } catch(err) {
@@ -59,5 +70,6 @@ module.exports = Object.freeze({
   addOne,
   findAll,
   deleteOne,
-  addItem
+  addItem,
+  deleteItem,
 });

@@ -34,7 +34,7 @@
     </div>
     <simpleUpload v-bind:room_name="this.$route.params.room.room_name"/>
     <br>
-    <PdfCard v-for="file in room.readings" :key="file.filename" :file="file" />
+    <PdfCard v-for="file in room.readings" :key="file.filename" :file="file" :roomName="room.room_name" />
     <!-- <PdfViewer /> -->
 </div>
 </template>
@@ -69,7 +69,7 @@ export default {
         };
     },
     created() {
-        eventBus.$on(["delete-member-success", "upload-pdf-success"], () => {
+        eventBus.$on(["delete-member-success", "upload-pdf-success", "delete-pdf-success"], () => {
             this.getRoom();
         });
         this.getRoom();
@@ -98,7 +98,6 @@ export default {
             this.reader = '';
         },
         getRoom(){
-            // this.room = this.$route.params.room;
             axios
                 .get("/api/rooms/getRoom/" + this.room.room_name)
                 .then((response) => {
