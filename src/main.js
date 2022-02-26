@@ -30,8 +30,7 @@ export const router = new VueRouter({
     { path: "/createRoom", component: CreateRoom, props: true},
     { path: '/room/:name', name: 'room', component: RoomPage, props: true },
     { path: '/home', name: 'home', component: Homepage, props: true },
-  ],
-  mode: 'history'
+  ]
 });
 
 new Vue({
