@@ -1,5 +1,5 @@
 <template>
-  <div class="freets-page">
+  <div class="admin-page">
     <Navbar />
     <br>
     <br>
@@ -9,6 +9,10 @@
     <br>
     <br>
     <h2>This is admin page.</h2>
+    <router-link class="router-link" to="/groups">
+        Go to group
+    </router-link>
+    <ListGroups />
     <ListRooms />
 
   </div>
@@ -16,19 +20,16 @@
 
 
 <script>
-// import ListAllFreets from '@/components/Freets/ListAllFreets.vue'
-// import CreatFreetForm from '@/components/Freets/CreatFreetForm.vue'
-// import SearchFreet from '@/components/Freets/SearchFreet.vue'
+
 import Navbar from '@/components/NavBar/Navbar.vue';
 import ListRooms from '../components/Rooms/ListRooms.vue';
+import ListGroups from '../components/Groups/ListGroups.vue';
 
-// import ListAllRefreets from "@/components/Freets/ListAllRefreets.vue";
 
 export default {
   name: 'Rooms',
   components:{
-    // ListAllFreets, CreatFreetForm, SearchFreet, Navbar, ListAllRefreets
-    Navbar, ListRooms
+    Navbar, ListRooms, ListGroups
     
   },
   data(){
@@ -43,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-.freets-page {
+.admin-page {
   width: 100%;
   min-height: 98vh;
   overflow-x: hidden;
@@ -58,16 +59,6 @@ export default {
 
 }
 
-.freet-col {
-  width: 50%;
-  margin: 0 30px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background: #E8F0FC;
-  border-radius: 20px;
-  box-shadow: 1px 1px 6px 0 rgba(31,38,135,0.3);
-}
 .side-col {
   width: 30%;
   margin: 0 30px;
