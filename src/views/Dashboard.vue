@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-page">
+  <div class="dashboard">
     <Navbar />
     <br>
     <br>
@@ -8,12 +8,11 @@
     <br>
     <br>
     <br>
-    <h2>This is admin page.</h2>
+    <h2>This is dashboard.</h2>
     <router-link class="router-link" to="/groups">
         Go to group
     </router-link>
     <ListGroups />
-    <ListRooms />
 
   </div>
 </template>
@@ -22,14 +21,14 @@
 <script>
 
 import Navbar from '@/components/NavBar/Navbar.vue';
-import ListRooms from '../components/Rooms/ListRooms.vue';
+
 import ListGroups from '../components/Groups/ListGroups.vue';
 
 
 export default {
-  name: 'Rooms',
+  name: 'Dashboard',
   components:{
-    Navbar, ListRooms, ListGroups
+    Navbar, ListGroups
     
   },
   data(){
@@ -44,7 +43,7 @@ export default {
 </script>
 
 <style scoped>
-.admin-page {
+.dashboard {
   width: 100%;
   min-height: 98vh;
   overflow-x: hidden;

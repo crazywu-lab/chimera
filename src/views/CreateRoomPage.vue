@@ -6,7 +6,7 @@
           <h2 id="title">Create a reading room!</h2>
       </div>
       <div class="col-3 title-div title-left">
-        <router-link class="router-link cancel-btn" to="/adminpage">Cancel</router-link>
+        <router-link class="router-link cancel-btn" to="/dashboard">Cancel</router-link>
       </div>
   </div>
     
@@ -58,7 +58,7 @@ export default {
           eventBus.$emit("create-room-success", {
             data: response.data,
           });
-          this.$router.push("/adminpage").catch(()=>{});
+          this.$router.push("/dashboard").catch(()=>{});
           // window.location.reload();
         })
         .catch((error) => {

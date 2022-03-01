@@ -13,7 +13,7 @@
             <br>
             
         </section> -->
-        <router-link class="freets-link home-link" to="/adminpage">Let's go!</router-link>
+        <router-link class="freets-link home-link" to="/dashboard">Let's go!</router-link>
         
     </div>
 </template>
