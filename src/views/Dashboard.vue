@@ -9,9 +9,7 @@
     <br>
     <br>
     <h2>This is dashboard.</h2>
-    <router-link class="router-link" to="/groups">
-        Go to group
-    </router-link>
+
     <ListGroups />
 
   </div>
@@ -29,7 +27,6 @@ export default {
   name: 'Dashboard',
   components:{
     Navbar, ListGroups
-    
   },
   data(){
     return {

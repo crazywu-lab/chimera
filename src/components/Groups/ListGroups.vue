@@ -1,18 +1,18 @@
 <template>
 <div class="">
     <h1>List Groups</h1>
-    <ListRooms />
+    <GroupCard />
 </div>
   
 </template>
 
 <script>
-import ListRooms from '../Rooms/ListRooms.vue';
+import GroupCard from './GroupCard.vue';
 
 export default {
     name: "ListGroups",
     components: {
-        ListRooms
+        GroupCard
     },
     props: {
 
