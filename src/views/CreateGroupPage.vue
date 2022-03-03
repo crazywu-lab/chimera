@@ -11,12 +11,12 @@
       </div>
     </div>
 
-    <form @submit.prevent="createRoom">
+    <form @submit.prevent="createGroup">
       <h4>Group Name</h4>
       <input
         type="text"
-        id="room_name"
-        v-model="room.room_name"
+        id="group_name"
+        v-model="group.group_name"
         placeholder="untitled"
         required
       />
@@ -32,22 +32,40 @@
 </template>
 
 <script>
+import { eventBus } from "../main";
+import axios from "axios";
+
 export default {
-  name: "CreateGroup",
+  name: "CreateGroupPage",
   components: {},
-  beforeCreate() {},
   data() {
     return {
       error: null,
-      room: {
-        room_name: "",
+      group: {
+        group_name: "",
       },
     };
   },
   mounted() {
     window.scrollTo(0, 0);
   },
-  methods: {},
+  methods: {
+    createGroup() {
+      axios
+        .post("api/groups/", this.group)
+        .then((response) => {
+          eventBus.$emit("create-group-success", {
+            data: response.data,
+          });
+          this.$router.push("/dashboard").catch(()=>{});
+        })
+        .catch((error) => {
+          if (error.response && error.response.status != 200) {
+            this.error = error.response.data.error;
+          }
+        });
+    },
+  },
 };
 </script>
 

@@ -1,36 +1,52 @@
 const Group = require("../models/Group");
 
-async function findAll(){
-  try{
+async function findOne(name) {
+  try {
+    const group = await Group.findOne({ group_name: name });
+    return group;
+  } catch (err) {
+    return false;
+  }
+}
+
+async function addOne(group_name, creator) {
+  try {
+    const user = await Group.findOne({ username: creator });
+    const user_id = user._id;
+    const group = new Group({
+      group_name: group_name,
+      creator_id: user_id,
+      members: [],
+      rooms: [],
+    });
+    await group.save();
+    return group;
+  } catch (err) {
+    return false;
+  }
+}
+
+async function findAll() {
+  try {
     const groups = await Group.find();
     return groups;
-  } catch(err){
+  } catch (err) {
     return false;
   }
 }
 
-async function findOne(name){
-  try{
-    const group = await Group.findOne({username: name});
-    return group;
-  } catch(err){
-    return false;
-  }
-}
-
-async function addOne(username, password){
-  const group = new Group({username: username, password: password});
+async function deleteOne(name) {
   try {
-      await group.save();
-      return group;
-  } catch(err) {
-      return false;
+    const group = await Group.deleteOne({ group_name: name });
+    return group;
+  } catch (err) {
+    return false;
   }
 }
-
 
 module.exports = Object.freeze({
   findOne,
   addOne,
-  findAll
+  findAll,
+  deleteOne,
 });
