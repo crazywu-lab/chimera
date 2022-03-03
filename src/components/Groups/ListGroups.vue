@@ -2,6 +2,7 @@
 <div class="list-groups">
     <h1>List Groups</h1>
     <GroupCard v-for="group in groups" :key="group._id" :group="group" />
+    
     <CreateGroupCard />
 </div>
 </template>

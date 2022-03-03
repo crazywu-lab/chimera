@@ -53,7 +53,7 @@ export default {
   methods: {
     createRoom() {
       axios
-        .post("api/rooms/", this.room)
+        .post("/api/rooms/", this.room)
         .then((response) => {
           eventBus.$emit("create-room-success", {
             data: response.data,

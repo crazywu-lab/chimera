@@ -52,7 +52,7 @@ export default {
   methods: {
     createGroup() {
       axios
-        .post("api/groups/", this.group)
+        .post("/api/groups/create", this.group)
         .then((response) => {
           eventBus.$emit("create-group-success", {
             data: response.data,
