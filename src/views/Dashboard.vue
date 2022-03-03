@@ -40,11 +40,12 @@ export default {
 </script>
 
 <style scoped>
+
 .dashboard {
   width: 100%;
   min-height: 98vh;
   overflow-x: hidden;
-  background: #F4F8FE;
+  text-align: center;
 }
 .body-container {
   margin-top: 120px;

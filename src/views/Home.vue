@@ -1,66 +1,43 @@
 <template>
-    <div>
-        <Navbar />
-        <!-- <section class="body-container">
-            <div v-if="userName">
-                <h1 class="welcome"> Welcome, {{ userName }}!</h1>
-            </div>
-            <div v-else class="body-container">
-                <h1 class="welcome">Welcome to Chimera!</h1>
-                <p>This is the best place to see what’s happening in your world.</p>
-                <p>Find some people and topics to follow now.</p>
-            </div>
-            <br>
-            
-        </section> -->
-        <router-link class="freets-link home-link" to="/dashboard">Let's go!</router-link>
-        
-    </div>
+  <div>
+    <Navbar />
+    <router-link class="dashboard-link" to="/dashboard">
+      Let's go!
+    </router-link>
+  </div>
 </template>
 
 <script>
-import Navbar from '../components/NavBar/Navbar.vue';
+import Navbar from "../components/NavBar/Navbar.vue";
 
 export default {
-    name: "Home",
-    data(){
-        return {
-            userName: this.$cookie.get('chimera-place-auth')
-        }
-    },
-    components: {
-        Navbar
-    }
-}
-
+  name: "Home",
+  data() {
+    return {
+      userName: this.$cookie.get("chimera-place-auth"),
+    };
+  },
+  components: {
+    Navbar,
+  },
+  methods: {
+    
+  },
+};
 </script>
 <style scoped>
-.body-container{
-    margin-top: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+.dashboard-link {
+  position: absolute;
+  left: 40vw;
+  top: 70vh;
+  background: black;
+  color: white;
+  padding: 10px;
+  font-size: 4rem;
+  text-decoration: none;
 }
-.freets-link {
-    border-radius: 100px;
-    color: white;
-    font-size: 2rem;
-    font-weight: 700;
-    background: -webkit-linear-gradient(120deg,#00E5FF, #1200FF);
-    padding: 30px;
-    text-decoration: none;
-    box-shadow: 1px 1px 6px 0 rgba(31,38,135,0.3);
-}
-.freets-link:hover {
-    filter: brightness(1.1);
-    transition: All 0.2s ease-out;
-}
-.welcome {
-    font-size: 3rem;
-}
-.home-link {
-    position: absolute;
-    left: 40vw;
-    top: 70vh;
+.dashboard-link:hover {
+  background: grey;
 }
 </style>

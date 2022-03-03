@@ -1,17 +1,18 @@
 <template>
-  <div class="create-room">
-
-  <div class="row justify-content-left">
+  <div class="create-group">
+    <div class="row justify-content-left">
       <div class="col-3 title-col">
-          <h2 id="title">Create a reading room!</h2>
+        <h2 id="title">Create a new group!</h2>
       </div>
       <div class="col-3 title-div title-left">
-        <router-link class="router-link cancel-btn" to="/dashboard">Cancel</router-link>
+        <router-link class="router-link cancel-btn" to="/dashboard"
+          >Cancel</router-link
+        >
       </div>
-  </div>
-    
+    </div>
+
     <form @submit.prevent="createRoom">
-      <h4>Reading Room Name</h4>
+      <h4>Group Name</h4>
       <input
         type="text"
         id="room_name"
@@ -20,7 +21,7 @@
         required
       />
 
-      <h4>{{error}}</h4>
+      <h4>{{ error }}</h4>
       <br />
       <br />
       <br />
@@ -31,17 +32,10 @@
 </template>
 
 <script>
-import { eventBus } from "../main";
-import axios from "axios";
-
 export default {
-  name: "CreateRoomPage",
-  components: {
-    
-  },
-  beforeCreate(){
-
-  },
+  name: "CreateGroup",
+  components: {},
+  beforeCreate() {},
   data() {
     return {
       error: null,
@@ -50,35 +44,21 @@ export default {
       },
     };
   },
-  methods: {
-    createRoom() {
-      axios
-        .post("api/rooms/", this.room)
-        .then((response) => {
-          eventBus.$emit("create-room-success", {
-            data: response.data,
-          });
-          this.$router.push("/dashboard").catch(()=>{});
-        })
-        .catch((error) => {
-          if (error.response && error.response.status != 200) {
-            this.error = error.response.data.error;
-          }
-        });
-    },
+  mounted() {
+    window.scrollTo(0, 0);
   },
+  methods: {},
 };
 </script>
 
 <style scoped>
-.create-room{
+.create-group {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: hidden;
   padding: 6vh 3vw;
   font-family: "Montserrat", sans-serif;
 }
-
 .button {
   background: black;
   color: white;
@@ -92,5 +72,4 @@ export default {
   background: grey;
   cursor: pointer;
 }
-
 </style>

@@ -1,25 +1,50 @@
 <template>
-  <div class="group-card">
-
-      <h1>THis is a group card.</h1>
-    <router-link class="router-link" to="/groups">
-        Go to group
+  <div class="group-card-container">
+    <router-link class="group-card" to="/group">
+      Go to group
     </router-link>
+    <div class="del-room-btn">Delete</div>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'GroupCard',
-    components: {
-
-    }
-}
+  name: "GroupCard",
+  components: {},
+};
 </script>
 
 <style scoped>
+.group-card-container{
+  margin-bottom: 20px;
+  position: relative;
+}
 .group-card {
-    width: 80%;
-    background: grey;
+  width: 80%;
+  height: 20vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 6px 0 rgba(31, 38, 135, 0.3);
+  font-size: 4rem;
+}
+.del-room-btn {
+  position: absolute;
+  top: calc(20vh - 20px);
+  left: calc(90% - 50px);
+  width: 100px;
+  font-size: 2rem;
+  background: #f6652c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 6px 0 rgba(31, 38, 135, 0.3);
+  cursor: pointer;
 }
 </style>

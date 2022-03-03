@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .room-card {
     width: 30%;
     margin: 10px;

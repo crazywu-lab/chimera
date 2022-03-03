@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="group-page">
 
     <h1>This is the group page.</h1>
 
@@ -22,6 +22,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.group-page{
+  position: static;
+}
 </style>
