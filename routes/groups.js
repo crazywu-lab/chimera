@@ -37,7 +37,7 @@ const router = express.Router();
    * @throws {401} - if the user is not logged in
    * @throws {400} - if content is not filled
    * */
-  router.post("/create",  async (req, res) => {
+  router.post("/create", [authorizeThat.signedIn], async (req, res) => {
     let creator = (req.session.username == undefined) ? 'anonymous' : req.session.username;
     const group = await Groups.addOne(req.body.group_name, creator);
     if(group !== false){
