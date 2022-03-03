@@ -1,25 +1,53 @@
 <template>
-<div class="">
+<div class="list-groups">
     <h1>List Groups</h1>
-    <ListRooms />
+    <GroupCard v-for="group in groups" :key="group._id" :group="group" />
+    <CreateGroupCard />
 </div>
-  
 </template>
 
 <script>
-import ListRooms from '../Rooms/ListRooms.vue';
+import axios from "axios";
+import { eventBus } from "../../main";
+import GroupCard from './GroupCard.vue';
+import CreateGroupCard from './CreateGroupCard.vue';
 
 export default {
     name: "ListGroups",
     components: {
-        ListRooms
+        GroupCard, CreateGroupCard
     },
     props: {
 
-    }
+    },
+    data() {
+        return {
+            groups: [],
+        };
+    },
+    created() {
+        this.getGroups();
+        eventBus.$on(["create-group-success", "delete-group-success"], () => {
+            this.getGroups();
+        });
+    },
+    methods: {
+        getGroups() {
+            axios
+                .get("/api/groups/all")
+                .then((response) => {
+                    this.groups = response.data;
+                })
+                .catch((error) => {
+                    alert(error);
+                });
+        },
+    },
 }
 </script>
 
 <style>
-
+.list-groups{
+    margin: auto;
+}
 </style>

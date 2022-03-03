@@ -11,7 +11,7 @@ const router = express.Router();
  *
  * @name GET /api/Rooms
  *
- * @return {freet[]} - list of all stored Rooms if author is not given, else list of stored Rooms with given author
+ * @return {rooms[]} - list of all stored Rooms if author is not given, else list of stored Rooms with given author
  * */
 router.get("/all", async (req, res) => {
   const rooms = await Rooms.findAll();
@@ -31,7 +31,7 @@ router.get("/getRoom/:room_name?", async (req, res) => {
  *
  * @param {string} userID - authorID (req.session.userID)
  * @param {string} content - content of freet
- * @return {freet} - the posted freet
+ * @return {room} - the posted freet
  * @throws {401} - if the user is not logged in
  * @throws {400} - if content is not filled
  * */

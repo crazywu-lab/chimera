@@ -14,6 +14,8 @@ import CreateRoom from "./views/CreateRoomPage.vue";
 import RoomPage from './views/RoomPage.vue';
 import Homepage from './views/Homepage.vue';
 import GroupPage from './views/GroupPage.vue';
+import CreateGroupPage from './views/CreateGroupPage.vue';
+import ErrorPage from './views/ErrorPage.vue';
 
 export const eventBus = new Vue();
 
@@ -31,7 +33,9 @@ export const router = new VueRouter({
     { path: "/createRoom", component: CreateRoom, props: true},
     { path: '/room/:name', name: 'room', component: RoomPage, props: true },
     { path: '/home', name: 'home', component: Homepage, props: true },
-    { path: '/groups', name: 'group', component: GroupPage, props: true },
+    { path: '/group', name: 'group', component: GroupPage, props: true },
+    { path: "/createGroup", component: CreateGroupPage, props: true},
+    { path: "/*", component: ErrorPage, props: true},
   ]
 });
 
