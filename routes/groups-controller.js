@@ -1,4 +1,5 @@
 const Group = require("../models/Group");
+const User = require("../models/User");
 
 async function findOne(name) {
   try {
@@ -11,7 +12,7 @@ async function findOne(name) {
 
 async function addOne(group_name, creator) {
   try {
-    const user = await Group.findOne({ username: creator });
+    const user = await User.findOne({ username: creator });
     const user_id = user._id;
     const group = new Group({
       group_name: group_name,
