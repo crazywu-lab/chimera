@@ -13,7 +13,7 @@
     </div>
 
     <div v-if="file" class="field">
-      <button class="button is-info">Upload</button>
+      <button class="button is-info">Create new room</button>
     </div>
   </form>
 </template>
@@ -38,40 +38,6 @@ export default {
   },
 
   methods: {
-    createRoom() {
-      axios
-        .post("/api/rooms/" + this.group_name, this.room)
-        .then((response) => {
-          eventBus.$emit("create-room-success", {
-            data: response.data,
-          });
-          this.$router.push("/dashboard").catch(() => {});
-        })
-        .catch((error) => {
-          if (error.response && error.response.status != 200) {
-            this.error = error.response.data.error;
-          }
-        });
-    },
-
-    selectFile() {
-      const file = this.$refs.file.files[0];
-      const allowedTypes = ["application/pdf"];
-      const MAX_SIZE = 10000000;
-      const tooLarge = file.size > MAX_SIZE;
-      if (allowedTypes.includes(file.type) && !tooLarge) {
-        this.file = file;
-        this.room.room_name = file.name;
-        this.error = false;
-        this.message = "";
-      } else {
-        this.error = true;
-        this.message = tooLarge
-          ? `Too large. Max size is ${MAX_SIZE / 1000000} Mb.`
-          : "Only pdf files are allowed.";
-      }
-    },
-
     async sendFile() {
       const formData = new FormData();
       formData.append("file", this.file);
@@ -89,6 +55,58 @@ export default {
       } catch (err) {
         this.message = err.response.data.error;
         this.error = true;
+      }
+    },
+    async createRoom() {
+      axios
+        .post("/api/rooms/" + this.group_name, this.room)
+        .then((response) => {
+          eventBus.$emit("create-room-success", {
+            data: response.data,
+          });
+          this.$router.push("/dashboard").catch(() => {});
+        })
+        .catch((error) => {
+          if (error.response && error.response.status != 200) {
+            this.error = error.response.data.error;
+          }
+        });
+
+      const formData = new FormData();
+      console.log(this.room.room_name);
+      formData.append("file", this.file);
+      formData.append("room_name", this.room.room_name);
+      formData.append("creator", this.userName);
+      try {
+        await axios.post("/api/upload/uploadPDF", formData).then((response) => {
+          eventBus.$emit("upload-pdf-success", {
+            data: response.data,
+          });
+        });
+        this.message = "File has been uploaded";
+        this.file = "";
+        this.error = false;
+      } catch (err) {
+        this.message = err.response.data.error;
+        this.error = true;
+      }
+    },
+
+    selectFile() {
+      const file = this.$refs.file.files[0];
+      const allowedTypes = ["application/pdf"];
+      const MAX_SIZE = 10000000;
+      const tooLarge = file.size > MAX_SIZE;
+      if (allowedTypes.includes(file.type) && !tooLarge) {
+        this.file = file;
+        this.room.room_name = file.name;
+        this.error = false;
+        this.message = "";
+      } else {
+        this.error = true;
+        this.message = tooLarge
+          ? `Too large. Max size is ${MAX_SIZE / 1000000} Mb.`
+          : "Only pdf files are allowed.";
       }
     },
   },
