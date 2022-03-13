@@ -8,7 +8,7 @@
     <div class="row justify-content-center content-div">
         <div class="rooms-grid">
             <RoomCard v-for="room in rooms" :key="room._id" :room="room" />
-            <AddCard />
+            <!-- <AddCard /> -->
         </div>
     </div>
 </div>
@@ -18,13 +18,13 @@
 import axios from "axios";
 import { eventBus } from "../../main";
 import RoomCard from "./RoomCard.vue";
-import AddCard from "./AddCard.vue";
+// import AddCard from "./AddCard.vue";
 
 export default {
     name: "ListRooms",
     components: {
         RoomCard,
-        AddCard,
+        // AddCard,
     },
     data() {
         return {
@@ -55,7 +55,7 @@ export default {
 <style>
 .room-container {
     font-family: "Montserrat", sans-serif;
-    margin-top: 20vh;
+    margin-top: 5vh;
     padding: 0 30px;
     width: 90%;
 }

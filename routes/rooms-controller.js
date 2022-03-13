@@ -10,11 +10,11 @@ async function findOne(name){
   }
 }
 
-async function addOne(room_name, creator){
+async function addOne(room_name, creator, group_name){
   try {
         const user = await User.findOne({username: creator});
         const user_id = user._id;
-        const room = new Room({room_name: room_name, creator_id: user_id, member: [], reading: []});
+        const room = new Room({room_name: room_name, group_name: group_name, creator_id: user_id, member: [], reading: []});
         await room.save();
         return room;
   } catch(err) {
