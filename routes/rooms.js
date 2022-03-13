@@ -35,9 +35,9 @@ router.get("/getRoom/:room_name?", async (req, res) => {
  * @throws {401} - if the user is not logged in
  * @throws {400} - if content is not filled
  * */
-router.post("/", [validateThat.roomDuplicate], async (req, res) => {
+router.post("/:group_name?", [validateThat.roomDuplicate], async (req, res) => {
   let creator = (req.session.username == undefined) ? 'anonymous' : req.session.username;
-  const room = await Rooms.addOne(req.body.room_name, creator);
+  const room = await Rooms.addOne(req.body.room_name, creator, req.params.group_name);
   if(room !== false){
     res.status(201).json(room).end();
   }

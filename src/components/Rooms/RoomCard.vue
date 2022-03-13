@@ -42,7 +42,6 @@ export default {
                     alert(error.response.data.error)
                     }
                 })
-            
         },
     }
 }

@@ -33,7 +33,7 @@ export const router = new VueRouter({
     { path: "/createRoom", component: CreateRoom, props: true},
     { path: '/room/:name', name: 'room', component: RoomPage, props: true },
     { path: '/home', name: 'home', component: Homepage, props: true },
-    { path: '/group', name: 'group', component: GroupPage, props: true },
+    { path: '/group/:name', name: 'group', component: GroupPage, props: true },
     { path: "/createGroup", component: CreateGroupPage, props: true},
     { path: "/*", component: ErrorPage, props: true},
   ]

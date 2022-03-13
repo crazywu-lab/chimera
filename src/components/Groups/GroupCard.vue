@@ -1,6 +1,6 @@
 <template>
   <div class="group-card-container">
-    <router-link class="group-card" to="/group">
+    <router-link class="group-card" :to="{name: 'group', params: {group: group, name: group.group_name}}">
       Go to group
       <h2>{{group.group_name}}</h2>
       <p>Creator: {{group.creator_id}}</p>
