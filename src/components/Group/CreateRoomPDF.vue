@@ -38,25 +38,6 @@ export default {
   },
 
   methods: {
-    async sendFile() {
-      const formData = new FormData();
-      formData.append("file", this.file);
-      formData.append("room_name", this.room_name);
-      formData.append("creator", this.userName);
-      try {
-        await axios.post("/api/upload/uploadPDF", formData).then((response) => {
-          eventBus.$emit("upload-pdf-success", {
-            data: response.data,
-          });
-        });
-        this.message = "File has been uploaded";
-        this.file = "";
-        this.error = false;
-      } catch (err) {
-        this.message = err.response.data.error;
-        this.error = true;
-      }
-    },
     async createRoom() {
       axios
         .post("/api/rooms/" + this.group_name, this.room)
