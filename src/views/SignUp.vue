@@ -1,10 +1,9 @@
 <template>
   <div>
     <Navbar />
-    <section class="body-container">
+    <div class="card-simple">
       <SignUpForm />
-
-    </section>
+    </div>
   </div>
 </template>
 
@@ -15,9 +14,14 @@ import SignUpForm from '@/components/Users/SignUpForm.vue';
 export default {
   name: 'Signup',
   components:{
-    SignUpForm, Navbar
+    Navbar, SignUpForm,
   }
 
   }
-  
+
 </script>
+<style scoped>
+  .card-simple{
+    top: calc(10vh + 80px);
+  }
+</style>

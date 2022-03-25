@@ -1,13 +1,13 @@
 <template>
     <div>
         <Navbar />
-        <div class="body-container">
+        <div class="card-simple">
             <SignInForm />
             <div v-if="isSignedIn">
-                <p>Signed In!</p> 
+                <p>Signed In!</p>
             </div>
             <div v-else class="create-account">
-                <router-link to="/signup">Create A New Account</router-link>
+                <router-link tag="button" to="/signup">CREATE A NEW ACCOUNT</router-link>
             </div>
         </div>
     </div>
@@ -40,11 +40,10 @@ export default {
         })
     }
   }
-  
+
 </script>
 <style scoped>
-.create-account {
-    display: flex;
-    justify-content: center;
-}
+  .card-simple {
+    top: calc(10vh + 80px);
+  }
 </style>
