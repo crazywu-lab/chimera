@@ -1,23 +1,14 @@
 <template>
     <div class="navbar">
-        <router-link class="logo-home" to="/">Chimera</router-link>
-        <div v-if="!userName" class="nav-btn">
-            <router-link class="nav-router-link" to="/signup">Sign Up</router-link>
-            <router-link class="nav-router-link" to="/signin">Sign In</router-link>
-        </div>
-        <div v-else class="nav-btn">
-            <div class="dropdown">
-                <button class="dropbtn">{{ userName }} 
-                <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                <router-link class="dropdown-item" to="/profile">Profile</router-link>
-                <router-link class="dropdown-item" to="/settings">Settings</router-link>
-                <div class="dropdown-item" v-on:click="signOut">Sign Out</div>
-                </div>
-            </div>
-        </div>
-        
+      <router-link class="logo-home" to="/">Chimera</router-link>
+      <div class="nav-btn">
+          <div class="dropdown-content">
+            <router-link class="dropdown-item" to="/profile">Profile</router-link>
+            <router-link class="dropdown-item" to="/settings">Settings</router-link>
+            <div v-if="userName" class="dropdown-item" v-on:click="signOut">Sign Out</div>
+            <router-link v-else class="dropdown-item" to="/signin">Sign In</router-link>
+          </div>
+      </div>
     </div>
 </template>
 
@@ -59,76 +50,41 @@ export default ({
     }
 })
 </script>
+
 <style scoped>
-.nav-template {
-    display: flex;
-    justify-content: center;
-}
+
 .navbar {
-    background: #E8F0FC;
-    color: grey;
-    position: fixed;
-    left: 8vw;
-    top: 20px;
-    width: 80vw;
-    height: 80px;
-    padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 40px;
-    box-shadow: 1px 1px 6px 0 rgba(31,38,135,0.3);
-}
-.nav-router-link {
-    text-decoration: none;
-    color: grey;
-    padding: 5px 10px;
-}
-.nav-router-link:hover {
-    background-color: grey;
-    color: white;
-    border-radius: 50px;
-    transition: all 0.2s ease-out;
+  position: fixed;
+  left: 20px;
+  right: 25px;
+  top: 20px;
+  height: 80px;
+  padding: 0 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo-home {
-    font-size: 3.5rem;
-    text-decoration: none;
-    font-size: 72px;
-    background: -webkit-linear-gradient(120deg, #00E5FF, #1200FF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    padding-left: 20px;
 }
+
 .nav-btn {
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 10px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: black;
 }
 
-.dropdown {
-  float: left;
-  overflow: hidden;
-  border-radius: 50px;
+.nav-btn:hover {
+  box-shadow: 0 0 20px 5px yellowgreen;
+  transition: all 0.2s ease-out;
 }
 
-.dropdown:hover .dropbtn {
-    background-color: grey;
-    color: white;
-    transition: all 0.2s ease-out;
-}
-
-.dropdown .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: grey;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
+.nav-btn:hover .dropdown-content {
+  display: block;
 }
 
 .dropdown-content {
@@ -141,21 +97,18 @@ export default ({
 }
 
 .dropdown-item {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
 }
 
 .dropdown-item:hover {
-    background-color: rgb(131, 219, 253);
-    cursor: pointer;
-    transition: all 0.2s ease-out;
+  background-color: rgb(131, 219, 253);
+  cursor: pointer;
+  transition: all 0.2s ease-out;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
 </style>

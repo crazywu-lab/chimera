@@ -1,6 +1,8 @@
 <template>
   <div>
+<!--    <Background />-->
     <Navbar />
+    <Footer />
     <router-link class="dashboard-link" to="/dashboard">
       Let's go!
     </router-link>
@@ -9,7 +11,8 @@
 
 <script>
 import Navbar from "../components/NavBar/Navbar.vue";
-
+import Footer from "../components/NavBar/Footer.vue";
+// import Background from "../components/Background/Background.vue";
 export default {
   name: "Home",
   data() {
@@ -18,10 +21,10 @@ export default {
     };
   },
   components: {
-    Navbar,
+    Navbar, Footer,
+    // Background,
   },
   methods: {
-    
   },
 };
 </script>
