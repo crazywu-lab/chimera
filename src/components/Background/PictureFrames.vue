@@ -1,6 +1,6 @@
 <template>
   <div class="full-bleed" @mousemove="blurImages">
-    <div class="img-wrapper" v-for="img in images" id="v-for-object">
+    <div class="img-wrapper" v-for="img in images" :key="img.name">
       <img :src="img" alt=""/>
     </div>
   </div>
@@ -25,7 +25,6 @@ export default {
     importAll(r) {
       r.keys().forEach(key => {
         this.images.push(r(key));
-        console.log(key.naturalWidth);
       });
     },
     spreadImages() {
@@ -34,7 +33,7 @@ export default {
       for (let i = 0; i < wrappers.length; i++) {
         let theta = 2 * i * Math.PI/wrappers.length;
         let r = (Math.random() + 1)/4;
-        let w = Math.random() * windowW + 100;
+        let w = Math.random()/2 * windowW + 150;
         let x = String(parseInt(r * windowW * Math.cos(theta)) -50 + windowW/2) + 'px';
         let y = String(parseInt(r * windowH * Math.sin(theta)) -100 + windowH/2) + 'px';
         wrappers.item(i).style.transform += 'translateX(+' + x + ')';
@@ -47,7 +46,7 @@ export default {
       for (let i = 0; i < wrappers.length; i++) {
         let divRect = wrappers.item(i).getBoundingClientRect();
         let X = (divRect.top + divRect.bottom)/2, Y = (divRect.left + divRect.right)/2;
-        let blur = Math.sqrt((X - event.x)**2 + (Y - event.y)**2)/100;
+        let blur = Math.sqrt((X - event.x)**2 + (Y - event.y+80)**2)/100;
         wrappers.item(i).style.filter = 'blur(' + String(parseInt(blur)) + 'px)';
       }
     }
@@ -75,7 +74,6 @@ export default {
     position:absolute;
     max-width: 100%;
     height: auto;
-    /*filter: blur(1px);*/
-
+    filter: blur(1px);
   }
 </style>

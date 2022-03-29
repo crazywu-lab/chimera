@@ -16,7 +16,7 @@ import Navbar from "../components/NavBar/Navbar.vue";
 import Footer from "../components/NavBar/Footer.vue";
 import Public from "../components/Public/Public.vue";
 import Background from "../components/Background/Background.vue";
-import ClickAndAdd from "../components/Interactive/ClickAndAdd.vue";
+import ClickAndAdd from "../components/Background/PictureFrames.vue";
 
 export default {
   name: "HomePublic",

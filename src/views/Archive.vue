@@ -1,8 +1,8 @@
 <template>
-<div id="Archive">
-  <Navbar />
-  <Bibliography />
-</div>
+  <div id="Archive">
+    <Navbar />
+    <Bibliography />
+  </div>
 </template>
 
 <script>
@@ -13,7 +13,7 @@ export default {
   name: "Archive",
   components: {
     Bibliography, Navbar,
-  }
+  },
 }
 </script>
 
