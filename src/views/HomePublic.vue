@@ -4,7 +4,7 @@
     <Footer />
     <Background />
     <Public />
-<!--    <ClickAndAdd />-->
+    <ClickAndAdd />
   </div>
     <!-- <script src="./javascripts/draggable.js"></script>
     <script src="./javascripts/bg_sketch.js"></script>
@@ -16,7 +16,7 @@ import Navbar from "../components/NavBar/Navbar.vue";
 import Footer from "../components/NavBar/Footer.vue";
 import Public from "../components/Public/Public.vue";
 import Background from "../components/Background/Background.vue";
-// import ClickAndAdd from "../components/Interactive/ClickAndAdd.vue";
+import ClickAndAdd from "../components/Interactive/ClickAndAdd.vue";
 
 export default {
   name: "HomePublic",
@@ -27,7 +27,7 @@ export default {
   },
   components: {
     Background,
-    // ClickAndAdd,
+    ClickAndAdd,
     Public,
     Navbar,
     Footer
