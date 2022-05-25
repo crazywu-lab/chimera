@@ -1,10 +1,17 @@
 <template>
-  <div class="home-public">
+  <div id="home-public">
+    <Background />
+    <PictureFrames />
     <Navbar />
     <Footer />
-    <Background />
-    <Public />
-    <ClickAndAdd />
+
+    <CardPublic @showSignUp="showSignUpFunc($event)" @showSignIn="showSignInFunc($event)"/>
+    <transition name="zoom">
+      <SignUpForm v-if="showSignUp" /></transition>
+    <transition name="zoom">
+      <SignInForm v-if="showSignIn" /></transition>
+
+    <NavToArchive />
   </div>
     <!-- <script src="./javascripts/draggable.js"></script>
     <script src="./javascripts/bg_sketch.js"></script>
@@ -12,31 +19,51 @@
 </template>
 
 <script>
-import Navbar from "../components/NavBar/Navbar.vue";
-import Footer from "../components/NavBar/Footer.vue";
-import Public from "../components/Public/Public.vue";
 import Background from "../components/Background/Background.vue";
-import ClickAndAdd from "../components/Background/PictureFrames.vue";
+import Navbar from "../components/NavBar/Navbar.vue";
+import NavToArchive from "../components/NavBar/NavToArchive.vue";
+import Footer from "../components/NavBar/Footer.vue";
+import CardPublic from "../components/Public/CardPublic.vue";
+import PictureFrames from "../components/Background/PictureFrames.vue";
+import SignUpForm from '../components/Users/SignUpForm.vue';
+import SignInForm from "../components/Users/SignInForm.vue";
+
 
 export default {
   name: "HomePublic",
   data() {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
+      showSignUp: false,
+      showSignIn: false,
     };
   },
   components: {
-    Background,
-    ClickAndAdd,
-    Public,
+    PictureFrames,
+    CardPublic,
     Navbar,
-    Footer
+    NavToArchive,
+    Footer,
+    SignUpForm,
+    SignInForm,
+    Background,
   },
+  methods: {
+    showSignUpFunc(showSignUp){
+      this.showSignUp = showSignUp
+    },
+    showSignInFunc(showSignIn){
+      this.showSignIn = showSignIn
+    },
+  }
 };
 </script>
 
 <style scoped>
 
+#home-public{
+  display:block;
+}
 .column{
     width: 480px;
     margin: 0 auto;
@@ -132,5 +159,6 @@ div .input-lead{
     transition-delay: 500ms;
     transition-duration: 500ms;
 }
+
 
 </style>

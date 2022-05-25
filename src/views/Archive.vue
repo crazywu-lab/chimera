@@ -12,7 +12,8 @@ import Bibliography from "../components/Bibliography/Bibliography.vue";
 export default {
   name: "Archive",
   components: {
-    Bibliography, Navbar,
+    Bibliography,
+    Navbar,
   },
 }
 </script>

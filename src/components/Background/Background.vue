@@ -9,10 +9,6 @@
 
   export default {
     name: "Background",
-    data() {
-    },
-    computed: {
-    },
     methods: {
       renderGrid(){
         let divBG = document.querySelector("#background");

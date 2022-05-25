@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:class="[type, draggable]">
+    <div class="card-simple" id="card-public">
       <header>
         <h1>WELCOME TO CHIMERA</h1>
       </header>
@@ -14,30 +14,50 @@
         reasonable page range for a weekly leisure read; we suggest no more
         than 40 pages.
       </p>
-      <router-link tag="button" to="/archive">
-        VISIT CHIMERA ARCHIVE
-      </router-link>
-      <router-link tag="button" to="/subscribe">
-        SIGN UP FOR NEWSLETTER
-      </router-link>
+      <div class="flex-box">
+        <div class="link" v-on:click="showSignUp($event)" style="border-right: 1px solid #757575;">
+          SIGN UP
+        </div>
+        <div class="link" v-on:click="showSignIn($event)">
+          SIGN IN
+        </div>
+      </div>
+      <div class="flex-box">
+        <a href="mailto:que@mit.edu" class="link" style="width: 100%">
+          QUESTIONS?
+        </a>
+      </div>
     </div>
 </template>
 
 <script>
 export default {
-  name: "Public",
-  data() {
-    return {
-      type: 'card-simple',
-      draggable: 'draggable-true'
-    }
+  name: "CardPublic",
+  methods: {
+    showSignUp(event) {
+      console.log(event)
+      this.$emit("showSignUp", true);
+    },
+    showSignIn(event) {
+      console.log(event)
+      this.$emit("showSignIn", true);
+    },
+
   }
 }
 </script>
 
 <style scoped>
+  #card-public{
+    width: 360px;
+  }
   header{
     border-bottom: 1px dashed #757575;
+  }
+  .link{
+    width:50%;
+    border-top: 1px solid #757575;
+    cursor: pointer;
   }
 
 </style>

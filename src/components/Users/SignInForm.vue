@@ -1,21 +1,30 @@
 <template>
-    <form class="signin-form" @submit.prevent="signIn">
+  <form v-if="showSelf" class="card-simple" @submit.prevent="signIn">
+      <div class="flex-box close-button-container">
+        <button type="close" class="close-button" @click="showSelf=false">
+          <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <line x2="20" y2="20"/><line x1="20" y2="20"/>
+          </svg>
+        </button>
+      </div>
+      <p class="caption-top">USERNAME</p>
         <input
           class="input-item"
           id="username"
           name="username"
-          placeholder='username (at least 6 chars)'
+          placeholder=''
           v-model="username" >
-        <input
+      <p class="caption-top">PASSWORD</p>
+      <input
           class="input-item"
           id="password"
           name="password"
-          placeholder='passwords (at least 8 chars)'
+          placeholder=''
           v-model="password">
         <br>
         <span class='error-msg' v-if="error">{{ error }}</span>
         <br>
-        <button type="submit">
+        <button type="submit" class="link" style="border-top: 1px solid #757575; margin-top: 30px">
           SIGN IN
         </button>
     </form>
@@ -32,6 +41,7 @@ export default ({
         username:"",
         password:"",
         error: null,
+        showSelf: true,
       }
   },
   methods:{
@@ -39,7 +49,7 @@ export default ({
       axios
         .post("/api/users/session/signin", {
           username: this.username,
-          password: this.password
+          password: this.password,
         })
         .then((response) => {
           eventBus.$emit("login-success", response.data.username);

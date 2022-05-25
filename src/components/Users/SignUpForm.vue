@@ -1,25 +1,53 @@
 <template>
-    <form class="signup-form" @submit.prevent="signUp">
-        <h3>Create an account!</h3>
+    <form v-if="showSelf" class="card-simple" @submit.prevent="signUp">
+      <div class="flex-box close-button-container">
+        <button type="close" class="close-button" @click="showSelf=false">
+          <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <line x2="20" y2="20"/><line x1="20" y2="20"/>
+          </svg>
+        </button>
+      </div>
+      <p class="caption-top">FULL NAME</p>
+      <input
+          class="input-item"
+          id="name"
+          name="username"
+          placeholder=''
+          v-model="name" >
+      <p class="caption-top">E-MAIL</p>
+      <input
+          class="input-item"
+          id="email"
+          name="username"
+          placeholder=''
+          v-model="email" >
+      <p class="caption-top">AFFILIATION</p>
+      <input
+          class="input-item"
+          id="affiliation"
+          name="username"
+          placeholder=''
+          v-model="affiliation" >
+      <p class="caption-top">USERNAME</p>
         <input
           class="input-item"
           id="username"
           name="username"
-          placeholder='username (at least 6 chars)'
+          placeholder='longer than 6 chars'
           v-model="username" >
-
+        <p class="caption-top">PASSWORD</p>
         <input
           class="input-item"
           id="password"
           name="password"
-          placeholder='passwords (at least 8 chars)'
+          placeholder='longer than 6 chars'
           v-model="password" >
-        <span>username and password can be changed later.</span>
+        <span><br>*username and password can be changed later.<br></span>
         <br>
         <span class='error-msg' v-if="error">{{ error }}</span>
         <br>
-      <button type="submit">
-        SIGN UP
+      <button type="submit" class="link" style="border-top: 1px solid #757575">
+        SUBMIT
       </button>
     </form>
 </template>
@@ -32,17 +60,24 @@ export default ({
   name: 'SignUpForm',
   data(){
       return{
+        name:"",
+        email: "",
+        affiliation: "",
         username:"",
         password:"",
-        error: null
+        error: null,
+        showSelf: true,
       }
   },
   methods:{
     signUp() {
       axios
         .post("/api/users/", {
+          name: this.name,
+          email: this.email,
+          affiliation: this.affiliation,
           username: this.username,
-          password: this.password
+          password: this.password,
         })
         .then((response) => {
           eventBus.$emit("signup-success", {
@@ -55,7 +90,7 @@ export default ({
             this.error = error.response.data.error;
           }
         })
-    }
+    },
       // onSubmit(){
       //   this.error = null;
       //   UserService.SignIn()
@@ -65,9 +100,15 @@ export default ({
       //       }
       //   })
       // }
+    showSignUp(event) {
+      console.log(event)
+      this.$emit("showSignUp", true);
     }
+  },
 })
 </script>
-<style>
+
+<style scoped>
 
 </style>
+

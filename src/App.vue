@@ -15,9 +15,7 @@ export default {
     if (!authenticated) {
       if(this.$route.path !== '/') this.$router.push("/");
     }
-  },
-  components: {},
-  computed: {},
+  }
 
 };
 </script>

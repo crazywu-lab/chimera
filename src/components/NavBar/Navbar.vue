@@ -1,18 +1,23 @@
 <template>
     <div class="navbar">
-      <router-link class="logo-home" to="/">Chimera</router-link>
-      <div class="nav-btn">
-          <div class="dropdown-content">
-            <router-link class="dropdown-item" to="/profile">Profile</router-link>
-            <router-link class="dropdown-item" to="/settings">Settings</router-link>
-            <div v-if="userName" class="dropdown-item" v-on:click="signOut">Sign Out</div>
-            <router-link v-else class="dropdown-item" to="/signin">Sign In</router-link>
-          </div>
-      </div>
+      <router-link class="logo-home" to="/">
+        <img src="../../assets/chimera-logo.svg">
+      </router-link>
+<!--      <div class="nav-btn"-->
+<!--        @mouseover="drawLine"-->
+<!--        @mouseleave="hover = false">-->
+<!--          <div v-if="hover" class="dropdown-content">-->
+<!--            <router-link class="dropdown-item" to="/profile">Profile</router-link>-->
+<!--            <router-link class="dropdown-item" to="/settings">Settings</router-link>-->
+<!--            <div v-if="userName" class="dropdown-item" v-on:click="signOut">Sign Out</div>-->
+<!--            <router-link v-else class="dropdown-item" to="/signin">Sign In</router-link>-->
+<!--          </div>-->
+<!--      </div>-->
     </div>
 </template>
 
 <script>
+
 import axios from "axios";
 import { eventBus } from "../../main";
 
@@ -20,45 +25,58 @@ export default ({
   name: 'Navbar',
   data() {
       return {
-          userName: this.$cookie.get('chimera-place-auth')
+        userName: this.$cookie.get('chimera-place-auth'),
+        hover: false,
       }
   },
-    created(){
-        eventBus.$on("signout-success", () => {
-            this.$cookie.set("chimera-place-auth", '');
-            this.userName = '';
-            console.log("cookie!");
-            if(this.$route.path !== '/') this.$router.push("/");
-        });
-    },
-    methods:{
-        signOut() {
-        axios
-            .post("/api/users/session/signout", {
-            })
-            .then(() => {
-                console.log("signed out!");
-                eventBus.$emit("signout-success", true);
-            })
-            .catch((error) => {
-                eventBus.$emit('signout-success', true);
-                if (error.response && error.response.status != 200){
-                    this.error = error.response.data.error;
-            }
-            })
-        }
+  created(){
+      eventBus.$on("signout-success", () => {
+          this.$cookie.set("chimera-place-auth", '');
+          this.userName = '';
+          console.log("cookie!");
+          if(this.$route.path !== '/') this.$router.push("/");
+      });
+  },
+  methods:{
+      signOut() {
+      axios
+          .post("/api/users/session/signout", {
+          })
+          .then(() => {
+              console.log("signed out!");
+              eventBus.$emit("signout-success", true);
+          })
+          .catch((error) => {
+              eventBus.$emit('signout-success', true);
+              if (error.response && error.response.status != 200){
+                  this.error = error.response.data.error;
+          }
+          })
+      },
+      drawLine(event) {
+        this.hover = true;
+        console.log(event);
+      }
     }
 })
 </script>
 
 <style scoped>
 
+.logo-svg {
+  fill:none;
+  stroke:#000;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-width:4px;
+}
+
 .navbar {
   position: fixed;
   left: 20px;
   right: 25px;
   top: 20px;
-  height: 80px;
+  height: 100px;
   padding: 0 0px;
   display: flex;
   justify-content: space-between;
@@ -83,17 +101,13 @@ export default ({
   transition: all 0.2s ease-out;
 }
 
-.nav-btn:hover .dropdown-content {
-  display: block;
-}
-
 .dropdown-content {
-  display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: white;
+  border: 1px solid #757575;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  z-index: 100;
 }
 
 .dropdown-item {
