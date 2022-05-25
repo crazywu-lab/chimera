@@ -25,8 +25,8 @@ Vue.use(VueCookie);
 
 export const router = new VueRouter({
   routes: [
-    { path: "/0", component: HomePublic, props: true },
-    { path: "/", component: HomeWeekly, props: true },
+    { path: "/", component: HomePublic, props: true },
+    { path: "/0", component: HomeWeekly, props: true },
     { path: "/admin/dashboard", component: Dashboard, props: true },
     { path: "/admin/settings", component: Settings, props: true },
     { path: "/admin/createRoom", component: CreateRoom, props: true},
