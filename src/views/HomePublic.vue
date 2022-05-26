@@ -7,10 +7,10 @@
 
     <CardPublic @showSignUp="showSignUpFunc($event)" @showSignIn="showSignInFunc($event)"/>
     <transition name="zoom">
-      <SignUpForm v-if="showSignUp" /></transition>
+      <SignUpForm v-if="showSignUp" @showSignUp="showSignUpFunc($event)"/>
+    </transition>
     <transition name="zoom">
-      <SignInForm v-if="showSignIn" /></transition>
-
+      <SignInForm v-if="showSignIn" @showSignIn="showSignInFunc($event)"/></transition>
     <NavToArchive />
   </div>
     <!-- <script src="./javascripts/draggable.js"></script>

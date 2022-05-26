@@ -1,12 +1,12 @@
 <template>
   <div id="nav-to-archive">
     <router-link tag="nav" to="/archive">
-      CHIMERA<br>ARCHIVE
       <div class="arrow-wrapper">
-        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg);">
           <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
         </svg>
       </div>
+      CHIMERA<br>ARCHIVE
     </router-link>
   </div>
 </template>
@@ -20,8 +20,8 @@ export default {
 <style scoped>
 
 .arrow-wrapper {
-  margin-left: 8px;
-  margin-right: 5px;
+  margin-left: 5px;
+  margin-right: 8px;
 }
 
 .arrow-wrapper :hover{
@@ -34,7 +34,7 @@ nav {
   font-weight: bold;
   position: absolute;
   display: flex;
-  right: 0;
+  left: 0;
   top: 50vh;
 }
 
@@ -42,10 +42,10 @@ nav {
 @keyframes arrow-right {
   0%,
   100% {
-    transform: translate(0, 0);
+    transform: translate(0, 0) rotate(180deg);
   }
   50% {
-    transform: translate(-5px, 0);
+    transform: translate(5px, 0) rotate(180deg);
   }
 }
 

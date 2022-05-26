@@ -9,11 +9,11 @@
     </div>
     <p>
       This week's reading has arrived! Download the pdf file below, and upload the annotated
-      version before [].
+      version before {{}}.
     </p>
     <div class="flex-box">
-      <div class="link" v-on:click="showSignUp($event)">
-        DOWNLOAD
+      <div class="link" style="border-top: var(--border); border-bottom: var(--border)">
+        DOWNLOAD TEXT
       </div>
     </div>
     <p>

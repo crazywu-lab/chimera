@@ -1,7 +1,7 @@
 <template>
-  <form v-if="showSelf" class="card-simple" @submit.prevent="signIn">
+  <form class="card-simple" @submit.prevent="signIn">
       <div class="flex-box close-button-container">
-        <button type="close" class="close-button" @click="showSelf=false">
+        <button type="close" class="close-button" v-on:click="showSignIn($event)">
           <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <line x2="20" y2="20"/><line x1="20" y2="20"/>
           </svg>
@@ -45,6 +45,10 @@ export default ({
       }
   },
   methods:{
+    showSignIn(event){
+      console.log(event)
+      this.$emit("showSignIn", false);
+    },
     signIn() {
       axios
         .post("/api/users/session/signin", {

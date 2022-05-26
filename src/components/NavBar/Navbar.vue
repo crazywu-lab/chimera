@@ -1,7 +1,8 @@
 <template>
     <div class="navbar">
       <router-link class="logo-home" to="/">
-        <img src="../../assets/chimera-logo.svg">
+        <img @mouseover="hover=true" v-show="!hover" src="../../assets/chimera-logo.svg">
+        <img @mouseleave="hover=false" v-show="hover" src="../../assets/chimera-logo2.svg">
       </router-link>
 <!--      <div class="nav-btn"-->
 <!--        @mouseover="drawLine"-->

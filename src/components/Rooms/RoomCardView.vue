@@ -2,8 +2,8 @@
   <div class="room-cards" id="room-card-view">
     <div class = "room-card" v-for="room in rooms" :key="room.week"
          :class="room.week === weekNow ? 'room-card-now' : weekNow > room.week ? 'room-card-old' : 'room-card-future'">
-        <div v-if = "room.week === weekNow" class = "link">UPLOAD</div>
-        <div v-if = "room.week === weekNow" class = "link" style="border-top: 1px solid #757575">DOWNLOAD</div>
+        <div v-if = "room.week === weekNow" class = "link">WEEKLY<br>PROMPT</div>
+        <div v-if = "room.week === weekNow" class = "link" style="border-top: 1px solid #757575">UPLOAD <br>ANNOTATED<br> TEXT</div>
       <div div v-if = "room.week < weekNow && room.thumbnail" class="overlay-container">
         <div class="card-img-overlay">
 <!--          have no idea why line 10 is not working...-->
@@ -34,7 +34,7 @@
     },
     data() {
       return {
-        //// need to be replaced with server communication
+        //// also need to be replaced with server communication
         weekNow: 5,
         thumbnailKeys: "",
         rooms: [

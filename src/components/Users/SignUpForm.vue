@@ -1,7 +1,9 @@
 <template>
-    <form v-if="showSelf" class="card-simple" @submit.prevent="signUp">
+    <form class="card-simple" @submit.prevent="signUp">
       <div class="flex-box close-button-container">
-        <button type="close" class="close-button" @click="showSelf=false">
+        <button type="close" class="close-button"
+                v-on:click="showSignUp($event)">
+<!--                @click="showSelf=false">-->
           <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <line x2="20" y2="20"/><line x1="20" y2="20"/>
           </svg>
@@ -66,10 +68,13 @@ export default ({
         username:"",
         password:"",
         error: null,
-        showSelf: true,
       }
   },
   methods:{
+    showSignUp(event) {
+      console.log(event)
+      this.$emit("showSignUp", false);
+    },
     signUp() {
       axios
         .post("/api/users/", {
@@ -85,11 +90,11 @@ export default ({
           });
           this.$router.push("/signin");
         })
-        .catch((error) => {
-          if (error.response && error.response.status != 200){
-            this.error = error.response.data.error;
-          }
-        })
+        // .catch((error) => {
+        //   if (error.response && error.response.status != 200){
+        //     this.error = error.response.data.error;
+        //   }
+        // })
     },
       // onSubmit(){
       //   this.error = null;
@@ -100,10 +105,6 @@ export default ({
       //       }
       //   })
       // }
-    showSignUp(event) {
-      console.log(event)
-      this.$emit("showSignUp", true);
-    }
   },
 })
 </script>

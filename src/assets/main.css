@@ -94,6 +94,8 @@ button {
     display: flex;
     justify-content: center;
     border: none;
+    cursor: pointer;
+    text-align:center;
 }
 
 .card-simple, .card-transparent {
