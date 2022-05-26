@@ -1,24 +1,32 @@
 <template>
-    <form class="signin-form" @submit.prevent="signIn">
-        <h3>Sign In!</h3>
-        <input 
+  <form class="card-simple" @submit.prevent="signIn">
+      <div class="flex-box close-button-container">
+        <button type="close" class="close-button" v-on:click="showSignIn($event)">
+          <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <line x2="20" y2="20"/><line x1="20" y2="20"/>
+          </svg>
+        </button>
+      </div>
+      <p class="caption-top">USERNAME</p>
+        <input
           class="input-item"
-          id="username" 
+          id="username"
           name="username"
-          placeholder='username (at least 6 chars)'
+          placeholder=''
           v-model="username" >
-
-        <input 
+      <p class="caption-top">PASSWORD</p>
+      <input
           class="input-item"
-          id="password" 
+          id="password"
           name="password"
-          placeholder='passwords (at least 8 chars)'
-          v-model="password" >
-
+          placeholder=''
+          v-model="password">
         <br>
         <span class='error-msg' v-if="error">{{ error }}</span>
         <br>
-        <input class="signin-btn" type="submit" value="Sign In">  
+        <button type="submit" class="link" style="border-top: 1px solid #757575; margin-top: 30px">
+          SIGN IN
+        </button>
     </form>
 </template>
 
@@ -33,14 +41,19 @@ export default ({
         username:"",
         password:"",
         error: null,
+        showSelf: true,
       }
   },
   methods:{
+    showSignIn(event){
+      console.log(event)
+      this.$emit("showSignIn", false);
+    },
     signIn() {
       axios
         .post("/api/users/session/signin", {
           username: this.username,
-          password: this.password
+          password: this.password,
         })
         .then((response) => {
           eventBus.$emit("login-success", response.data.username);
@@ -56,48 +69,5 @@ export default ({
 })
 </script>
 
-<style>
-.signin-form{
-  margin-top: 20vh;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.input-item {
-  width: 50vw;
-  border-radius: 50px;
-  border: 1px solid #ccc;
-  height: 50px;
-  margin: 10px 0;
-  padding-left: 30px;
-  font-size: 1.5rem;
-}
-.input-item-settings {
-  width: 20vw;
-  border-radius: 50px;
-  border: 1px solid #ccc;
-  height: 50px;
-  margin: 10px 0;
-  padding-left: 30px;
-  font-size: 1.5rem;
-}
-.signin-btn{
-  border-radius: 50px;
-  width: 50vw;
-  color: white;
-  font-weight: 700;
-  font-size: 1.5rem;
-  background: -webkit-linear-gradient(120deg,#00E5FF, #1200FF);
-  padding: 20px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  box-shadow: 1px 1px 6px 0 rgba(31,38,135,0.3);
-}
-
-.signin-btn:hover {
-  filter: brightness(1.1);
-  transition: All 0.2s ease-out;
-}
+<style scoped>
 </style>

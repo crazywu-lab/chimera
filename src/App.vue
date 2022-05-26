@@ -2,7 +2,7 @@
   <div id="app">
     <router-view ></router-view>
   </div>
-  
+
 </template>
 
 <script>
@@ -15,12 +15,11 @@ export default {
     if (!authenticated) {
       if(this.$route.path !== '/') this.$router.push("/");
     }
-  },
-  components: {},
-  computed: {},
-  methods: {},
+  }
+
 };
 </script>
 
 <style>
+  @import "assets/main.css";
 </style>
