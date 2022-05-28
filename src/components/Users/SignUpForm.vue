@@ -1,7 +1,7 @@
 <template>
-    <form class="card-simple" @submit.prevent="signUp">
+    <form class="card-simple" id="signup-form" @submit.prevent="signUp">
       <div class="flex-box close-button-container">
-        <button type="close" class="close-button" v-on:click="hideSignUp($event)">
+        <button class="close-button" v-on:click="hideSignUp($event)">
           <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <line x2="20" y2="20"/><line x1="20" y2="20"/>
           </svg>
