@@ -4,8 +4,10 @@
     <Navbar />
     <Footer />
     <NavToArchive />
-    <RoomCardView />
-    <CardWeekly />
+    <RoomCardView @showCard="showCardFunc($event)"/>
+    <transition name="zoom">
+      <CardWeekly v-if="showCard" @showCard="showCardFunc($event)"/>
+    </transition>
   </div>
 </template>
 
@@ -24,8 +26,7 @@ export default {
   data() {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
-      showSignUp: false,
-      showSignIn: false,
+      showCard: true,
     };
   },
   components: {
@@ -36,6 +37,11 @@ export default {
     Background,
     CardWeekly,
   },
+  methods: {
+    showCardFunc(showCard){
+      this.showCard = showCard
+    },
+  }
 
 }
 </script>
