@@ -1,9 +1,7 @@
 <template>
     <form class="card-simple" @submit.prevent="signUp">
       <div class="flex-box close-button-container">
-        <button type="close" class="close-button"
-                v-on:click="showSignUp($event)">
-<!--                @click="showSelf=false">-->
+        <button type="close" class="close-button" v-on:click="hideSignUp($event)">
           <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <line x2="20" y2="20"/><line x1="20" y2="20"/>
           </svg>
@@ -13,21 +11,21 @@
       <input
           class="input-item"
           id="name"
-          name="username"
+          name="name"
           placeholder=''
           v-model="name" >
       <p class="caption-top">E-MAIL</p>
       <input
           class="input-item"
           id="email"
-          name="username"
+          name="email"
           placeholder=''
           v-model="email" >
       <p class="caption-top">AFFILIATION</p>
       <input
           class="input-item"
           id="affiliation"
-          name="username"
+          name="affiliation"
           placeholder=''
           v-model="affiliation" >
       <p class="caption-top">USERNAME</p>
@@ -71,7 +69,7 @@ export default ({
       }
   },
   methods:{
-    showSignUp(event) {
+    hideSignUp(event) {
       console.log(event)
       this.$emit("showSignUp", false);
     },
