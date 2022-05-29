@@ -133,6 +133,16 @@ button {
     padding: 0;
 }
 
+nav {
+    transform: translate(0,-50%);
+    cursor: pointer;
+    font-weight: bold;
+    position: absolute;
+    display: flex;
+    top: 50vh;
+    vertical-align: middle;
+}
+
 /*Vue transition*/
 
 .zoom-enter-active,

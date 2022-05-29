@@ -1,27 +1,27 @@
 <template>
-  <div id="nav-to-archive">
-    <router-link tag="nav" to="/archive">
+  <div id="nav-to-home">
+    <router-link tag="nav" to="/">
+      HOME
       <div class="arrow-wrapper">
-        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg);">
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
           <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
         </svg>
       </div>
-      CHIMERA<br>ARCHIVE
     </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: "NavToArchive"
+  name: "NavToHome"
 }
 </script>
 
 <style scoped>
 
 .arrow-wrapper {
-  margin-left: 5px;
-  margin-right: 8px;
+  margin-left: 8px;
+  margin-right: 5px;
 }
 
 .arrow-wrapper :hover{
@@ -29,17 +29,17 @@ export default {
 }
 
 nav {
-  left: 0;
+  right: 0;
 }
 
 
 @keyframes arrow-right {
   0%,
   100% {
-    transform: translate(0, 0) rotate(180deg);
+    transform: translate(0, 0);
   }
   50% {
-    transform: translate(5px, 0) rotate(180deg);
+    transform: translate(-5px, 0);
   }
 }
 

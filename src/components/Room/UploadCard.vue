@@ -14,16 +14,16 @@
       It could be a reading that baffles you and wish to see how other
       people think, a reading that is related to your research interest, or just a favorite
       reading that influences you. A reasonable page range for a weekly leisure read;
-      we suggest no more than 40 pages.
+      we suggest <i>no more than 40 pages</i>.
     </p>
     <div>
       <p class="caption-top">TITLE</p>
       <input
           class="input-item"
-          id="roomtitle"
-          name="roomtitle"
+          id="room_title"
+          name="room_title"
           placeholder=''
-          v-model="roomtitle" >
+          v-model="room_title" >
       <p class="caption-top">YEAR</p>
       <input
           class="input-item"
@@ -42,12 +42,13 @@
     <span class='error-msg' v-if="error">{{ error }}</span>
 
     <div class="flex-box">
-      <div class="pdf-upload">
-<!--        <svg width="330" height="330" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">-->
-<!--          <path d="M0,0 l330,333"></path>-->
-<!--          <path d="m330,0 l-330,333"></path>-->
-<!--        </svg>-->
+      <div class="pdf-upload link">
+        <img src="../../assets/upload.svg" style="width:25px">
       </div>
+    </div>
+    <div v-if="message"
+         :class="`message ${error ? 'is-danger' : 'is-success'}`">
+      <div class="message-body">{{ message }}</div>
     </div>
     <div class="flex-box" style="border-top: var(--border)">
       <div class="link" style="border-right: var(--border)">
@@ -68,9 +69,10 @@ export default {
   name: "CardWeekly",
   data() {
     return {
-      roomtitle:"",
-      year:"",
-      author:"",
+      room_title: "",
+      year: "",
+      author: "",
+      message: "",
       error: null,
     }
   },
@@ -82,18 +84,30 @@ export default {
       console.log(event);
       this.$emit("showUploadCard", false);
     },
-    uploadPdf() {
-      axios
-      .post("/api/users/", {
-        roomtitle: this.roomtitle,
-        year: this.year,
-        author: this.author,
-      })
-      .then((response) => {
-        eventBus.$emit("pdf-upload-success", {
-          data: response.data,
-        });
-      })
+
+
+
+    async uploadPdf() {
+      const formData = new FormData();
+      formData.append("file", this.file);
+      formData.append("room_title", this.room_title);
+      formData.append("year", this.year);
+      formData.append("author", this.author);
+      formData.append("contributor", this.userName);
+      try {
+        await axios.post("/api/upload/uploadPDF", formData)
+            .then((response) => {
+              eventBus.$emit("upload-pdf-success", {
+                data: response.data
+              });
+            });
+        this.message = "File has been uploaded";
+        this.file = "";
+        this.error = false;
+      } catch (err) {
+        this.message = err.response.data.error;
+        this.error = true;
+      }
     }
   }
 }
@@ -109,6 +123,7 @@ export default {
   width: 100%;
   margin: 50px 15px 30px 15px;
   height: 150px;
+  vertical-align: middle;
 }
 
 .media-upload img {
