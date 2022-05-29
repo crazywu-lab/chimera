@@ -15,7 +15,7 @@
         than 40 pages.
       </p>
       <div class="flex-box">
-        <div class="link" v-on:click="showSignUp($event)" style="border-right: 1px solid #757575;">
+        <div class="link" v-on:click="showSignUp($event)" style="border-right: var(--border);">
           SIGN UP
         </div>
         <div class="link" v-on:click="showSignIn($event)">
@@ -23,8 +23,13 @@
         </div>
       </div>
       <div class="flex-box">
+        <div class="link" v-on:click="showUploadCard($event)" style="width: 100%">
+          SUBMIT TEXT
+        </div>
+      </div>
+      <div class="flex-box">
         <a href="mailto:que@mit.edu" class="link" style="width: 100%">
-          QUESTIONS?
+          QUESTION & FEEDBACK
         </a>
       </div>
     </div>
@@ -42,6 +47,10 @@ export default {
       console.log(event)
       this.$emit("showSignIn", true);
     },
+    showUploadCard(event) {
+      console.log(event)
+      this.$emit("showUploadCard", true);
+    },
 
   }
 }
@@ -52,11 +61,11 @@ export default {
     width: 360px;
   }
   header{
-    border-bottom: 1px dashed #757575;
+    border-bottom: var(--border-dashed);
   }
   .link{
     width:50%;
-    border-top: 1px solid #757575;
+    border-top: var(--border);
     cursor: pointer;
   }
 

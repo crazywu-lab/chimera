@@ -11,6 +11,7 @@
     --font-small: 0.9rem;
     --font-bg: 1.5rem;
     --border: 1px solid #757575;
+    --border-dashed: 1px dashed #757575;
 }
 
 h1 {
@@ -34,7 +35,7 @@ p {
 }
 
 p.caption-top{
-    margin: 30px 5px 5px 20px;
+    margin: 15px 5px 5px 15px;
     font-weight: bold;
     font-size: var(--font-med);
 }
@@ -57,24 +58,23 @@ body {
 }
 
 button, input{
-    width: calc(100% - 40px);
+    width: calc(100% - 30px);
     background: white;
     justify-content: center;
     display: flex;
     position: relative;
     margin: auto;
-    padding: 7px;
+    padding: 3px;
     font-family: "Roboto Mono";
     font-size: var(--font-med);
     font-weight: bolder;
-    border: 1px solid #757575;
+    border: var(--border);
 }
 
 input {
     color: #757575;
     background-color: white;
-    border: 1px dashed #757575;
-    padding: 7px 0 7px 0;
+    border: var(--border-dashed);
     margin: auto;
 }
 
@@ -128,8 +128,8 @@ button {
 }
 
 .close-button{
-    width: 20px;
-    margin: 10px;
+    width: 15px;
+    margin: 7px;
     padding: 0;
 }
 

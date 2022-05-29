@@ -23,6 +23,7 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(VueCookie);
 
+
 export const router = new VueRouter({
   routes: [
     { path: "/", component: HomePublic, props: true },
@@ -32,7 +33,7 @@ export const router = new VueRouter({
     { path: "/admin/createRoom", component: CreateRoom, props: true},
     { path: '/admin/room/:name', name: 'room', component: RoomPage, props: true },
     { path: '/admin/home', name: 'public', component: Home, props: true },
-    { path: '/group/:name', name: 'group', component: GroupPage, props: true },
+    { path: '/admin/group/:name', name: 'group', component: GroupPage, props: true },
     { path: "/admin/createGroup", component: CreateGroupPage, props: true},
     { path: "/archive", component: Archive, props: true},
     { path: "/*", component: ErrorPage, props: true},

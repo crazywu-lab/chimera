@@ -1,7 +1,7 @@
 <template>
   <div class="full-bleed" @mousemove="blurImages">
-    <div class="img-wrapper" v-for="img in images" :key="img.name">
-      <img :src="img"/>
+    <div class="img-wrapper" v-for="img in images" :key="img.name" @mouseenter="bringToFront" @mouseleave="bringToBack">
+      <img class="picture-frame" :src="img"/>
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
       for (let i = 0; i < wrappers.length; i++) {
         let theta = 2 * i * Math.PI/wrappers.length;
         let r = (Math.random() + 1)/4;
-        let w = String(parseInt(Math.random()*windowW/5) + windowW/5);
+        let w = String(parseInt((Math.random()+1)*(windowW+windowH)/10));
         let x = r * windowW * Math.cos(theta) + windowW/2;
         let y = r * (windowH-100) * Math.sin(theta) + windowH/2;
         if ( x+w/2+100 > windowW ){ x = windowW-w/2-100 }
@@ -44,17 +44,22 @@ export default {
       }
     },
     blurImages(event) {
-      const imgWrappers = document.getElementsByClassName("img-wrapper");
-      for (let i = 0; i < imgWrappers.length; i++) {
-        let divRect = imgWrappers.item(i).getBoundingClientRect();
+      const frames = document.getElementsByClassName("picture-frame");
+      for (let i = 0; i < frames.length; i++) {
+        let divRect = frames.item(i).getBoundingClientRect();
         let X = (divRect.left + divRect.right)/2, Y = (divRect.top + divRect.bottom)/2;
         let blur = Math.sqrt((X - event.x)**2 + (Y - event.y+100)**2)/100;
-        imgWrappers.item(i).style.filter = 'blur(' + String(parseInt(blur)) + 'px)';
+        frames.item(i).style.filter = 'blur(' + String(parseInt(blur)) + 'px) grayscale(100%)' ;
       }
     },
+    bringToFront(event) {
+      event.target.style.zIndex += 1;
+    },
+    bringToBack(event) {
+      event.target.style.zIndex -= 1;
+    }
   }
 }
-
 </script>
 
 <style scoped>
@@ -66,16 +71,16 @@ export default {
   }
   .img-wrapper{
     display: block;
-    box-shadow: var(--shadow);
     position: relative;
     padding: 0;
-    z-index: -1;
+    margin: 0;
+    /*z-index: -1;*/
   }
-  img{
+  .picture-frame {
     position:absolute;
     max-width: 100%;
     transform: translate(-50%,-50%);
-
-    filter: blur(2px);
+    filter: blur(1px) grayscale(100%);
+    box-shadow: var(--shadow);
   }
 </style>

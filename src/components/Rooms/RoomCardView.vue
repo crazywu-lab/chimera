@@ -2,7 +2,7 @@
   <div class="room-cards" id="room-card-view">
     <div class = "room-card" v-for="room in rooms" :key="room.week"
          :class="room.week === weekNow ? 'room-card-now' : weekNow > room.week ? 'room-card-old' : 'room-card-future'">
-        <div v-if = "room.week === weekNow" class = "link">WEEKLY<br>PROMPT</div>
+        <div v-if = "room.week === weekNow" class = "link" v-on:click="showCard">WEEKLY<br>PROMPT</div>
         <div v-if = "room.week === weekNow" class = "link" style="border-top: 1px solid #757575">UPLOAD <br>ANNOTATED<br> TEXT</div>
       <div div v-if = "room.week < weekNow && room.thumbnail" class="overlay-container">
         <div class="card-img-overlay">
@@ -35,7 +35,7 @@
     data() {
       return {
         //// also need to be replaced with server communication
-        weekNow: 5,
+        weekNow: 4,
         thumbnailKeys: "",
         rooms: [
           {week: 1, title: "Carrier Bag Theory of Fiction", author: "Ursula Le Guin", year: 1986, thumbnail: 'leguin_1986.jpg'},
@@ -48,6 +48,9 @@
       }
     },
     methods: {
+      showCard(){
+        this.$emit("showCard", true);
+      },
       importImages(r) {
         r.keys().forEach(key => {
           this.thumbnailKeys.push(key);
