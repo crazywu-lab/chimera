@@ -8,13 +8,9 @@
       </button>
     </div>
     <p>
-      Please upload the reading material that you wish to share below. Any
-      topic is welcome, but note that you will benefit the most by
-      contributing materials that you would like to see other people’s response.
-      It could be a reading that baffles you and wish to see how other
-      people think, a reading that is related to your research interest, or just a favorite
-      reading that influences you. A reasonable page range for a weekly leisure read;
-      we suggest <i>no more than 40 pages</i>.
+      <i>LENGTH</i> a reasonable page range for a weekly leisure read; we suggest no more than 40 pages. It could be from one or few sources.<br><br>
+      <i>THEME</i> any topic is welcome, BUT you will benefit the most by contributing materials that you would love to see people’s response. It could be a reading that always confuses you and hence you would hope to see how people think; a reading that is related to your current research and you hope to gather more references/feedback; or just a favourite reading that influences you and you hope to share with others!<br><br>
+      <i>PREPARATION</i> feel free to start annotating your materials: you can leave questions for people to respond, or put in some references that you think may help guide people’s reading… Having said, an unannotated version is fine too.<br><br>
     </p>
     <div>
       <p class="caption-top">TITLE</p>
@@ -53,9 +49,6 @@
     <div class="flex-box" style="border-top: var(--border)">
       <div class="link" style="border-right: var(--border)">
         SUBMIT
-      </div>
-      <div class="link">
-        DELETE
       </div>
     </div>
   </form>
@@ -115,7 +108,7 @@ export default {
 
 <style scoped>
 #upload-card{
-  width: 330px;
+  width: 400px;
 }
 
 .pdf-upload{
