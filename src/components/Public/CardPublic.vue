@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       readMore: false,
-      signedIn: false,
+      signedIn: true,
     }
   },
   created() {
