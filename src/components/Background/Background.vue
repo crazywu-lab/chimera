@@ -7,6 +7,15 @@
 <script>
   import * as d3 from "d3";
 
+  // const audioContext = new AudioContext()
+  // let arrayBuffer = new ArrayBuffer()
+  //
+  // async function loadFile() {
+  //   const getFile = await fetch()
+  //   const getBuffer = await getFile.arrayBuffer()
+  //   arrayBuffer = getBuffer
+  // }
+
   export default {
     name: "Background",
     methods: {
@@ -50,8 +59,8 @@
 
 <style>
   #background{
-    width:100vw;
-    height: 100vh;
+    width:100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;

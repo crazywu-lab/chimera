@@ -64,24 +64,21 @@ export default ({
 
 <style scoped>
 
-.logo-svg {
-  fill:none;
-  stroke:#000;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-width:4px;
+img {
+  max-height:100%;
 }
 
 .navbar {
-  position: fixed;
+  position: relative;
   left: 20px;
   right: 25px;
   top: 20px;
-  height: 100px;
+  height: 10vh;
   padding: 0 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  vertical-align: middle;
 }
 
 .logo-home {

@@ -35,9 +35,9 @@ export default {
         let r = (Math.random() + 1)/4;
         let w = String(parseInt((Math.random()+1)*(windowW+windowH)/10));
         let x = r * windowW * Math.cos(theta) + windowW/2;
-        let y = r * (windowH-100) * Math.sin(theta) + windowH/2;
-        if ( x+w/2+100 > windowW ){ x = windowW-w/2-100 }
-        if ( x-w/2-100 < 0 ){ x = 100+w/2 }
+        let y = r * (windowH) * Math.sin(theta) + windowH/2;
+        if ( x+w/2 > windowW ){ x = windowW-w/2 }
+        if ( x-w/2 < 0 ){ x = w/2 }
         wrappers.item(i).style.left = String(x/windowW*100) + "%";
         wrappers.item(i).style.top = String(y/windowH*100) + "%";
         wrappers.item(i).style.width = String(w/windowW*100) + '%';
