@@ -9,7 +9,7 @@
 <script>
 
 export default {
-  name: "ClickAndAdd",
+  name: "PictureFrames",
   beforeMount() {
     this.importImages(require.context('../../assets/img/'));
   },
@@ -65,9 +65,10 @@ export default {
 <style scoped>
   .full-bleed{
     position: absolute;
-    overflow: hidden;
+    /*overflow: hidden;*/
     width: 100vw;
     height: 100vh;
+    margin: 0 auto;
   }
   .img-wrapper{
     display: block;
