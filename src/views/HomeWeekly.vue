@@ -4,9 +4,9 @@
     <Navbar />
     <Footer />
     <NavToArchive />
-    <RoomCardView @showCard="showCardFunc($event)"/>
+    <RoomCardView @showCard="showCardFunc($event)" :week-now="weekNow"/>
     <transition name="zoom">
-      <CardWeekly v-if="showCard" @showCard="showCardFunc($event)"/>
+      <CardWeekly v-if="showCard" @showCard="showCardFunc($event)" :week-now="weekNow"/>
     </transition>
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
       showCard: true,
+      weekNow: 1,
     };
   },
   components: {

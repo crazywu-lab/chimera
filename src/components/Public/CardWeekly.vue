@@ -16,19 +16,51 @@
         DOWNLOAD TEXT
       </div>
     </div>
-    <p>
-      For this week, upload an image below (a footage, drawing, collage, or anything you'd like) of your reading process?
-      It could be a photo in your balcony on a nice summer day, or on your couch with your dog taking a nap next to
-      you. It could be a selfie, or clouds passing by. You don’t need to spend too much effort on this,
-      or be creative!
-    </p>
-    <div class="flex-box">
-      <div class="media-upload">
-        <svg width="330" height="330" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
-          <path d="M0,0 l330,333"></path>
-          <path d="m330,0 l-330,333"></path>
-        </svg>
+    <div v-if="weekNow === 1">
+      <p>
+        For this week, upload an image below (a footage, drawing, collage, or anything you'd like) of your reading process?
+        It could be a photo in your balcony on a nice summer day, or on your couch with your dog taking a nap next to
+        you. It could be a selfie, or clouds passing by. You don’t need to spend too much effort on this,
+        or be creative!
+      </p>
+      <div class="flex-box">
+        <div class="media-upload">
+          <svg width="330" height="330" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l330,333"></path>
+            <path d="m330,0 l-330,333"></path>
+          </svg>
+        </div>
       </div>
+    </div>
+    <div v-if="weekNow === 2">
+      <p>
+
+      </p>
+    </div>
+    <div v-if="weekNow === 3">
+      <p>
+
+      </p>
+    </div>
+    <div v-if="weekNow === 4">
+      <p>
+
+      </p>
+    </div>
+    <div v-if="weekNow === 5">
+      <p>
+
+      </p>
+    </div>
+    <div v-if="weekNow === 6">
+      <p>
+
+      </p>
+    </div>
+    <div v-if="weekNow === 7">
+      <p>
+
+      </p>
     </div>
     <div class="flex-box" style="border-top: var(--border)">
       <div class="link" style="border-right: var(--border)">
@@ -44,6 +76,9 @@
 <script>
 export default {
   name: "CardWeekly",
+  props: {
+    weekNow: Number
+  },
   data() {
     return {
       showSelf: true,

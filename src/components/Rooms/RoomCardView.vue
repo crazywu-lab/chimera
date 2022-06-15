@@ -32,10 +32,12 @@
       this.connectCards();
       window.addEventListener('resize', this.connectCards);
     },
+    props: {
+      weekNow: Number
+    },
     data() {
       return {
         //// also need to be replaced with server communication
-        weekNow: 4,
         thumbnailKeys: "",
         rooms: [
           {week: 1, title: "Carrier Bag Theory of Fiction", author: "Ursula Le Guin", year: 1986, thumbnail: 'leguin_1986.jpg'},
