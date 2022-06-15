@@ -69,7 +69,7 @@ img {
 }
 
 .navbar {
-  position: relative;
+  position: fixed;
   left: 20px;
   right: 25px;
   top: 20px;
