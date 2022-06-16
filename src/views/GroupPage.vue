@@ -8,7 +8,7 @@
     <br />
     <br />
     <CreateRoomPDF :group_name="group.group_name"/>
-    <ListRooms />
+    <ListRooms :rooms="group.rooms"/>
   </div>
 </template>
 

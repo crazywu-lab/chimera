@@ -39,7 +39,7 @@ const router = express.Router();
    * */
   router.post("/create", [authorizeThat.signedIn], async (req, res) => {
     let creator = (req.session.username == undefined) ? 'anonymous' : req.session.username;
-    const group = await Groups.addOne(req.body.group_name, creator);
+    const group = await Groups.addOne(req.body.group_name, req.body.members_num, creator);
     if(group !== false){
       res.status(201).json(group).end();
     }

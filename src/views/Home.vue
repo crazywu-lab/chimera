@@ -2,6 +2,8 @@
   <div>
 <!--    <Background />-->
     <Navbar />
+    <SignInForm />
+    <!-- <SignUpForm /> -->
     <Footer />
     <router-link class="dashboard-link" to="/dashboard">
       Let's go!
@@ -12,6 +14,7 @@
 <script>
 import Navbar from "../components/NavBar/Navbar.vue";
 import Footer from "../components/NavBar/Footer.vue";
+import SignInForm from "../components/Users/SignInForm.vue";
 // import Background from "../components/Background/Background.vue";
 export default {
   name: "Home",
@@ -21,7 +24,7 @@ export default {
     };
   },
   components: {
-    Navbar, Footer,
+    Navbar, Footer, SignInForm
     // Background,
   },
   methods: {

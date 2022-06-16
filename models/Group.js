@@ -13,9 +13,13 @@ const GroupSchema = new Schema(
             ref: "User",
             required: true,
         },
+        "members_num":{
+            type: Number,
+            required: true,
+        },
         "members": {
             type: Array,
-            required: false,
+            required: true,
         },
         "rooms": {
             type: Array,
