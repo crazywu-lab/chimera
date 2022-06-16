@@ -1,0 +1,248 @@
+:root {
+    --shadow:
+            0.7px 0.7px 10.5px rgba(0, 0, 0, 0.07),
+            1.8px 1.8px 18.9px rgba(0, 0, 0, 0.10),
+            3.7px 3.7px 26.8px rgba(0, 0, 0, 0.12),
+            7.7px 7.7px 37.9px rgba(0, 0, 0, 0.15),
+            21px 21px 75px rgba(0, 0, 0, 0.22);
+    --font-biggest: 2.5rem;
+    --font-big: 1.3rem;
+    --font-med: 1.1rem;
+    --font-small: 0.9rem;
+    --font-bg: 1.5rem;
+    --border: 1px solid #757575;
+    --border-dashed: 1px dashed #757575;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    /*overflow-y: auto;*/
+}
+
+h1 {
+    font-size: var(--font-biggest);
+    font-weight: bold;
+    margin: 15px;
+}
+
+h2 {
+    font-size: var(--font-med);
+    font-weight: lighter;
+    margin: 15px;
+}
+
+img {
+    max-width: 100%;
+}
+
+p {
+    font-size: var(--font-med);
+    margin: 15px;
+    letter-spacing: -0.5px;
+    text-align: justify;
+    hyphens: auto;
+}
+
+p.caption-top{
+    margin: 15px 5px 5px 15px;
+    font-weight: bold;
+    font-size: var(--font-med);
+}
+
+span {
+    font-size: var(--font-small);
+}
+
+
+.draggable-true{
+    position: relative;
+    float: left;
+    z-index: auto;
+    box-shadow: var(--shadow);
+}
+
+button, input{
+    width: calc(100% - 30px);
+    background: white;
+    justify-content: center;
+    display: flex;
+    position: relative;
+    margin: auto;
+    padding: 3px;
+    font-family: "Roboto Mono";
+    font-size: var(--font-med);
+    font-weight: bolder;
+    border: var(--border);
+}
+
+input {
+    color: #757575;
+    background-color: white;
+    border: var(--border-dashed);
+    margin: auto;
+}
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-decoration-color: yellowgreen;
+}
+a:visited {
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.link {
+    height: 50px;
+    font-weight: bold;
+    font-size: var(--font-big);
+    margin: 0;
+    width: 100%;
+    color: black;
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    text-align:center;
+}
+
+.card-simple, .card-transparent {
+    position: absolute;
+    box-shadow: var(--shadow);
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    left: 50vw;
+    width: 300px;
+    text-align: center;
+    top: 50vh;
+}
+
+.card-simple {
+    background-color: white;
+    border: 1px solid #757575;
+}
+.card-transparent {
+    background-color: transparent;
+}
+
+.flex-box{
+    justify-content: center;
+    display: flex;
+    width:100%;
+}
+
+.flex-box-vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-box-horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+.close-button-container{
+    justify-content: end;
+}
+
+.close-button{
+    width: 15px;
+    margin: 7px;
+    padding: 0;
+}
+
+nav {
+    transform: translate(0,-50%);
+    cursor: pointer;
+    font-weight: bold;
+    position: absolute;
+    display: flex;
+    top: 50vh;
+    vertical-align: middle;
+}
+
+/*Vue transition*/
+/*zoom*/
+
+.zoom-enter-active,
+.zoom-leave-active {
+    animation-duration: 150ms;
+    animation-fill-mode: both;
+    animation-name: zoom;
+}
+
+.zoom-leave-active {
+    animation-direction: reverse;
+}
+
+@keyframes zoom {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.3);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/*slide*/
+.slide-enter-active,
+.slide-leave-active {
+    animation-duration: 150ms;
+    animation-fill-mode: both;
+    animation-name: slide;
+
+}
+
+.slide-enter-to {
+    position: absolute;
+    right: 0;
+}
+
+.slide-enter-from {
+    position: absolute;
+    right: -100%;
+}
+
+.slide-leave-to {
+    position: absolute;
+    left: -100%;
+}
+
+
+.slide-leave-from {
+    position: absolute;
+    left: 0;
+}
+
+/*mobile devices responsive*/
+@media (max-width: 500px){
+    .card-simple{
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+
+    @keyframes zoom {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.1);
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(0.85);
+            opacity: 1;
+        }
+    }
+
+}
+
+

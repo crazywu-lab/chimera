@@ -1,10 +1,8 @@
 <template>
   <div class="group-page">
+    <Background />
     <Navbar />
     <h1>Reading Room Name: {{ this.$route.params.group.group_name }}</h1>
-    <router-link class="router-link" to="/">
-      Home
-    </router-link>
     <br />
     <br />
     <br />
@@ -18,10 +16,12 @@
 import Navbar from '../components/NavBar/Navbar.vue';
 import ListRooms from "../components/Rooms/ListRooms.vue";
 import CreateRoomPDF from "../components/Group/CreateRoomPDF.vue";
+import Background from "../components/Background/Background.vue";
 
 export default {
   name: "GroupPage",
   components: {
+    Background,
     ListRooms,
     CreateRoomPDF,
     Navbar

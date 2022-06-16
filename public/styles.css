@@ -1,22 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:100');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 
 html {
     font-size: 12px;
     margin: 0;
-    font-family: sans-serif;
-}
-
-:root {
-    --shadow:
-            0.7px 0.7px 10.5px rgba(0, 0, 0, 0.034),
-            1.8px 1.8px 18.9px rgba(0, 0, 0, 0.049),
-            3.7px 3.7px 26.8px rgba(0, 0, 0, 0.061),
-            7.7px 7.7px 37.9px rgba(0, 0, 0, 0.076),
-            21px 21px 75px rgba(0, 0, 0, 0.11);
-    --font-big: 4rem;
-    --font-med: 1.3rem;
-    --font-small: 1.1rem;
-    --font-bg: 1.5rem;
+    font-family: "Roboto Mono";
 }
 
 

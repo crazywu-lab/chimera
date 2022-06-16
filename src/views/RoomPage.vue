@@ -3,15 +3,9 @@
     <Navbar />
     <router-link class="router-link" to="/">Home</router-link>
     <br />
-    <br />
 
     <h2>Reading Room Name: {{ this.$route.params.room.room_name }}</h2>
 
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
     <br />
     <div>
       <h4>Reader</h4>

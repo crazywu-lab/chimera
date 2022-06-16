@@ -1,24 +1,54 @@
 <template>
-    <form class="signup-form" @submit.prevent="signUp">
-        <h3>Create an account!</h3>
-        <input 
+    <form class="card-simple" id="signup-form" @submit.prevent="signUp">
+      <div class="flex-box close-button-container">
+        <button class="close-button" v-on:click="hideSignUp($event)">
+          <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <line x2="20" y2="20"/><line x1="20" y2="20"/>
+          </svg>
+        </button>
+      </div>
+      <p class="caption-top">FULL NAME</p>
+      <input
           class="input-item"
-          id="username" 
+          id="name"
+          name="name"
+          placeholder=''
+          v-model="name" >
+      <p class="caption-top">E-MAIL</p>
+      <input
+          class="input-item"
+          id="email"
+          name="email"
+          placeholder=''
+          v-model="email" >
+      <p class="caption-top">AFFILIATION</p>
+      <input
+          class="input-item"
+          id="affiliation"
+          name="affiliation"
+          placeholder=''
+          v-model="affiliation" >
+      <p class="caption-top">USERNAME</p>
+        <input
+          class="input-item"
+          id="username"
           name="username"
-          placeholder='username (at least 6 chars)'
+          placeholder='longer than 6 chars'
           v-model="username" >
-
-        <input 
+        <p class="caption-top">PASSWORD</p>
+        <input
           class="input-item"
-          id="password" 
+          id="password"
           name="password"
-          placeholder='passwords (at least 8 chars)'
+          placeholder='longer than 6 chars'
           v-model="password" >
-        <span>Username and Passwords can be changed later.</span>
+        <span><br>*username and password can be changed later.<br></span>
         <br>
         <span class='error-msg' v-if="error">{{ error }}</span>
         <br>
-        <input class="signup-btn" type="submit" value="Sign Up">  
+      <button type="submit" class="link" style="border-top: 1px solid #757575">
+        SUBMIT
+      </button>
     </form>
 </template>
 
@@ -30,17 +60,27 @@ export default ({
   name: 'SignUpForm',
   data(){
       return{
+        name:"",
+        email: "",
+        affiliation: "",
         username:"",
         password:"",
-        error: null
+        error: null,
       }
   },
   methods:{
+    hideSignUp(event) {
+      console.log(event)
+      this.$emit("showSignUp", false);
+    },
     signUp() {
       axios
         .post("/api/users/", {
+          name: this.name,
+          email: this.email,
+          affiliation: this.affiliation,
           username: this.username,
-          password: this.password
+          password: this.password,
         })
         .then((response) => {
           eventBus.$emit("signup-success", {
@@ -48,12 +88,12 @@ export default ({
           });
           this.$router.push("/signin");
         })
-        .catch((error) => {
-          if (error.response && error.response.status != 200){
-            this.error = error.response.data.error;
-          }
-        })
-    }
+        // .catch((error) => {
+        //   if (error.response && error.response.status != 200){
+        //     this.error = error.response.data.error;
+        //   }
+        // })
+    },
       // onSubmit(){
       //   this.error = null;
       //   UserService.SignIn()
@@ -63,32 +103,11 @@ export default ({
       //       }
       //   })
       // }
-    }
+  },
 })
 </script>
-<style>
-.signup-form{
-  margin-top: 20vh;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.signup-btn{
-  border-radius: 50px;
-  width: 50vw;
-  color: white;
-  font-weight: 700;
-  font-size: 1.5rem;
-  background: -webkit-linear-gradient(120deg,#00E5FF, #1200FF);
-  padding: 20px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  box-shadow: 1px 1px 6px 0 rgba(31,38,135,0.3);
-}
-.signup-btn:hover {
-  filter: brightness(1.1);
-  transition: All 0.2s ease-out;
-}
+
+<style scoped>
+
 </style>
+
