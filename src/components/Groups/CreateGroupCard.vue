@@ -1,5 +1,5 @@
 <template>
-  <router-link class="create-group-card" to="/createGroup">
+  <router-link class="create-group-card" to="/admin/createGroup">
     Create a new group
   </router-link>
 </template>

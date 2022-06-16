@@ -20,6 +20,16 @@
         placeholder="untitled"
         required
       />
+      <label for="members">No. of members: </label>
+      <select id="members_num" v-model="group.members_num" placeholder=5>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+        <option value=9>9</option>
+        <option value=10>10</option>
+      </select>
+
 
       <h4>{{ error }}</h4>
       <br />
@@ -43,6 +53,7 @@ export default {
       error: null,
       group: {
         group_name: "",
+        members_num: 5
       },
     };
   },
@@ -57,7 +68,7 @@ export default {
           eventBus.$emit("create-group-success", {
             data: response.data,
           });
-          this.$router.push("/dashboard").catch(()=>{});
+          this.$router.push("/admin/dashboard").catch(()=>{});
         })
         .catch((error) => {
           if (error.response && error.response.status != 200) {

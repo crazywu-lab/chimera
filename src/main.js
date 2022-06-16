@@ -16,6 +16,7 @@ import GroupPage from './views/GroupPage.vue';
 import CreateGroupPage from './views/CreateGroupPage.vue';
 import ErrorPage from './views/ErrorPage.vue';
 import Archive from "./views/Archive.vue";
+import SignUp from "./components/Users/SignUpForm.vue";
 
 export const eventBus = new Vue();
 
@@ -28,6 +29,7 @@ export const router = new VueRouter({
   routes: [
     { path: "/", component: HomePublic, props: true },
     { path: "/0", component: HomeWeekly, props: true },
+    { path: "/admin/signup", component: SignUp, props: true },
     { path: "/admin/dashboard", component: Dashboard, props: true },
     { path: "/admin/settings", component: Settings, props: true },
     { path: "/admin/createRoom", component: CreateRoom, props: true},

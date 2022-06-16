@@ -16,7 +16,7 @@
 
 <script>
 import axios from "axios";
-import { eventBus } from "../../main";
+// import { eventBus } from "../../main";
 import RoomCard from "./RoomCard.vue";
 // import AddCard from "./AddCard.vue";
 
@@ -26,16 +26,22 @@ export default {
         RoomCard,
         // AddCard,
     },
-    data() {
-        return {
-            rooms: [],
-        };
+    props: {
+        rooms: {
+            type: Array,
+            required: true,
+        }
     },
+    // data() {
+    //     return {
+    //         rooms: [],
+    //     };
+    // },
     created() {
-        this.getRooms();
-        eventBus.$on(["create-room-success", "delete-room-success"], () => {
-            this.getRooms();
-        });
+        // this.getRooms();
+        // eventBus.$on(["create-room-success", "delete-room-success"], () => {
+        //     this.getRooms();
+        // });
     },
     methods: {
         getRooms() {
