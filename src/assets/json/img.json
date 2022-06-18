@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "path": "bag.jpg",
+    "width": 900,
+    "height": 738,
+    "title": "Linen Bag from 7C Egypt, Metropolitan Museum of Art",
+    "link": "https://archive.org/details/mma_bag_446617"
+  },
+  {
+    "id": 2,
+    "path": "epping.jpg",
+    "width": 544,
+    "height": 900,
+    "title": "Epping Forest by Payne Jennings, 1897, British Library",
+    "link": "https://www.flickr.com/photos/britishlibrary/11243913835/"
+  },
+  {
+    "id": 3,
+    "path": "herring.jpg",
+    "width": 580,
+    "height": 760,
+    "title": "The Autumnal Herring, James Ellsworth, 1842, New York Public Library",
+    "link": "https://digitalcollections.nypl.org/items/510d47d9-772f-a3d9-e040-e00a18064a99"
+  },
+  {
+    "id": 4,
+    "path": "lowestoft.jpg",
+    "width": 760,
+    "height": 580,
+    "title": "View of The Warren House and Gunton Ravine, 1907, New York Public Library",
+    "link": "https://digitalcollections.nypl.org/items/510d47df-83f9-a3d9-e040-e00a18064a99"
+  },
+  {
+    "id": 5,
+    "path": "mushroom.jpg",
+    "width": 641,
+    "height": 869,
+    "title": "Recherche sur les Champignons Agarics, 1877, New York Public Library",
+    "link": "https://digitalcollections.nypl.org/items/adb17370-8440-0130-67be-58d385a7b928"
+  }
+]

@@ -1,12 +1,13 @@
 <template>
   <div class="full-bleed" @mousemove="blurImages">
-    <div class="img-wrapper" v-for="img in images" :key="img.name" @mouseenter="bringToFront" @mouseleave="bringToBack">
-      <img class="picture-frame" :src="img"/>
+    <div class="img-wrapper" v-for="d in data" :key="d.id" @mouseenter="bringToFront" @mouseleave="bringToBack">
+      <img class="picture-frame" :src="d.path" :title="d.title"/>
     </div>
   </div>
 </template>
 
 <script>
+import json from "../../assets/json/img.json";
 
 export default {
   name: "PictureFrames",
@@ -18,26 +19,42 @@ export default {
   },
   data() {
     return{
-      images: [],
+      data: []
     }
   },
   methods: {
     importImages(r) {
-      r.keys().forEach(key => {
-        this.images.push(r(key));
+      r.keys().forEach((key, i) => {
+        let d = json[i];
+        this.data.push(
+            {"path": r(key),
+              "id": d.id,
+              "width": d.width,
+              "height": d.height,
+              "title": d.title,
+              // "link": d.link
+            });
       });
     },
     spreadImages() {
       const wrappers = document.getElementsByClassName("img-wrapper");
       let windowW = window.innerWidth, windowH = window.innerHeight;
       for (let i = 0; i < wrappers.length; i++) {
+        let isPortrait = this.data[i].width > this.data[i].height;
         let theta = 2 * i * Math.PI/wrappers.length;
-        let r = (Math.random() + 1)/4;
-        let w = String(parseInt((Math.random()+1)*(windowW+windowH)/10));
+        let r = (Math.random() + 2)/8;
         let x = r * windowW * Math.cos(theta) + windowW/2;
-        let y = r * (windowH) * Math.sin(theta) + windowH/2;
-        if ( x+w/2 > windowW ){ x = windowW-w/2 }
-        if ( x-w/2 < 0 ){ x = w/2 }
+        let y = r * windowH * Math.sin(theta) + windowH/2;
+        let w = parseInt((Math.random()+2)*(windowW+windowH)/12);
+        if (isPortrait) {
+          if ( x+w/2 > windowW ){ x = windowW-w/2 }
+          if ( x-w/2 < 0 ){ x = w/2 }
+        } else {
+          let h = parseInt((Math.random()+2)*(windowW+windowH)/12);
+          w = h * this.data[i].width / this.data[i].height
+          if ( y+h/2 > windowH-100 ){ y = windowH-h/2-100 }
+          if ( y-h/2 < 0 ){ y = h/2 }
+        }
         wrappers.item(i).style.left = String(x/windowW*100) + "%";
         wrappers.item(i).style.top = String(y/windowH*100) + "%";
         wrappers.item(i).style.width = String(w/windowW*100) + '%';
@@ -65,9 +82,9 @@ export default {
 <style scoped>
   .full-bleed{
     position: absolute;
-    /*overflow: hidden;*/
+    overflow: hidden;
     width: 100vw;
-    height: 100vh;
+    height: 109vh;
     margin: 0 auto;
   }
   .img-wrapper{
