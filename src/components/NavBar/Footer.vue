@@ -1,13 +1,17 @@
 <template>
-  <div class = "footer">
+  <div class="footer">
     <div>
-      <p>credit</p>
+      <p>credit<br>
+        designed and developed by <a>Kii Kang</a><br>
+        back-end development by <a>Charles Wu</a>
+      </p>
     </div>
-    <div>
+    <div class="flex-box-horizontal">
+      <div class="img-container">
       <a href = "http://transmedia.mit.edu/" target="_blank">
-        <img src = "../../assets/tsi-logo.png">
-      </a>
-      <img src = "../../assets/mit-logo.svg">
+        <img class="logo" src = "../../assets/tsi-logo.png">
+      </a></div>
+      <div class="img-container"><img class="logo" src = "../../assets/mit-logo.svg"></div>
     </div>
 
   </div>
@@ -22,18 +26,31 @@ export default {
 <style scoped>
   .footer{
     position: relative;
+    background: white;
     justify-content: space-between;
-    top: 100vh;
     width: 100vw;
     display: flex;
     border-top: 1px dashed #757575;
+    height: 8vh;
+  }
+  .img-container{
+    height: 50%;
+    margin: 15px;
   }
   img{
-    height: 40px;
-    margin: 20px;
+    max-height: 100%;
   }
   p{
     color: grey;
     font-size: 0.8rem;
+  }
+  a{
+    color: #333333;
+  }
+
+  @media (max-width: 500px) {
+    p{
+      font-size: 0.6rem;
+    }
   }
 </style>

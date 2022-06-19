@@ -1,19 +1,21 @@
 <template>
-  <div class="room-cards" id="room-card-view">
-    <div class = "room-card" v-for="room in rooms" :key="room.week"
-         :class="room.week === weekNow ? 'room-card-now' : weekNow > room.week ? 'room-card-old' : 'room-card-future'">
-        <div v-if = "room.week === weekNow" class = "link" v-on:click="showCard">WEEKLY<br>PROMPT</div>
-        <div v-if = "room.week === weekNow" class = "link" style="border-top: 1px solid #757575">UPLOAD <br>ANNOTATED<br> TEXT</div>
-      <div div v-if = "room.week < weekNow && room.thumbnail" class="overlay-container">
-        <div class="card-img-overlay">
-<!--          have no idea why line 10 is not working...-->
-<!--          <img :src="'../../assets/thumbnails/' + room.thumbnail">-->
-          <img v-if="room.week == 1" src="../../assets/thumbnails/leguin_1986.jpg">
-          <img v-if="room.week == 2" src="../../assets/thumbnails/mills_2011.jpg">
-          <img v-if="room.week == 3" src="../../assets/thumbnails/malazita_2019.webp">
-          <img v-if="room.week == 4" src="../../assets/thumbnails/sebald_1995.jpeg">
+  <div class="full-bleed" id="room-cards-wrapper">
+    <div id="room-cards">
+      <div class = "room-card" v-for="room in rooms" :key="room.week"
+           :class="room.week === weekNow ? 'room-card-now' : weekNow > room.week ? 'room-card-old' : 'room-card-future'">
+          <div v-if = "room.week === weekNow" class = "link" v-on:click="showCard">WEEKLY<br>PROMPT</div>
+          <div v-if = "room.week === weekNow" class = "link" style="border-top: 1px solid #757575">UPLOAD <br>ANNOTATED<br> TEXT</div>
+        <div div v-if = "room.week < weekNow && room.thumbnail" class="overlay-container">
+          <div class="card-img-overlay">
+  <!--          have no idea why line 10 is not working...-->
+  <!--          <img :src="'../../assets/thumbnails/' + room.thumbnail">-->
+            <img v-if="room.week === 1" src="../../assets/thumbnails/leguin_1986.jpg">
+            <img v-if="room.week === 2" src="../../assets/thumbnails/mills_2011.jpg">
+            <img v-if="room.week === 3" src="../../assets/thumbnails/malazita_2019.webp">
+            <img v-if="room.week === 4" src="../../assets/thumbnails/sebald_1995.jpeg">
+          </div>
+          <div class="card-overlay"/>
         </div>
-        <div class="card-overlay"/>
       </div>
     </div>
   </div>
@@ -100,9 +102,9 @@
 </script>
 
 <style scoped>
-  .room-cards{
+  #room-cards{
     display: flex;
-    position: absolute;
+    position: relative;
     transform: translate(0, -50%);
     left: 4vw;
     top: 50vh;

@@ -1,7 +1,7 @@
 <template>
   <div class="full-bleed" @mousemove="blurImages">
     <div class="img-wrapper" v-for="d in data" :key="d.id" @mouseenter="bringToFront" @mouseleave="bringToBack">
-      <img class="picture-frame" :src="d.path" :title="d.title"/>
+      <img class="picture-frame" :src="d.path" :alt="d.title" :title="d.title"/>
     </div>
   </div>
 </template>
@@ -80,13 +80,6 @@ export default {
 </script>
 
 <style scoped>
-  .full-bleed{
-    position: absolute;
-    overflow: hidden;
-    width: 100vw;
-    height: 109vh;
-    margin: 0 auto;
-  }
   .img-wrapper{
     display: block;
     position: relative;

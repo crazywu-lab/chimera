@@ -1,13 +1,16 @@
 <template>
-  <div id="home-weekly">
-    <Background />
-    <Navbar />
-    <Footer />
-    <NavToArchive />
+  <div id="home-weekly" class="full-bleed">
+    <Background :y="2"/>
     <RoomCardView @showCard="showCardFunc($event)" :week-now="weekNow"/>
+    <PictureFrames2/>
+    <Footer />
     <transition name="zoom">
       <CardWeekly v-if="showCard" @showCard="showCardFunc($event)" :week-now="weekNow"/>
     </transition>
+    <NavToArchive />
+    <Navbar />
+
+
   </div>
 </template>
 
@@ -16,9 +19,10 @@
 import Background from "../components/Background/Background.vue";
 import Navbar from "../components/NavBar/Navbar.vue";
 import NavToArchive from "../components/NavBar/NavToArchive.vue";
-import Footer from "../components/NavBar/Footer.vue";
 import RoomCardView from "../components/Rooms/RoomCardView.vue";
 import CardWeekly from "../components/Public/CardWeekly.vue";
+import Footer from "../components/NavBar/Footer.vue";
+import PictureFrames2 from "../components/Background/PictureFrames2";
 
 
 export default {
@@ -27,10 +31,18 @@ export default {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
       showCard: true,
-      weekNow: 1,
+      weekNow: 3,
     };
   },
+  created() {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.showCard = false;
+      }
+    });
+  },
   components: {
+    PictureFrames2,
     RoomCardView,
     Navbar,
     NavToArchive,
@@ -47,6 +59,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>

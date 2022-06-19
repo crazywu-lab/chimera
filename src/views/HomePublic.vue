@@ -1,21 +1,23 @@
 <template>
-  <div id="home-public">
-    <Background />
-    <PictureFrames />
-    <Navbar />
+  <div id="home-public" class="full-bleed">
+    <Background :y="1"/>
+<!--    <audio-player/>-->
+    <picture-frames />
     <Footer />
 
-    <CardPublic @showSignUp="showSignUpFunc($event)" @showSignIn="showSignInFunc($event)" @showUploadCard="showUploadCardFunc($event)"/>
+    <card-public @showSignUp="showSignUpFunc($event)" @showSignIn="showSignInFunc($event)" @showUploadCard="showUploadCardFunc($event)"/>
     <transition name="zoom">
-      <SignUpForm v-if="showSignUp" @showSignUp="showSignUpFunc($event)"/>
+      <sign-up-form v-if="showSignUp" @showSignUp="showSignUpFunc($event)"/>
     </transition>
     <transition name="zoom">
-      <SignInForm v-if="showSignIn" @showSignIn="showSignInFunc($event)"/>
+      <sign-in-form v-if="showSignIn" @showSignIn="showSignInFunc($event)"/>
     </transition>
     <transition name="zoom">
-      <UploadCard v-if="showUploadCard" @showUploadCard="showUploadCardFunc($event)"/>
+      <upload-card v-if="showUploadCard" @showUploadCard="showUploadCardFunc($event)"/>
     </transition>
-    <NavToArchive />
+    <nav-to-archive />
+    <Navbar />
+
 
   </div>
 </template>
@@ -30,6 +32,7 @@ import PictureFrames from "../components/Background/PictureFrames.vue";
 import SignUpForm from '../components/Users/SignUpForm.vue';
 import SignInForm from "../components/Users/SignInForm.vue";
 import UploadCard from "../components/Room/UploadCard.vue";
+// import AudioPlayer from "../components/Background/AudioPlayer.vue";
 
 export default {
   name: "HomePublic",
@@ -51,6 +54,7 @@ export default {
     });
   },
   components: {
+    // AudioPlayer,
     PictureFrames,
     CardPublic,
     Navbar,

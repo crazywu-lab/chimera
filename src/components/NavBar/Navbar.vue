@@ -66,6 +66,7 @@ export default ({
 
 img {
   max-height:100%;
+  z-index: 10;
 }
 
 .navbar {
@@ -105,7 +106,6 @@ img {
   border: 1px solid #757575;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 100;
 }
 
 .dropdown-item {
