@@ -21,15 +21,18 @@
         required
       />
       <label for="members">No. of members: </label>
-      <select id="members_num" v-model="group.members_num" placeholder=5>
-        <option value=5>5</option>
-        <option value=6>6</option>
-        <option value=7>7</option>
-        <option value=8>8</option>
-        <option value=9>9</option>
-        <option value=10>10</option>
+      <select id="members_num" v-model="group.members_num" placeholder="5">
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
       </select>
 
+      <div >
+        <PickMemberList :memberNum="group.members_num"/>
+      </div>
 
       <h4>{{ error }}</h4>
       <br />
@@ -44,16 +47,17 @@
 <script>
 import { eventBus } from "../main";
 import axios from "axios";
+import PickMemberList from "../components/Group/pickMemberList.vue";
 
 export default {
   name: "CreateGroupPage",
-  components: {},
+  components: { PickMemberList},
   data() {
     return {
       error: null,
       group: {
         group_name: "",
-        members_num: 5
+        members_num: "5",
       },
     };
   },
@@ -68,7 +72,7 @@ export default {
           eventBus.$emit("create-group-success", {
             data: response.data,
           });
-          this.$router.push("/admin/dashboard").catch(()=>{});
+          this.$router.push("/admin/dashboard").catch(() => {});
         })
         .catch((error) => {
           if (error.response && error.response.status != 200) {
