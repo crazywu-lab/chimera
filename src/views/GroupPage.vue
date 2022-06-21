@@ -8,7 +8,9 @@
     <br />
     <br />
     <CreateRoomPDF :group_name="group.group_name"/>
+    <button class="btn-merge">Switch (careful)</button>
     <ListRooms :rooms="group.rooms"/>
+    
   </div>
 </template>
 
@@ -38,5 +40,10 @@ export default {
 .group-page {
   position: static;
   margin-top: 20vh;
+}
+.btn-merge {
+  margin: 20px;
+  background-color: black;
+  color: white;
 }
 </style>

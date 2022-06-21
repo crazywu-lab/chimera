@@ -34,7 +34,7 @@ export const router = new VueRouter({
     { path: "/admin/settings", component: Settings, props: true },
     { path: "/admin/createRoom", component: CreateRoom, props: true},
     { path: '/admin/room/:name', name: 'room', component: RoomPage, props: true },
-    { path: '/admin/home', name: 'public', component: Home, props: true },
+    { path: '/admin/signin', name: 'public', component: Home, props: true },
     { path: '/admin/group/:name', name: 'group', component: GroupPage, props: true },
     { path: "/admin/createGroup", component: CreateGroupPage, props: true},
     { path: "/archive", component: Archive, props: true},
