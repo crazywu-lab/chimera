@@ -2,12 +2,12 @@
   <div id="home-weekly" class="full-bleed">
     <Background :y="2"/>
     <RoomCardView @showCard="showCardFunc($event)" :week-now="weekNow"/>
-    <PictureFrames2/>
+<!--    <PictureFrames2/>-->
     <Footer />
     <transition name="zoom">
       <CardWeekly v-if="showCard" @showCard="showCardFunc($event)" :week-now="weekNow"/>
     </transition>
-    <NavToArchive />
+<!--    <NavToArchive />-->
     <Navbar />
 
 
@@ -18,12 +18,11 @@
 
 import Background from "../components/Background/Background.vue";
 import Navbar from "../components/NavBar/Navbar.vue";
-import NavToArchive from "../components/NavBar/NavToArchive.vue";
 import RoomCardView from "../components/Rooms/RoomCardView.vue";
 import CardWeekly from "../components/Public/CardWeekly.vue";
 import Footer from "../components/NavBar/Footer.vue";
-import PictureFrames2 from "../components/Background/PictureFrames2";
-
+// import PictureFrames2 from "../components/Background/PictureFrames2";
+// import NavToArchive from "../components/NavBar/NavToArchive.vue";
 
 export default {
   name: "HomeWeekly",
@@ -42,10 +41,10 @@ export default {
     });
   },
   components: {
-    PictureFrames2,
+    // PictureFrames2,
     RoomCardView,
     Navbar,
-    NavToArchive,
+    // NavToArchive,
     Footer,
     Background,
     CardWeekly,
