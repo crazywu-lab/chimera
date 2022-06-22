@@ -18,7 +18,15 @@
 body {
     margin: 0;
     padding: 0;
-    /*overflow-y: auto;*/
+    width: 100vw;
+    height: 100vh;
+}
+
+#app {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    overflow-x:hidden;
+    height: 100vh;
 }
 
 h1 {
@@ -118,6 +126,8 @@ button {
 
 .card-simple, .card-transparent {
     position: absolute;
+    background-color: white;
+    border: 1px solid #757575;
     box-shadow: var(--shadow);
     z-index: 1;
     transform: translate(-50%, -50%);
@@ -127,13 +137,6 @@ button {
     top: 50vh;
 }
 
-.card-simple {
-    background-color: white;
-    border: 1px solid #757575;
-}
-.card-transparent {
-    background-color: transparent;
-}
 
 .flex-box{
     justify-content: center;
@@ -226,11 +229,23 @@ nav {
     left: 0;
 }
 
+.full-bleed{
+    position: relative;
+    /*overflow: hidden;*/
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    scroll-snap-align: start;
+}
+
 /*mobile devices responsive*/
 @media (max-width: 500px){
     .card-simple{
         transform: translate(-50%, -50%) scale(0.85);
     }
+.navbar{
+    height: 50px;
+}
 
     @keyframes zoom {
         from {

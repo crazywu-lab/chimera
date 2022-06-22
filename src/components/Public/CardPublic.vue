@@ -12,7 +12,10 @@
           the pilot scheme of Chimera was completed in summer 2021 with participants from Art, Architecture,
           Media Lab and Comparative Media Studies program at MIT.
         </p>
-        <p>>  <a v-on:click="toggle">read more</a></p>
+        <div class="flex-box-horizontal flex-box">
+          <div style="width:50%"><p> > <a v-on:click="toggleReadMore">read more</a></p></div>
+          <div style="width:50%"><p> > <a v-on:click="toggleAboutUs">about us</a></p></div>
+        </div>
         <div v-if="!signedIn"  class="flex-box">
           <div class="link" v-on:click="showSignUp($event)" style="border-right: var(--border);">
             SIGN UP
@@ -35,7 +38,7 @@
       <transition name="zoom">
       <div v-if="readMore" class="card-simple" id="card-read-more">
         <div class="flex-box close-button-container">
-          <button class="close-button" v-on:click="toggle">
+          <button class="close-button" v-on:click="toggleReadMore">
             <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <line x2="20" y2="20"/><line x1="20" y2="20"/>
             </svg>
@@ -57,6 +60,22 @@
           3. An audio submission that can respond to the specific weekly reading, etc.
         </p>
       </div>
+      <div v-if="aboutUs" class="card-simple" id="card-about-us">
+        <div class="flex-box close-button-container">
+          <button class="close-button" v-on:click="toggleAboutUs">
+            <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <line x2="20" y2="20"/><line x1="20" y2="20"/>
+            </svg>
+          </button>
+        </div>
+        <p>
+          Kwan Queenie Li is ...<br>
+          Weihan Jiang is ...<br>
+          Wonki(Kii) Kang is ...<br>
+
+        </p>
+      </div>
+
       </transition>
     </div>
 </template>
@@ -67,6 +86,7 @@ export default {
   data() {
     return {
       readMore: false,
+      aboutUs: false,
       signedIn: true,
     }
   },
@@ -74,12 +94,16 @@ export default {
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         this.readMore = false;
+        this.aboutUs = false;
       }
     });
   },
   methods: {
-    toggle(){
+    toggleReadMore(){
       this.readMore=!this.readMore
+    },
+    toggleAboutUs(){
+      this.aboutUs=!this.aboutUs
     },
     showSignUp(event) {
       console.log(event)
