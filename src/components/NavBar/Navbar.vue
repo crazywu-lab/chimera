@@ -105,7 +105,7 @@ export default {
 
 <style scoped>
 img {
-  max-height: 100%;
+  height: 10vh;
   z-index: 10;
 }
 
