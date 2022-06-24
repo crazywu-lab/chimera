@@ -58,6 +58,7 @@ export default {
       group: {
         group_name: "",
         members_num: "5",
+        members:{},
       },
     };
   },
