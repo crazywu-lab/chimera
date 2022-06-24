@@ -1,7 +1,7 @@
 <template>
     <form class="card-simple" id="signup-form" @submit.prevent="signUp">
       <div class="flex-box close-button-container">
-        <button class="close-button" v-on:click="hideSignUp($event)">
+        <button class="close-button" v-on:click="closeSignUp()">
           <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <line x2="20" y2="20"/><line x1="20" y2="20"/>
           </svg>
@@ -69,9 +69,8 @@ export default ({
       }
   },
   methods:{
-    hideSignUp(event) {
-      console.log(event)
-      this.$emit("showSignUp", false);
+    closeSignUp(){
+      this.$emit("eventname", false);
     },
     signUp() {
       axios
@@ -86,7 +85,7 @@ export default ({
           eventBus.$emit("signup-success", {
             data: response.data,
           });
-          this.$router.push("/signin");
+          this.$router.push("/admin/signin");
         })
         // .catch((error) => {
         //   if (error.response && error.response.status != 200){

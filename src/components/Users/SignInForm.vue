@@ -1,7 +1,7 @@
 <template>
   <form class="card-simple" @submit.prevent="signIn">
       <div class="flex-box close-button-container">
-        <button class="close-button" v-on:click="showSignIn($event)">
+        <button class="close-button" v-on:click="closeSignIn()">
           <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <line x2="20" y2="20"/><line x1="20" y2="20"/>
           </svg>
@@ -45,9 +45,12 @@ export default ({
       }
   },
   methods:{
-    showSignIn(event){
-      console.log(event)
-      this.$emit("showSignIn", false);
+    // showSignIn(event){
+    //   console.log(event)
+    //   this.$emit("showSignIn", false);
+    // },
+    closeSignIn(){
+      this.$emit("eventname", false);
     },
     signIn() {
       axios
@@ -57,7 +60,8 @@ export default ({
         })
         .then((response) => {
           eventBus.$emit("login-success", response.data.username);
-          this.$router.push("/");
+          this.$router.push("/admin/dashboard");
+          console.log(response.data.message);
         })
         .catch((error) => {
           if (error.response && error.response.status != 200){
@@ -70,4 +74,5 @@ export default ({
 </script>
 
 <style scoped>
+
 </style>

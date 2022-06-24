@@ -1,8 +1,11 @@
 <template>
   <div>
-    <div v-for="n in buildArray" :key="n">
-      <pickMember />
-    </div>
+    <pickMember
+      @eventname="chooseMemberForRooms"
+      v-for="(n, index) in buildArray"
+      :key="index"
+      :roomNumber="index"
+    />
   </div>
 </template>
 
@@ -18,11 +21,21 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      members: {},
+    };
+  },
   computed: {
-    buildArray(){
+    buildArray() {
       return new Array(parseInt(this.memberNum));
-    }
-  }
+    },
+  },
+  methods: {
+    chooseMemberForRooms(roomIndex, member) {
+      this.members[roomIndex] = member;
+    },
+  },
 };
 </script>
 
