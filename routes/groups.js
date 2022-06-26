@@ -27,7 +27,7 @@ const router = express.Router();
   
   
   /**
-   * Create a room (must signed in first)
+   * Create a group (must signed in first)
    *
    * @name POST /api/Rooms/
    *
@@ -39,7 +39,7 @@ const router = express.Router();
    * */
   router.post("/create", [authorizeThat.signedIn], async (req, res) => {
     let creator = (req.session.username == undefined) ? 'anonymous' : req.session.username;
-    const group = await Groups.addOne(req.body.group_name, req.body.members_num, creator);
+    const group = await Groups.addOne(req.body.group_name, req.body.members_num, req.body.members, req.body.files, creator);
     if(group !== false){
       res.status(201).json(group).end();
     }

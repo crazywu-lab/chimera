@@ -21,6 +21,10 @@ const RoomSchema = new Schema(
             type: Array,
             required: false,
         },
+        "currentReader": {
+            type: String,
+            required: true,
+        },
         "readings": {
             type: Array,
             required: false,

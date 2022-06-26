@@ -11,20 +11,20 @@ async function findOne(name) {
   }
 }
 
-async function addOne(group_name, members_num, creator) {
+async function addOne(group_name, members_num, members, files, creator) {
   try {
     const user = await User.findOne({ username: creator });
     const user_id = user._id;
     const rooms_arr = [];
     for(let i = 0; i < members_num; i++){
-      let room = new Room({room_name: i+1, group_name: group_name, creator_id: user_id, member: [], reading: []});
+      let room = new Room({room_name: i, group_name: group_name, creator_id: user_id, member: [], currentReader: members[i], reading: [files[i]]});
       rooms_arr.push(room);
     }
     const group = new Group({
       group_name: group_name,
       creator_id: user_id,
       members_num: members_num,
-      members: [],
+      members: members,
       rooms: rooms_arr,
     });
     await group.save();

@@ -31,6 +31,9 @@
     <button v-if="userName" class="btn-signout" v-on:click="signOut">
       Sign Out
     </button>
+    <router-link class="" to="/admin/dashboard">
+      (For admin)
+    </router-link>
     <SignInForm v-if="SignInForm" @eventname="closeSignInForm"/>
     <SignUpForm v-if="SignUpForm" @eventname="closeSignUpForm"/>
   </div>
@@ -59,7 +62,8 @@ export default {
   created() {
     eventBus.$on("login-success", (username) => {
       this.$cookie.set("chimera-place-auth", username);
-      // this.isSignedIn = true;
+      this.SignInForm = false;
+      location.reload();
     });
 
     eventBus.$on("signout-success", () => {
