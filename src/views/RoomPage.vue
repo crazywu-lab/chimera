@@ -1,15 +1,15 @@
 <template>
   <div class="room-page">
     <Navbar />
-    <router-link class="router-link" to="/">Home</router-link>
+    <router-link class="router-link" to="/admin/dashboard">Home</router-link>
     <br />
 
     <h2>Reading Room Name: {{ this.$route.params.room.room_name }}</h2>
 
     <br />
     <div>
-      <h4>Reader</h4>
-      <div class="members-section">
+      <h4>Current Reader: {{room.creator_id}}</h4>
+      <!-- <div class="members-section">
         <MemberCard
           v-for="member in room.members"
           :key="member"
@@ -30,7 +30,7 @@
           </select>
           <input type="submit" value="Submit" />
         </form>
-      </div>
+      </div> -->
     </div>
     <simpleUpload v-bind:room_name="this.$route.params.room.room_name" />
     <br />
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import MemberCard from "../components/Rooms/Members/MemberCard.vue";
+// import MemberCard from "../components/Rooms/Members/MemberCard.vue";
 import Navbar from "../components/NavBar/Navbar.vue";
 import simpleUpload from "../components/Room/simpleUpload.vue";
 import PdfCard from "../components/Room/PdfCard.vue";
@@ -58,7 +58,7 @@ export default {
   props: ["signedInUser", "response"],
   components: {
     Navbar,
-    MemberCard,
+    // MemberCard,
     simpleUpload,
     PdfCard,
     // PdfViewer
@@ -73,6 +73,7 @@ export default {
     };
   },
   created() {
+    console.log(this.room);
     eventBus.$on(
       ["delete-member-success", "upload-pdf-success", "delete-pdf-success"],
       () => {

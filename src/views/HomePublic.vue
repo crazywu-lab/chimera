@@ -3,6 +3,9 @@
     <Background :y="1" />
     <!--    <audio-player/>-->
     <picture-frames />
+    <!-- <router-link class="" to="/admin/dashboard">
+      (For admin)
+    </router-link> -->
     <Footer />
 
     <card-public
@@ -26,9 +29,7 @@
     <Navbar />
     <br>
     <br>
-    <router-link class="" to="/admin/dashboard">
-      (For admin)
-    </router-link>
+    
   </div>
 </template>
 

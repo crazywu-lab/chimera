@@ -42,18 +42,19 @@ export default {
         // eventBus.$on(["create-room-success", "delete-room-success"], () => {
         //     this.getRooms();
         // });
+
     },
     methods: {
-        getRooms() {
-            axios
-                .get("/api/rooms/all")
-                .then((response) => {
-                    this.rooms = response.data;
-                })
-                .catch((error) => {
-                    alert(error);
-                });
-        },
+        // getRooms() {
+        //     axios
+        //         .get("/api/rooms/all")
+        //         .then((response) => {
+        //             this.rooms = response.data;
+        //         })
+        //         .catch((error) => {
+        //             alert(error);
+        //         });
+        // },
     },
 };
 </script>

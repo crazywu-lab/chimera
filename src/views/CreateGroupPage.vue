@@ -5,7 +5,7 @@
         <h2 id="title">Create a new group!</h2>
       </div>
       <div class="col-3 title-div title-left">
-        <router-link class="router-link cancel-btn" to="/dashboard"
+        <router-link class="router-link cancel-btn" to="/admin/dashboard"
           >Cancel</router-link
         >
       </div>
@@ -30,8 +30,13 @@
         <option value="10">10</option>
       </select>
 
-      <div >
-        <PickMemberList :memberNum="group.members_num"/>
+      <div>
+        <PickMemberList
+          :group_name="group.group_name"
+          :memberNum="group.members_num"
+          @gatherMembers="handleChosenMember"
+          @gatherFiles="handleChosenFile"
+        />
       </div>
 
       <h4>{{ error }}</h4>
@@ -51,14 +56,15 @@ import PickMemberList from "../components/Group/pickMemberList.vue";
 
 export default {
   name: "CreateGroupPage",
-  components: { PickMemberList},
+  components: { PickMemberList },
   data() {
     return {
       error: null,
       group: {
         group_name: "",
         members_num: "5",
-        members:{},
+        members: {},
+        files: {},
       },
     };
   },
@@ -81,6 +87,12 @@ export default {
           }
         });
     },
+    handleChosenMember(members) {
+      this.group.members = members;
+    },
+    handleChosenFile(files) {
+      this.group.files = files;
+    }
   },
 };
 </script>

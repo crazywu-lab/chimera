@@ -2,7 +2,7 @@
   <div class="group-page">
     <Background />
     <Navbar />
-    <h1>Reading Room Name: {{ this.$route.params.group.group_name }}</h1>
+    <h1>Reading Group Name: {{ this.$route.params.group.group_name }}</h1>
     <br />
     <br />
     <br />
@@ -33,6 +33,9 @@ export default {
       group: this.$route.params.group,
     };
   },
+  created() {
+    console.log(this.group);
+  }
 };
 </script>
 
