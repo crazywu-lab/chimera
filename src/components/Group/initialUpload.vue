@@ -9,7 +9,7 @@
       <div class="field">
         <label for="file" class="label">Upload File</label>
 
-        <input type="file" ref="file" @change="selectFile" />
+        <input type="file" ref="file" @change="selectFile" required/>
       </div>
 
       <!-- <div v-if="file" class="field">
@@ -37,6 +37,7 @@ export default {
   methods: {
     selectFile() {
       const file = this.$refs.file.files[0];
+      console.log(file);
       const allowedTypes = ["application/pdf"];
       const MAX_SIZE = 10000000;
       const tooLarge = file.size > MAX_SIZE;
@@ -54,6 +55,7 @@ export default {
     },
 
     async sendFile() {
+      console.log(this.file);
       const formData = new FormData();
       formData.append("file", this.file);
       formData.append("room_name", this.room_name);

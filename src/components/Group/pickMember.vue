@@ -2,7 +2,7 @@
   <div>
     <h2>Pick a member</h2>
     <form action="">
-      <select v-model="key" @change="handleChange($event)">
+      <select v-model="key" @change="handleChange($event)" required>
         <option
           v-for="(user, index) in users"
           v-bind:value="user.username"

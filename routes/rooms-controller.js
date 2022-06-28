@@ -1,4 +1,4 @@
-const Room = require("../models/Room");
+const Room = require("../backup/Room");
 const User = require("../models/User");
 
 async function findOne(name){

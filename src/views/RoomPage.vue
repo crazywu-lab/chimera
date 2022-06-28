@@ -3,13 +3,13 @@
     <Navbar />
     <router-link class="router-link" to="/admin/dashboard">Home</router-link>
     <br />
-
-    <h2>Reading Room Name: {{ this.$route.params.room.room_name }}</h2>
+    <h1>Reading Group: {{ $route.params.group_name }}</h1>
+    <h2>Reading Room: {{ $route.params.room_name }}</h2>
 
     <br />
-    <div>
-      <h4>Current Reader: {{room.creator_id}}</h4>
-      <!-- <div class="members-section">
+
+    <h4>Current Reader: {{ room.currentReader }}</h4>
+    <!-- <div class="members-section">
         <MemberCard
           v-for="member in room.members"
           :key="member"
@@ -31,49 +31,71 @@
           <input type="submit" value="Submit" />
         </form>
       </div> -->
-    </div>
-    <simpleUpload v-bind:room_name="this.$route.params.room.room_name" />
+
+    <!-- <simpleUpload v-bind:room_name="room.room_name" /> -->
     <br />
-    <PdfCard
-      v-for="file in room.readings"
-      :key="file.filename"
-      :file="file"
-      :roomName="room.room_name"
-    />
+    <table>
+      <tr>
+        <th>File Name</th>
+        <th>Uploaded By</th>
+        <th>Uploaded At</th>
+        <th>File Size</th>
+        <th>Delete</th>
+      </tr>
+      <tr v-for="(file, index) in room.readings" :key="file.filename">
+        <td class="pdf-name">{{ file.originalname }}</td>
+        <td>{{ room.readings_creators[index] }}</td>
+        <td>placeholder</td>
+        <td class="pdf-size">{{ file.size / 1000 }} Kb</td>
+        <td>
+          <button class="btn-delete" v-on:click="deletePDF">Delete</button>
+        </td>
+      </tr>
+      <!-- <PdfCard
+        v-for="file in room.readings"
+        :key="file.filename"
+        :file="file"
+        :roomName="room.room_name"
+      /> -->
+    </table>
+
+    <br /><br /><br />
+    <button @click="downloadLatestPDF">Download Latest Reading PDF</button>
     <!-- <PdfViewer /> -->
   </div>
 </template>
 
 <script>
+import download from "downloadjs";
+// import fs from "fs";
 // import MemberCard from "../components/Rooms/Members/MemberCard.vue";
 import Navbar from "../components/NavBar/Navbar.vue";
-import simpleUpload from "../components/Room/simpleUpload.vue";
-import PdfCard from "../components/Room/PdfCard.vue";
+// import simpleUpload from "../components/Room/simpleUpload.vue";
+// import PdfCard from "../components/Room/PdfCard.vue";
 //import PdfViewer from '../components/Room/PdfViewer.vue';
 
 import axios from "axios";
 import { eventBus } from "@/main";
 export default {
   name: "RoomPage",
-  props: ["signedInUser", "response"],
+  props: ["signedInUser"],
   components: {
     Navbar,
     // MemberCard,
-    simpleUpload,
-    PdfCard,
+    // simpleUpload,
+    // PdfCard,
     // PdfViewer
   },
   data() {
     return {
       items: [],
-      room: this.$route.params.room,
+      room: {},
       ReaderBool: false,
       readerList: [],
       reader: "",
     };
   },
   created() {
-    console.log(this.room);
     eventBus.$on(
       ["delete-member-success", "upload-pdf-success", "delete-pdf-success"],
       () => {
@@ -105,8 +127,14 @@ export default {
     },
     getRoom() {
       axios
-        .get("/api/rooms/getRoom/" + this.room.room_name)
+        .get(
+          "/api/groups/getRoom/" +
+            this.$route.params.group_name +
+            "/" +
+            this.$route.params.room_name
+        )
         .then((response) => {
+          console.log(response.data);
           this.room = response.data;
         })
         .catch((error) => {
@@ -121,6 +149,48 @@ export default {
         })
         .catch((error) => {
           alert(error);
+        });
+    },
+    deletePDF() {
+      axios
+        .delete(
+          "/api/rooms/deletePDF/" + this.roomName + "/" + this.file.filename,
+          {}
+        )
+        .then((response) => {
+          eventBus.$emit("delete-pdf-success", {
+            data: response.data,
+          });
+        })
+        .catch((error) => {
+          if (error.response && error.response.status != 200) {
+            alert(error.response.data.error);
+          }
+        });
+    },
+    downloadLatestPDF() {
+      axios
+        .get(
+          `/api/groups/downloadLatest/${this.$route.params.group_name}/${this.$route.params.room_name}`
+        )
+        .then((response) => {
+          console.log(response.data);
+          var bString = window.atob(response.data);
+          var bLength = bString.length;
+          var bytes = new Uint8Array(bLength);
+          for (var i = 0; i < bLength; i++) {
+            var ascii = bString.charCodeAt(i);
+            bytes[i] = ascii;
+          }
+          var bufferArray = bytes;
+          var blobStore = new Blob([bufferArray], { type: "application/pdf" });
+          console.log(blobStore);
+          download(blobStore, "test.pdf");
+        })
+        .catch((error) => {
+          if (error.response && error.response.status != 200) {
+            alert(error.response.data.error);
+          }
         });
     },
   },
@@ -223,5 +293,22 @@ export default {
 .add-member-card > form {
   margin-top: 20px;
   display: flex;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
 </style>

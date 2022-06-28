@@ -1,9 +1,12 @@
 <template>
   <div class="group-card-container">
-    <router-link class="group-card" :to="{name: 'group', params: {group: group, name: group.group_name}}">
+    <router-link
+      class="group-card"
+      :to="{ name: 'group', params: { group: group, name: group.group_name } }"
+    >
       Go to group
-      <h2>{{group.group_name}}</h2>
-      <p>Creator: {{group.creator_id}}</p>
+      <h2>{{ group.group_name }}</h2>
+      <p>Creator: {{ group.creator_id }}</p>
     </router-link>
     <div class="del-room-btn" v-on:click="DeleteGroup">Delete</div>
   </div>
@@ -19,30 +22,34 @@ export default {
     group: {
       type: Object,
       required: true,
-    }
+    },
   },
   components: {},
-  methods:{
-        DeleteGroup(){
-            axios.delete("/api/groups/" + this.group.group_name)
-                .then((response) => {
-                    eventBus.$emit("delete-group-success",{
-                        data: response.data,
-                    });
-                })
-                .catch((error) => {
-                    if (error.response && error.response.status != 200){
-                    alert(error.response.data.error)
-                    }
-                })
-            
-        },
-    }
+  methods: {
+    DeleteGroup() {
+      if (
+        confirm(`Do you really want to delete ${this.group.group_name} room?`)
+      ) {
+        axios
+          .delete("/api/groups/" + this.group.group_name)
+          .then((response) => {
+            eventBus.$emit("delete-group-success", {
+              data: response.data,
+            });
+          })
+          .catch((error) => {
+            if (error.response && error.response.status != 200) {
+              alert(error.response.data.error);
+            }
+          });
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.group-card-container{
+.group-card-container {
   margin-bottom: 20px;
   position: relative;
 }
