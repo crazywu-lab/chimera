@@ -17,7 +17,7 @@ const RoomSchema = new Schema(
             ref: "User",
             required: true,
         },
-        "member": {
+        "members": {
             type: Array,
             required: false,
         },
@@ -26,7 +26,7 @@ const RoomSchema = new Schema(
             required: true,
         },
         "readings": {
-            type: Array,
+            type: Object,
             required: false,
         },
     }

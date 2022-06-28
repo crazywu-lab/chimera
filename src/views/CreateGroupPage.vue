@@ -22,6 +22,10 @@
       />
       <label for="members">No. of members: </label>
       <select id="members_num" v-model="group.members_num" placeholder="5">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
         <option value="5">5</option>
         <option value="6">6</option>
         <option value="7">7</option>
@@ -52,6 +56,7 @@
 <script>
 import { eventBus } from "../main";
 import axios from "axios";
+// import fs from "fs";
 import PickMemberList from "../components/Group/pickMemberList.vue";
 
 export default {
@@ -73,8 +78,27 @@ export default {
   },
   methods: {
     createGroup() {
+      const formData = new FormData();
+      
+      for (let i = 0; i < parseInt(this.group.members_num, 10); i++) {
+        formData.append("files", this.group.files[i]);
+        // formData.append("files", imageData, {
+        //   contentType: 'application/pdf'
+        // });
+        // const pdfData = fs.readFileSync(this.group.files[i]);
+
+        // let reader = new FileReader();
+        // reader.readAsDataURL(this.group.files[i]);
+        // reader.onloadend = (e) => {
+        //   formData.append("files", e.target.result);
+        // }
+        formData.append("members", this.group.members[i]);
+      }
+      formData.append("group_name", this.group.group_name);
+      formData.append("members_num", this.group.members_num);
+
       axios
-        .post("/api/groups/create", this.group)
+        .post("/api/groups/create", formData)
         .then((response) => {
           eventBus.$emit("create-group-success", {
             data: response.data,
@@ -92,7 +116,7 @@ export default {
     },
     handleChosenFile(files) {
       this.group.files = files;
-    }
+    },
   },
 };
 </script>

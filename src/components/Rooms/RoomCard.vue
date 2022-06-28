@@ -1,9 +1,9 @@
 <template>
   <div class="room-card">
-    <router-link :to="{name: 'room', params: {room: room, name: room.room_name}}" class="f-subcard"  >
+    <router-link :to="{name: 'room', params: {room: room, room_name: room.room_name, group_name: group_name}}" class="f-subcard"  >
         <p>Reading Room</p>
         <h2>{{room.room_name}}</h2>
-        <p>Creator: {{ room.creator_id }}</p>
+        <!-- <p>Creator: {{ room.creator_id }}</p> -->
     </router-link>
     <button v-on:click="DeleteRoom" class="del-room-btn" >
             Delete
@@ -23,6 +23,10 @@ export default {
     props: {
         room: {
             type: Object,
+            required: true,
+        },
+        group_name: {
+            type: String,
             required: true,
         }
     },
