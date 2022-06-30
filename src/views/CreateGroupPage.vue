@@ -70,6 +70,7 @@ export default {
         members_num: "5",
         members: {},
         files: {},
+        fileData: [],
       },
     };
   },
@@ -79,9 +80,8 @@ export default {
   methods: {
     createGroup() {
       const formData = new FormData();
-      
       for (let i = 0; i < parseInt(this.group.members_num, 10); i++) {
-        formData.append("files", this.group.files[i]);
+        
         // formData.append("files", imageData, {
         //   contentType: 'application/pdf'
         // });
@@ -90,13 +90,16 @@ export default {
         // let reader = new FileReader();
         // reader.readAsDataURL(this.group.files[i]);
         // reader.onloadend = (e) => {
-        //   formData.append("files", e.target.result);
+        //   this.group.fileData.push(e.target.result);
         // }
+
+        // formData.append("files", this.group.files[i]);
         formData.append("members", this.group.members[i]);
       }
+      formData.append("file", this.group.files[0]);
+      
       formData.append("group_name", this.group.group_name);
       formData.append("members_num", this.group.members_num);
-
       axios
         .post("/api/groups/create", formData)
         .then((response) => {
