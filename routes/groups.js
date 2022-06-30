@@ -3,7 +3,7 @@ const multer = require("multer");
 
 // const aws = require("aws-sdk");
 const S3 = require("aws-sdk/clients/s3");
-const fs = require("fs");
+// const fs = require("fs");
 
 const bucketName = process.env.BUCKET;
 const region = process.env.REGION;
@@ -16,17 +16,17 @@ const s3 = new S3({
   secretAccessKey,
 });
 
-function uploadPDF(file) {
-  const fileStream = fs.createReadStream(file.path);
+// function uploadPDF(file) {
+//   const fileStream = fs.createReadStream(file.path);
 
-  const uploadParams = {
-    Bucket: bucketName,
-    Body: fileStream,
-    Key: file.filename,
-  };
+//   const uploadParams = {
+//     Bucket: bucketName,
+//     Body: fileStream,
+//     Key: file.filename,
+//   };
 
-  return s3.upload(uploadParams).promise();
-}
+//   return s3.upload(uploadParams).promise();
+// }
 
 const now = Date.now();
 
@@ -124,8 +124,7 @@ router.post(
   async (req, res) => {
     // router.post("/create", [authorizeThat.signedIn], async (req, res) => {
 
-    const result = await uploadPDF(req.file);
-    console.log(result);
+    // const result = await uploadPDF(req.file);
 
     let creator =
       req.session.username == undefined ? "anonymous" : req.session.username;

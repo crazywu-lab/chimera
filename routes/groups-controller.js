@@ -28,6 +28,7 @@ async function addOne(group_name, members_num, members, files, creator) {
     const user = await User.findOne({ username: creator });
     const user_id = user._id;
     const rooms_arr = [];
+    console.log(members);
     for (let i = 0; i < members_num; i++) {
       let room = {
         room_name: i,
