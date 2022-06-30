@@ -5,11 +5,10 @@
             3.7px 3.7px 26.8px rgba(0, 0, 0, 0.12),
             7.7px 7.7px 37.9px rgba(0, 0, 0, 0.15),
             21px 21px 75px rgba(0, 0, 0, 0.22);
-    --font-biggest: 2.5rem;
-    --font-big: 1.3rem;
-    --font-med: 1.1rem;
-    --font-small: 0.9rem;
-    --font-bg: 1.5rem;
+    --font-biggest: 1.9rem;
+    --font-big: 1rem;
+    --font-med: 0.9rem;
+    --font-small: 0.6rem;
     --border: 1px solid #757575;
     --border-dashed: 1px dashed #757575;
 }
@@ -31,13 +30,14 @@ body {
 
 h1 {
     font-size: var(--font-biggest);
-    font-weight: bold;
-    margin: 15px;
+    font-family: "IBM Plex Mono", monospace;
+    letter-spacing: 0;
+    font-weight: 500;
 }
 
 h2 {
     font-size: var(--font-med);
-    font-weight: lighter;
+    font-weight: 400;
     margin: 15px;
 }
 
@@ -48,14 +48,16 @@ img {
 p {
     font-size: var(--font-med);
     margin: 15px;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.045rem;
     text-align: justify;
     hyphens: auto;
 }
 
 p.caption-top{
     margin: 15px 5px 5px 15px;
-    font-weight: bold;
+    font-weight: 500;
+    font-family: "IBM Plex Mono", monospace;
+    letter-spacing: 0;
     font-size: var(--font-med);
 }
 
@@ -72,12 +74,12 @@ span {
 }
 
 button, input{
-    width: calc(100% - 30px);
+    width: calc(100% - 36px);
     background: white;
     justify-content: center;
     display: flex;
     position: relative;
-    margin: auto;
+    margin: 15px auto;
     padding: 3px;
     font-family: "Roboto Mono";
     font-size: var(--font-med);
@@ -92,6 +94,7 @@ input {
     margin: auto;
 }
 a {
+    color: #757575;
     cursor: pointer;
     text-decoration: none;
 }
@@ -110,9 +113,10 @@ button {
 
 .link {
     height: 50px;
-    font-weight: bold;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
     font-size: var(--font-big);
-    margin: 0;
+    margin: 0 auto;
     width: 100%;
     color: black;
     text-decoration: none;
@@ -124,14 +128,14 @@ button {
     text-align:center;
 }
 
-.card-simple, .card-transparent {
+.card-simple{
     position: absolute;
     background-color: white;
     border: 1px solid #757575;
     box-shadow: var(--shadow);
     transform: translate(-50%, -50%);
     left: 50vw;
-    width: 300px;
+    width: 350px;
     text-align: center;
     top: 50vh;
 }
@@ -198,36 +202,6 @@ nav {
     }
 }
 
-/*slide*/
-.slide-enter-active,
-.slide-leave-active {
-    animation-duration: 150ms;
-    animation-fill-mode: both;
-    animation-name: slide;
-
-}
-
-.slide-enter-to {
-    position: absolute;
-    right: 0;
-}
-
-.slide-enter-from {
-    position: absolute;
-    right: -100%;
-}
-
-.slide-leave-to {
-    position: absolute;
-    left: -100%;
-}
-
-
-.slide-leave-from {
-    position: absolute;
-    left: 0;
-}
-
 .full-bleed{
     position: relative;
     /*overflow: hidden;*/
@@ -242,9 +216,9 @@ nav {
     .card-simple{
         transform: translate(-50%, -50%) scale(0.85);
     }
-.navbar{
-    height: 50px;
-}
+    .navbar{
+        height: 50px;
+    }
 
     @keyframes zoom {
         from {

@@ -25,24 +25,24 @@
         @showUploadCard="showUploadCardFunc($event)"
       />
     </transition>
-    <nav-to-archive />
+<!--    <nav-to-archive />-->
     <Navbar />
     <br>
     <br>
-    
+
   </div>
 </template>
 
 <script>
 import Background from "../components/Background/Background.vue";
 import Navbar from "../components/NavBar/Navbar.vue";
-import NavToArchive from "../components/NavBar/NavToArchive.vue";
 import Footer from "../components/NavBar/Footer.vue";
 import CardPublic from "../components/Public/CardPublic.vue";
 import PictureFrames from "../components/Background/PictureFrames.vue";
 import SignUpForm from "../components/Users/SignUpForm.vue";
 import SignInForm from "../components/Users/SignInForm.vue";
 import UploadCard from "../components/Room/UploadCard.vue";
+// import NavToArchive from "../components/NavBar/NavToArchive.vue";
 // import AudioPlayer from "../components/Background/AudioPlayer.vue";
 
 export default {
@@ -66,10 +66,10 @@ export default {
   },
   components: {
     // AudioPlayer,
+    // NavToArchive,
     PictureFrames,
     CardPublic,
     Navbar,
-    NavToArchive,
     Footer,
     SignUpForm,
     SignInForm,
