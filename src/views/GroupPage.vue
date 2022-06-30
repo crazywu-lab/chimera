@@ -44,6 +44,7 @@ export default {
       axios
         .get("/api/groups/getGroup/" + this.$route.params.name)
         .then((response) => {
+          console.log(response.data);
           this.group = response.data;
         })
         .catch((error) => {

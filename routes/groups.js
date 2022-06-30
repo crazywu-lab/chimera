@@ -1,6 +1,35 @@
 const express = require("express");
 const multer = require("multer");
 
+// const aws = require("aws-sdk");
+const S3 = require("aws-sdk/clients/s3");
+const fs = require("fs");
+
+const bucketName = process.env.BUCKET;
+const region = process.env.REGION;
+const accessKeyId = process.env.ACCESS_KEY;
+const secretAccessKey = process.env.ACCESS_SECRET;
+
+const s3 = new S3({
+  region,
+  accessKeyId,
+  secretAccessKey,
+});
+
+function uploadPDF(file) {
+  const fileStream = fs.createReadStream(file.path);
+
+  const uploadParams = {
+    Bucket: bucketName,
+    Body: fileStream,
+    Key: file.filename,
+  };
+
+  return s3.upload(uploadParams).promise();
+}
+
+const now = Date.now();
+
 const Groups = require("./groups-controller");
 
 const validateThat = require("../middleware/validation");
@@ -62,14 +91,18 @@ router.get("/getRoom/:group_name?/:room_name?", async (req, res) => {
 });
 
 router.get("/downloadLatest/:group_name?/:room_name?", async (req, res) => {
-  const latest_file = await Groups.findLatestFile(
-    req.params.group_name,
-    req.params.room_name
-  );
-  res
-    .status(200)
-    .json(latest_file)
-    .end();
+  // const latest_file = await Groups.findLatestFile(
+  //   req.params.group_name,
+  //   req.params.room_name
+  // );
+  const fileKey = "81efdc88f635a02e17618339bc46ba6a";
+  const downloadParams = {
+    Key: fileKey,
+    Bucket: bucketName,
+  };
+
+  const readStream = s3.getObject(downloadParams).createReadStream();
+  readStream.pipe(res);
 });
 
 /**
@@ -86,17 +119,21 @@ router.get("/downloadLatest/:group_name?/:room_name?", async (req, res) => {
 router.post(
   "/create",
   [authorizeThat.signedIn],
-  upload.array("files"),
+  // upload.array("files"),
+  upload.single("file"),
   async (req, res) => {
     // router.post("/create", [authorizeThat.signedIn], async (req, res) => {
+
+    const result = await uploadPDF(req.file);
+    console.log(result);
+
     let creator =
       req.session.username == undefined ? "anonymous" : req.session.username;
-    console.log(req.files[0]);
     const group = await Groups.addOne(
       req.body.group_name,
       req.body.members_num,
       req.body.members,
-      req.files,
+      req.file,
       creator
     );
     if (group !== false) {

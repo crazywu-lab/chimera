@@ -22,6 +22,31 @@ const app = express();
 app.use(express.static(path.join(__dirname, isProduction ? 'dist' : 'public')));
 app.use(history());
 
+// const aws = require("aws-sdk");
+// const multer = require("multer");
+// const multerS3 = require("multer-s3");
+
+// aws.config.update({
+
+//   secreteAccessKey: process.env.ACCESS_SECRET,
+//   accessKeyId: process.env.ACCESS_KEY,
+//   region: process.env.REGION
+// })
+
+// const BUCKET = process.env.BUCKET
+// const s3 = new aws.S3();
+
+// const upload = multer({
+//   storage: multerS3({
+//     bucket: BUCKET,
+//     s3: s3,
+//     acl: "public-read",
+//     key: (req, file, cb) => {
+//       cb(null, file.originalname);
+//     }
+//   })
+// })
+
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -48,7 +73,8 @@ app.use(cors());
 app.use(logger('dev'));
 
 // Accept json
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 // https://stackoverflow.com/questions/29960764/what-does-extended-mean-in-express-4-0
 // Allows object nesting in POST
 

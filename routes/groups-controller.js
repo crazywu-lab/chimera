@@ -2,6 +2,7 @@ const Group = require("../models/Group");
 const User = require("../models/User");
 
 
+
 async function findOne(name) {
   try {
     const group = await Group.findOne({ group_name: name });
@@ -34,7 +35,7 @@ async function addOne(group_name, members_num, members, files, creator) {
         creator_id: user_id,
         members: [],
         currentReader: members[i],
-        readings: [files[i]],
+        readings: [files],
         readings_creators: [creator]
       }
       rooms_arr.push(room);
@@ -52,6 +53,8 @@ async function addOne(group_name, members_num, members, files, creator) {
     return false;
   }
 }
+
+
 
 async function findAll() {
   try {

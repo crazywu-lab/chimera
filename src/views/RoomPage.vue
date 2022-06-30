@@ -66,7 +66,6 @@
 </template>
 
 <script>
-import download from "downloadjs";
 // import fs from "fs";
 // import MemberCard from "../components/Rooms/Members/MemberCard.vue";
 import Navbar from "../components/NavBar/Navbar.vue";
@@ -171,21 +170,17 @@ export default {
     downloadLatestPDF() {
       axios
         .get(
-          `/api/groups/downloadLatest/${this.$route.params.group_name}/${this.$route.params.room_name}`
+          `/api/groups/downloadLatest/${this.$route.params.group_name}/${this.$route.params.room_name}`,
+          {
+            responseType: "blob",
+          }
         )
         .then((response) => {
-          console.log(response.data);
-          var bString = window.atob(response.data);
-          var bLength = bString.length;
-          var bytes = new Uint8Array(bLength);
-          for (var i = 0; i < bLength; i++) {
-            var ascii = bString.charCodeAt(i);
-            bytes[i] = ascii;
-          }
-          var bufferArray = bytes;
-          var blobStore = new Blob([bufferArray], { type: "application/pdf" });
-          console.log(blobStore);
-          download(blobStore, "test.pdf");
+          var file = window.URL.createObjectURL(new Blob([response.data]));
+          var docUrl = document.createElement('a');
+          docUrl.href = file;
+          docUrl.download = 'my.pdf';
+          docUrl.click();
         })
         .catch((error) => {
           if (error.response && error.response.status != 200) {
