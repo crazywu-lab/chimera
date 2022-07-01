@@ -28,7 +28,7 @@ export default {
   methods: {
     DeleteGroup() {
       if (
-        confirm(`Do you really want to delete ${this.group.group_name} room?`)
+        confirm(`Do you really want to delete ${this.group.group_name} group?`)
       ) {
         axios
           .delete("/api/groups/" + this.group.group_name)

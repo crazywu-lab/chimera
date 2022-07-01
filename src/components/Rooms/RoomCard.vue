@@ -5,9 +5,9 @@
         <h2>{{room.room_name}}</h2>
         <!-- <p>Creator: {{ room.creator_id }}</p> -->
     </router-link>
-    <button v-on:click="DeleteRoom" class="del-room-btn" >
+    <!-- <button v-on:click="DeleteRoom" class="del-room-btn" >
             Delete
-    </button>
+    </button> -->
   </div>
 
       
@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import { eventBus } from "../../main";
-import axios from "axios";
+// import { eventBus } from "../../main";
+// import axios from "axios";
 
 export default {
     name: "RoomCard",
@@ -34,19 +34,19 @@ export default {
         return{}
     },
     methods:{
-        DeleteRoom(){
-            axios.delete("/api/rooms/" + this.room.room_name)
-                .then((response) => {
-                    eventBus.$emit("delete-room-success",{
-                        data: response.data,
-                    });
-                })
-                .catch((error) => {
-                    if (error.response && error.response.status != 200){
-                    alert(error.response.data.error)
-                    }
-                })
-        },
+        // DeleteRoom(){
+        //     axios.delete("/api/rooms/" + this.room.room_name)
+        //         .then((response) => {
+        //             eventBus.$emit("delete-room-success",{
+        //                 data: response.data,
+        //             });
+        //         })
+        //         .catch((error) => {
+        //             if (error.response && error.response.status != 200){
+        //             alert(error.response.data.error)
+        //             }
+        //         })
+        // },
     }
 }
 </script>

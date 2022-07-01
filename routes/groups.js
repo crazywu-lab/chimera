@@ -4,6 +4,8 @@ const multer = require("multer");
 // const aws = require("aws-sdk");
 const S3 = require("aws-sdk/clients/s3");
 const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
 
 const bucketName = process.env.BUCKET;
 const region = process.env.REGION;
@@ -119,13 +121,19 @@ router.get("/downloadLatest/:group_name?/:room_name?", async (req, res) => {
 router.post(
   "/create",
   [authorizeThat.signedIn],
-  // upload.array("files"),
-  upload.single("file"),
+  upload.array("files"),
+  // upload.single("file"),
   async (req, res) => {
     // router.post("/create", [authorizeThat.signedIn], async (req, res) => {
 
-    const result = await uploadPDF(req.file);
-    console.log(result);
+    // const result = await uploadPDF(req.file);
+    // await unlinkFile(file.path);
+    // console.log(result);
+
+    for (let i = 0; i < req.files.length; i++) {
+      await uploadPDF(req.files[i]);
+      await unlinkFile(req.files[i].path);
+    }
 
     let creator =
       req.session.username == undefined ? "anonymous" : req.session.username;
@@ -133,7 +141,7 @@ router.post(
       req.body.group_name,
       req.body.members_num,
       req.body.members,
-      req.file,
+      req.files,
       creator
     );
     if (group !== false) {
@@ -142,6 +150,19 @@ router.post(
         .json(group)
         .end();
     }
+  }
+);
+
+router.put(
+  "/rotate/:group_name?",
+  [authorizeThat.signedIn],
+  async (req, res) => {
+    const group = await Groups.rotation(req.params.group_name);
+    console.log(group);
+    res
+      .status(200)
+      .json(group)
+      .end();
   }
 );
 
