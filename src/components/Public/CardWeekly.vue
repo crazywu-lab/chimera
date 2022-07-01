@@ -18,44 +18,85 @@
     </div>
     <div v-if="weekNow === 1">
       <p>
-        For this week, upload an image below (a footage, drawing, collage, or anything you'd like) of your reading process?
-        It could be a photo in your balcony on a nice summer day, or on your couch with your dog taking a nap next to
-        you. It could be a selfie, or clouds passing by. You don’t need to spend too much effort on this,
-        or be creative!
+        ...
       </p>
+    </div>
+    <div v-if="weekNow === 2">
+      <p>
+        For this week, upload an image of your reading environment below.
+        It could be a photo of a park on a nice summer day, on your couch with your pet taking a nap next to
+        you.
+      </p>
+      <p class="caption-top">IMAGE TITLE</p>
+      <input
+          class="input-item"
+          id="weekly_media_title"
+          name="weekly_media_title"
+          placeholder=''
+          v-model="weekly_media_title" >
+
       <div class="flex-box">
         <div class="media-upload">
-          <svg width="330" height="330" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
-            <path d="M0,0 l330,333"></path>
-            <path d="m330,0 l-330,333"></path>
+          <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l300,300"></path>
+            <path d="m300,0 l-300,300"></path>
           </svg>
         </div>
       </div>
     </div>
-    <div v-if="weekNow === 2">
-      <p>
-
-      </p>
-    </div>
     <div v-if="weekNow === 3">
       <p>
-
+        For this week, upload an image inspired by the reading of this week, be it a collage, sketch, stock image,
+        or anything that came up in your mind while reading.
       </p>
+      <p class="caption-top">IMAGE TITLE</p>
+      <input
+          class="input-item"
+          id="weekly_media_title"
+          name="weekly_media_title"
+          placeholder=''
+          v-model="weekly_media_title" >
+
+      <div class="flex-box">
+        <div class="media-upload">
+          <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l300,300"></path>
+            <path d="m300,0 l-300,300"></path>
+          </svg>
+        </div>
+      </div>
     </div>
     <div v-if="weekNow === 4">
       <p>
-
+        For this week, share one favorite quote from this week's reading.
       </p>
+      <textarea rows="10" name="fav-quote"></textarea>
     </div>
     <div v-if="weekNow === 5">
       <p>
-
+        For this week, upload a screenshot of one annotation in your current reading, and your interaction with it.
+        Do you like the annotation your reading mates made? Or do you have different opinions, or add anything to it?
       </p>
+      <div class="flex-box">
+        <div class="media-upload">
+          <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l300,300"></path>
+            <path d="m300,0 l-300,300"></path>
+          </svg>
+        </div>
+      </div>
     </div>
     <div v-if="weekNow === 6">
       <p>
-
-      </p>
+        For this week, upload an audio recording of your reading environment,
+        or any audio footage you took this week. Feel free to mix it with other
+        sources of audio. You can use copyright-free materials online
+        such as <a href="http://freesound.org" target="_blank">Freesound</a>, but
+        make sure to include at least one source of sound that you recorded or made.
+      </p><br>
+      <audio controls>
+        <source>
+      </audio><br><br>
     </div>
     <div v-if="weekNow === 7">
       <p>
@@ -66,7 +107,7 @@
       <div class="link" style="border-right: var(--border)">
         SUBMIT
       </div>
-      <div class="link">
+      <div class="link" id="media-delete" v-on:click="handleClick">
         DELETE
       </div>
     </div>
@@ -82,15 +123,18 @@ export default {
   data() {
     return {
       showSelf: true,
+      weekly_media_title: "",
     }
   },
   mounted(){
     this.addDropZone();
   },
   methods: {
-    showCard(event){
-      console.log(event);
+    showCard(){
       this.$emit("showCard", false);
+    },
+    handleClick(){
+      document.querySelector("textarea").value = '';
     },
     addDropZone() {
       const dropzone = document.querySelector('.media-upload');
@@ -128,30 +172,37 @@ export default {
 </script>
 
 <style scoped>
-  #card-weekly{
-    width: 330px;
-  }
+#card-weekly{
+  width: 330px;
+  position: fixed;
+  z-index: 10;
+}
 
-  .media-upload{
-    width: 330px;
-    border-top: var(--border);
-    margin: 0 auto;
-    top: 0;
-    left: 0;
-    padding-bottom: -1px;
+.media-upload{
+  width: 300px;
+  border: var(--border);
+  margin: 15px auto;
+  top: 0;
+  left: 0;
+  padding-bottom: -1px;
 
-  }
-  .media-upload img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    margin: 0;
-    padding: 0;
-    position: fixed;
-  }
-  .flex-box {
-    padding: 0;
-    margin: 0;
-  }
+}
+.media-upload img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+}
+.flex-box {
+  padding: 0;
+  margin: 0;
+}
+textarea {
+  width: calc(100% - 30px);
+  margin: 15px auto;
+  display: block;
+}
 
 </style>
