@@ -56,6 +56,7 @@ export default {
           .put("/api/groups/rotate/" + this.$route.params.name)
           .then((response) => {
             console.log(response.data);
+            this.getGroup();
             console.log("switched!");
           })
           .catch((error) => {
