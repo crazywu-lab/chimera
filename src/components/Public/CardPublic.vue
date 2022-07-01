@@ -124,17 +124,17 @@ export default {
 
 <style scoped>
   #card-public{
-    width: 360px;
+    width: 380px;
+    z-index: 999;
   }
   #card-read-more{
-    width: 320px;
     border-left: var(--border);
   }
   header{
     border-bottom: var(--border-dashed);
   }
   .link{
-    width:50%;
+    width: 50%;
     border-top: var(--border);
     cursor: pointer;
   }

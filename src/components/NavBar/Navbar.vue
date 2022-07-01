@@ -1,15 +1,15 @@
 <template>
-  <div class="navbar">
+  <div class="navbar flex-box">
     <router-link class="logo-home" to="/">
       <img
-        @mouseover="hover = true"
-        v-show="!hover"
+        @mouseover="LogoHover = true"
+        v-show="!LogoHover"
         src="../../assets/chimera-logo.svg"
         style="filter: blur(1px)"
       />
       <img
-        @mouseleave="hover = false"
-        v-show="hover"
+        @mouseleave="LogoHover = false"
+        v-show="LogoHover"
         src="../../assets/chimera-logo2.svg"
         style="filter: blur(1px)"
       />
@@ -22,20 +22,31 @@
            <router-link v-else class="dropdown-item" to="/signin">Sign In</router-link>
          </div>
      </div> -->
-     <button v-if="!userName" class="btn-signout" v-on:click="triggerSignInForm">
-      Sign In
-    </button>
-    <button v-if="!userName" class="btn-signout" v-on:click="triggerSignUpForm">
-      Sign Up
-    </button>
-    <button v-if="userName" class="btn-signout" v-on:click="signOut">
-      Sign Out
-    </button>
-    <router-link class="" to="/admin/dashboard">
-      (For admin)
-    </router-link>
-    <SignInForm v-if="SignInForm" @eventname="closeSignInForm"/>
-    <SignUpForm v-if="SignUpForm" @eventname="closeSignUpForm"/>
+    <div class="nav-btn link" v-on:click="triggerDropDown">
+      &#9776;
+    </div>
+    <transition name="zoom-topright">
+      <div v-if="DropDown" id="nav-dropdown" class="">
+        <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignInForm">
+          Sign In
+        </button>
+        <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignUpForm">
+          Sign Up
+        </button>
+        <button v-if="userName" class="btn-signout link" v-on:click="signOut">
+          Sign Out
+        </button>
+        <router-link class="link" to="/admin/dashboard">
+          (For admin)
+        </router-link>
+      </div>
+    </transition>
+    <transition name="zoom">
+      <SignInForm v-if="SignInForm" @eventname="closeSignInForm"/>
+    </transition>
+    <transition name="zoom">
+      <SignUpForm v-if="SignUpForm" @eventname="closeSignUpForm"/>
+    </transition>
   </div>
 </template>
 
@@ -51,7 +62,8 @@ export default {
   data() {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
-      hover: false,
+      LogoHover: false,
+      DropDown: false,
       SignInForm: false,
       SignUpForm: false,
     };
@@ -87,9 +99,8 @@ export default {
           }
         });
     },
-    drawLine(event) {
-      this.hover = true;
-      console.log(event);
+    triggerDropDown() {
+      this.DropDown = !this.DropDown;
     },
     triggerSignInForm() {
       this.SignInForm = !this.SignInForm;
@@ -113,37 +124,51 @@ img {
   z-index: 10;
 }
 
+.card-simple{
+  left: calc(50vw - 20px);
+}
 .navbar {
   position: fixed;
+  width: calc(100vw - 40px);
   left: 20px;
-  right: 25px;
+  right: 20px;
   top: 20px;
   height: 10vh;
   padding: 0 0px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  vertical-align: middle;
+  /*align-items: center;*/
+  /*vertical-align: middle;*/
   z-index: 999;
 }
 
-.logo-home {
+button {
+  border-bottom: var(--border);
+}
+#nav-dropdown{
+  transform: none;
+  position: fixed;
+  width: 180px;
+  border: 1px solid #757575;
+  background-color: white;
+  box-shadow: var(--shadow);
+  top: 8vh;
+  right: 15px;
 }
 
 .nav-btn {
-  width: 80px;
-  height: 80px;
-  margin-top: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: black;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  line-height: 40px;
+  margin: 0;
+  opacity: 0.6;
+  user-select: none;
 }
 
-.nav-btn:hover {
-  box-shadow: 0 0 20px 5px yellowgreen;
-  transition: all 0.2s ease-out;
+.nav-btn:hover{
+  transition: 500ms ease-in-out;
+  opacity: 0.9;
 }
 
 .dropdown-content {
@@ -163,9 +188,28 @@ img {
   text-align: left;
 }
 
-.dropdown-item:hover {
-  background-color: rgb(131, 219, 253);
-  cursor: pointer;
-  transition: all 0.2s ease-out;
+.zoom-topright-enter-active,
+.zoom-topright-leave-active {
+  animation-duration: 150ms;
+  animation-fill-mode: both;
+  animation-name: zoom-topright;
 }
+
+.zoom-topright-leave-active {
+  animation-direction: reverse;
+}
+
+@keyframes zoom-topright {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+    transform-origin: top right;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    transform-origin: top right;
+  }
+}
+
 </style>

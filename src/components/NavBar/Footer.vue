@@ -42,7 +42,7 @@ export default {
   }
   p{
     color: grey;
-    font-size: 0.8rem;
+    font-size: var(--font-small);
   }
   a{
     color: #333333;
@@ -50,7 +50,7 @@ export default {
 
   @media (max-width: 500px) {
     p{
-      font-size: 0.6rem;
+      font-size: calc(0.75 * var(--font-small));
     }
   }
 </style>
