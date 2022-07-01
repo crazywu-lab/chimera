@@ -21,6 +21,10 @@ const GroupSchema = new Schema(
             type: Array,
             required: true,
         },
+        "currentWeek": {
+            type: Number,
+            required: true,
+        },
         "rooms": {
             type: Array,
             required: false,

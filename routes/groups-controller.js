@@ -28,7 +28,6 @@ async function addOne(group_name, members_num, members, files, creator) {
     const user = await User.findOne({ username: creator });
     const user_id = user._id;
     const rooms_arr = [];
-    console.log(members);
     for (let i = 0; i < members_num; i++) {
       let room = {
         room_name: i,
@@ -36,7 +35,7 @@ async function addOne(group_name, members_num, members, files, creator) {
         creator_id: user_id,
         members: [],
         currentReader: members[i],
-        readings: [files],
+        readings: [files[i]],
         readings_creators: [creator]
       }
       rooms_arr.push(room);
@@ -46,6 +45,7 @@ async function addOne(group_name, members_num, members, files, creator) {
       creator_id: user_id,
       members_num: members_num,
       members: members,
+      currentWeek: 0,
       rooms: rooms_arr,
     });
     await group.save();
@@ -75,10 +75,25 @@ async function deleteOne(name) {
   }
 }
 
+async function rotation(group_name) {
+  try {
+    const group = await Group.findOne({ group_name: group_name });
+    let currentWeek = group.currentWeek + 1;
+    const newGroup = await Group.updateOne(
+      {group_name: group_name},
+      { $set: {"currentWeek": currentWeek}}
+    );
+    return newGroup;
+  } catch (err) {
+    return false;
+  }
+}
+
 module.exports = Object.freeze({
   findOne,
   findLatestFile,
   addOne,
   findAll,
+  rotation,
   deleteOne,
 });
