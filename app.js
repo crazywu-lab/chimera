@@ -1,5 +1,5 @@
 const express = require('express');
-// const enforce = require('express-sslify');
+const enforce = require('express-sslify');
 
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -20,7 +20,7 @@ const uploadRouter = require('./routes/uploadPDF');
 
 // Create our app
 const app = express();
-// app.use(enforce.HTTPS({ trustProtoHeader: true}));
+app.use(enforce.HTTPS({ trustProtoHeader: true}));
 
 app.use(express.static(path.join(__dirname, isProduction ? 'dist' : 'public')));
 app.use(history());
