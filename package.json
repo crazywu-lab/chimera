@@ -27,6 +27,7 @@
     "downloadjs": "^1.4.7",
     "express": "~4.16.0",
     "express-session": "^1.17.2",
+    "express-sslify": "^1.2.0",
     "fs": "^0.0.1-security",
     "install": "^0.13.0",
     "mongoose": "^6.2.1",
