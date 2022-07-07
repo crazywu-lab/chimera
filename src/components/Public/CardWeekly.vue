@@ -8,18 +8,13 @@
       </button>
     </div>
     <p>
-      This week's reading has arrived! Download the pdf file below, and upload the annotated
-      version before {{}}.
+      Your reading for week {{weekNow}} has arrived! Download the reading below, and upload the annotated
+      PDF before <b>{{getDeadline.toLocaleString('default', { month: 'short' })}} {{getDeadline.getDate()}}</b>.
     </p>
     <div class="flex-box">
       <div class="link" style="border-top: var(--border); border-bottom: var(--border)">
         DOWNLOAD TEXT
       </div>
-    </div>
-    <div v-if="weekNow === 1">
-      <p>
-        ...
-      </p>
     </div>
     <div v-if="weekNow === 2">
       <p>
@@ -59,9 +54,9 @@
 
       <div class="flex-box">
         <div class="media-upload">
-          <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
-            <path d="M0,0 l300,300"></path>
-            <path d="m300,0 l-300,300"></path>
+          <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l320,320"></path>
+            <path d="m320,0 l-320,320"></path>
           </svg>
         </div>
       </div>
@@ -79,9 +74,9 @@
       </p>
       <div class="flex-box">
         <div class="media-upload">
-          <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
-            <path d="M0,0 l300,300"></path>
-            <path d="m300,0 l-300,300"></path>
+          <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l320,320"></path>
+            <path d="m320,0 l-320,320"></path>
           </svg>
         </div>
       </div>
@@ -103,7 +98,7 @@
 
       </p>
     </div>
-    <div class="flex-box" style="border-top: var(--border)">
+    <div v-if="weekNow !== 1" class="flex-box" style="border-top: var(--border)">
       <div class="link" style="border-right: var(--border)">
         SUBMIT
       </div>
@@ -118,16 +113,24 @@
 export default {
   name: "CardWeekly",
   props: {
-    weekNow: Number
+    weekNow: Number,
   },
   data() {
     return {
       showSelf: true,
       weekly_media_title: "",
+      startDate: new Date(2022, 6, 11),
     }
   },
   mounted(){
     this.addDropZone();
+  },
+  computed: {
+    getDeadline() {
+      let deadline = new Date();
+      deadline.setDate(this.startDate.getDate() + 7 * this.weekNow);
+      return deadline;
+    }
   },
   methods: {
     showCard(){
@@ -173,13 +176,12 @@ export default {
 
 <style scoped>
 #card-weekly{
-  width: 330px;
   position: fixed;
   z-index: 10;
 }
 
 .media-upload{
-  width: 300px;
+  width: 320px;
   border: var(--border);
   margin: 15px auto;
   top: 0;
@@ -188,8 +190,8 @@ export default {
 
 }
 .media-upload img {
-  width: 300px;
-  height: 300px;
+  width: 320px;
+  height: 320px;
   object-fit: cover;
   margin: 0;
   padding: 0;
@@ -199,6 +201,7 @@ export default {
   padding: 0;
   margin: 0;
 }
+
 textarea {
   width: calc(100% - 30px);
   margin: 15px auto;

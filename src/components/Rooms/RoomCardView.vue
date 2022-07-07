@@ -1,28 +1,43 @@
 <template>
-  <div class="full-bleed" id="room-cards-wrapper">
-    <div id="room-cards">
-      <div class = "room-card" v-for="room in rooms" :key="room.week"
-           :class="room.week === weekNow ? 'room-card-now' : weekNow > room.week ? 'room-card-old' : 'room-card-future'">
-          <div v-if = "room.week === weekNow" class = "link" v-on:click="showCard">WEEKLY<br>PROMPT</div>
-          <div v-if = "room.week === weekNow" class = "link" style="border-top: 1px solid #757575">UPLOAD <br>ANNOTATED<br> TEXT</div>
-        <div div v-if = "room.week < weekNow && room.thumbnail" class="overlay-container">
-          <div class="card-img-overlay">
-  <!--          have no idea why line 10 is not working...-->
-  <!--          <img :src="'../../assets/thumbnails/' + room.thumbnail">-->
+  <div class="full-bleed">
+    <div class="room-card"
+         v-for="room in rooms"
+         :key="room.week"
+         :style="'left:'+100*room.week/7+'%'"
+         :class="room.week === weekNow ? 'room-card-now' : weekNow > room.week ? 'room-card-old' : 'room-card-future'">
+      <div v-if="room.week === weekNow"
+           class="link"
+           v-on:click="showCard">
+        WEEKLY PROMPT
+      </div>
+      <div v-if="room.week === weekNow"
+           class="link"
+           style="border-top: var(--border)"
+      >
+        DOWNLOAD TEXT
+      </div>
+      <div v-if = "room.week === weekNow"
+           class = "link"
+           style="border-top: var(--border)">
+        UPLOAD <br>ANNOTATED<br> TEXT
+      </div>
+      <div div v-if = "room.week < weekNow && room.thumbnail" class="overlay-container">
+        <div class="card-img-overlay">
+    <!--          have no idea why line 10 is not working...-->
+    <!--          <img :src="'../../assets/thumbnails/' + room.thumbnail">-->
             <img v-if="room.week === 1" src="../../assets/thumbnails/leguin_1986.jpg">
             <img v-if="room.week === 2" src="../../assets/thumbnails/mills_2011.jpg">
             <img v-if="room.week === 3" src="../../assets/thumbnails/malazita_2019.webp">
             <img v-if="room.week === 4" src="../../assets/thumbnails/sebald_1995.jpeg">
-          </div>
-          <div class="card-overlay"/>
         </div>
+        <div class="card-overlay"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import * as d3 from "d3";
+  // import * as d3 from "d3";
 
   export default {
     name: "RoomCardView",
@@ -31,7 +46,7 @@
       this.importImages(require.context('../../assets/thumbnails/'));
     },
     mounted(){
-      this.connectCards();
+      // this.connectCards();
       window.addEventListener('resize', this.connectCards);
     },
     props: {
@@ -60,41 +75,41 @@
           this.thumbnailKeys.push(key);
         });
       },
-      connectCards() {
-        let cards = document.querySelectorAll(".room-card");
-        let svg = d3.select('svg');
-        for (let i = 1; i < cards.length; i++) {
-          let rect0 = cards.item(i-1).getBoundingClientRect();
-          let rect1 = cards.item(i).getBoundingClientRect();
-          let x1 = rect0.right, x2 = rect1.left;
-          let y1 = (rect0.top + rect0.bottom)/2, y2 = (rect1.top + rect1.bottom)/2;
-          svg.append('line')
-              .attr('x1', x1)
-              .attr('y1', y1)
-              .attr('x2', x2)
-              .attr('y2', y2)
-              .style("stroke", "rgba(75,75,75,1)")
-              .style('stroke-width', 2)
-              .style("stroke-dasharray", ("3, 3"));
-          // draw X for future cards
-          if (i >= this.weekNow) {
-            svg.append('line')
-                .attr('x1', rect1.left)
-                .attr('y1', rect1.top)
-                .attr('x2', rect1.right)
-                .attr('y2', rect1.bottom)
-                .style("stroke", "rgba(75,75,75,0.3)")
-                .style('stroke-width', 1);
-            svg.append('line')
-                .attr('x1', rect1.right)
-                .attr('y1', rect1.top)
-                .attr('x2', rect1.left)
-                .attr('y2', rect1.bottom)
-                .style("stroke", "rgba(75,75,75,0.3)")
-                .style('stroke-width', 1)
-          }
-        }
-      }
+      // connectCards() {
+      //   let cards = document.querySelectorAll(".room-card");
+      //   let svg = d3.select('svg');
+      //   for (let i = 1; i < cards.length; i++) {
+      //     let rect0 = cards.item(i-1).getBoundingClientRect();
+      //     let rect1 = cards.item(i).getBoundingClientRect();
+      //     let x1 = rect0.right, x2 = rect1.left;
+      //     let y1 = (rect0.top + rect0.bottom)/2, y2 = (rect1.top + rect1.bottom)/2;
+      //     svg.append('line')
+      //         .attr('x1', x1)
+      //         .attr('y1', y1)
+      //         .attr('x2', x2)
+      //         .attr('y2', y2)
+      //         .style("stroke", "rgba(75,75,75,1)")
+      //         .style('stroke-width', 2)
+      //         .style("stroke-dasharray", ("3, 3"));
+      //     // draw X for future cards
+      //     if (i >= this.weekNow) {
+      //       svg.append('line')
+      //           .attr('x1', rect1.left)
+      //           .attr('y1', rect1.top)
+      //           .attr('x2', rect1.right)
+      //           .attr('y2', rect1.bottom)
+      //           .style("stroke", "rgba(75,75,75,0.3)")
+      //           .style('stroke-width', 1);
+      //       svg.append('line')
+      //           .attr('x1', rect1.right)
+      //           .attr('y1', rect1.top)
+      //           .attr('x2', rect1.left)
+      //           .attr('y2', rect1.bottom)
+      //           .style("stroke", "rgba(75,75,75,0.3)")
+      //           .style('stroke-width', 1)
+      //     }
+      //   }
+      // }
     },
 
 
@@ -102,18 +117,15 @@
 </script>
 
 <style scoped>
-  #room-cards{
-    display: flex;
-    position: relative;
-    transform: translate(0, -50%);
-    left: 4vw;
-    top: 50vh;
-  }
-
   .room-card {
+    position: absolute;
+    top: 50vh;
     width: calc((100vw - 10vw) / 6 - 3vw);
     max-height: calc(((100vw - 10vw) / 6 - 3vw) * 11 / 8.5);
+    min-width: 150px;
+    min-height: 194px;
     aspect-ratio: 8.5 / 11;
+    transform: translate(-50%, -50%);
     border: 1px solid #757575;
     margin: 1.5vw;
     align-self: center;
@@ -132,12 +144,10 @@
 
   .room-card-now {
     background: white;
-    display: flex;
-    flex-direction: column;
     min-width: 170px;
     min-height: 220px;
-    box-shadow: var(--shadow), inset 0px 0px 0px 10px #333333;
-
+    box-shadow: var(--shadow), inset 0px 0px 0px 2px #333333;
+    z-index: 10;
   }
 
   .overlay-container {
@@ -177,6 +187,6 @@
 
   .link{
     width: 100%;
-    height: 50%;
+    height: 33.33%;
   }
 </style>

@@ -3,10 +3,11 @@
     <div>
       <p>credit<br>
         designed and developed by <a>Kii Kang</a><br>
-        back-end development by <a>Charles Wu</a>
+        back-end development by <a href="charles-wu.com" target="_blank">Charles Wu</a><br>
+        project development by <a href="http://kwanq.cargo.site/" target="_blank">Kwan Q Li</a> & <a>Weihan Jiang</a>
       </p>
     </div>
-    <div class="flex-box-horizontal">
+    <div id="logos-container" class="flex-box-horizontal">
       <div class="img-container">
       <a href = "http://transmedia.mit.edu/" target="_blank">
         <img class="logo" src = "../../assets/tsi-logo.png">
@@ -39,6 +40,7 @@ export default {
   }
   img{
     max-height: 100%;
+
   }
   p{
     color: grey;
@@ -47,7 +49,9 @@ export default {
   a{
     color: #333333;
   }
-
+  #logos-container {
+   width: 200px;
+  }
   @media (max-width: 500px) {
     p{
       font-size: calc(0.75 * var(--font-small));

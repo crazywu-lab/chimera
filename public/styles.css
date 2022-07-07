@@ -5,6 +5,7 @@ html {
     margin: 0;
     font-family: "Roboto Mono", monospace;
     font-weight: 400;
+    text-rendering: optimizeLegibility;
 }
 
 
