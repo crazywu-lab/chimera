@@ -7,13 +7,11 @@
         <p class="quote text-center">"How can we embody rhizomatic knowledge in hybrid realities?"</p>
         <p>
           Chimera is an experimental reading group that advocates reading as a social form. Our periodic iteration
-          consists of a circulation of participant-contributed reading materials and a collective annotation process.
-          The pilot scheme of Chimera was completed in summer 2021 thanks to the funding by the
+          consists of the circulation of participant-contributed reading materials and a collective annotation process.
+          The pilot scheme of Chimera has completed in the summer of 2021 thanks to funding from the
           <a href="http://transmedia.mit.edu/" target="_blank">Transmedia Storytelling Initiative</a>.
-          Launched in summer 2022, this web portal was developed with artists-designers from the
+          Launched in the summer of 2022, this web portal was developed with artists and designers from the
           Art, Culture, and Technology Program and the Department of Architecture at MIT.
-
-
         </p>
         <div class="flex-box-horizontal flex-box">
           <div style="width:45%"><p> > <a v-on:click="toggleReadMore">read more</a></p></div>
@@ -50,7 +48,7 @@
           Participants are asked to share multimedia items that represent their Chimera moments which will be uploaded to the web portal.
           Some of the past social prompts include: 1. Take a picture of how your Chimera reading activity takes place;
           2. Share a favorite quote from your assigned reading this week;
-          3. An audio submission that can respond to the specific weekly reading, etc.
+          3. An audio submission as a response to the specific weekly reading, etc.
         </p>
       </div>
       <div v-if="showPilot" class="card-simple" id="card-about-us">
@@ -167,12 +165,8 @@ export default {
     border-bottom: var(--border-dashed);
   }
   .link{
-    margin: 0;
-    padding: 0;
     border-top: var(--border);
-    cursor: pointer;
   }
-
   a {
     color: #4d4d4d;
   }
