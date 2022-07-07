@@ -5,7 +5,7 @@
             3.7px 3.7px 26.8px rgba(0, 0, 0, 0.12),
             7.7px 7.7px 37.9px rgba(0, 0, 0, 0.15),
             21px 21px 75px rgba(0, 0, 0, 0.22);
-    --font-biggest: 1.9rem;
+    --font-biggest: 2rem;
     --font-big: 1rem;
     --font-med: 0.9rem;
     --font-small: 0.6rem;
@@ -22,22 +22,24 @@ body {
 }
 
 #app {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     overflow-y: scroll;
     overflow-x:hidden;
     height: 100vh;
 }
 
 h1 {
-    font-size: var(--font-biggest);
     font-family: "IBM Plex Mono", monospace;
+    font-size: var(--font-biggest);
     letter-spacing: 0;
     font-weight: 500;
+    margin: 18px;
 }
 
 h2 {
+    font-family: "IBM Plex Mono", monospace;
     font-size: var(--font-med);
-    font-weight: 400;
+    font-weight: 500;
     margin: 15px;
 }
 
@@ -50,7 +52,12 @@ p {
     margin: 15px;
     letter-spacing: -0.045rem;
     text-align: justify;
-    hyphens: auto;
+}
+
+.text-center {
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
 }
 
 p.caption-top{
@@ -78,6 +85,7 @@ button, input{
     background: white;
     justify-content: center;
     display: flex;
+    display: -webkit-flex;
     position: relative;
     margin: 15px auto;
     padding: 3px;
@@ -138,22 +146,26 @@ button {
     width: 350px;
     text-align: center;
     top: 50vh;
+    z-index: 999;
 }
 
 
 .flex-box{
     justify-content: center;
     display: flex;
+    display: -webkit-flex;
     width:100%;
 }
 
 .flex-box-vertical {
     display: flex;
+    display: -webkit-flex;
     flex-direction: column;
 }
 
 .flex-box-horizontal {
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
 }
 

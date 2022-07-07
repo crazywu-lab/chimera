@@ -1,8 +1,8 @@
 <template>
   <div id="home-weekly" class="full-bleed">
-    <Background :y="2"/>
+    <Background :y="weekNow > 2? 2 : 1"/>
     <RoomCardView @showCard="showCardFunc($event)" :week-now="weekNow"/>
-    <MediaWeekly></MediaWeekly>
+    <MediaWeekly v-if="weekNow > 2"></MediaWeekly>
 <!--    <PictureFrames2/>-->
     <Footer />
     <transition name="zoom">
@@ -23,8 +23,6 @@ import RoomCardView from "../components/Rooms/RoomCardView.vue";
 import CardWeekly from "../components/Public/CardWeekly.vue";
 import Footer from "../components/NavBar/Footer.vue";
 import MediaWeekly from "../components/Public/MediaWeekly.vue";
-// import PictureFrames2 from "../components/Background/PictureFrames2";
-// import NavToArchive from "../components/NavBar/NavToArchive.vue";
 
 export default {
   name: "HomeWeekly",
