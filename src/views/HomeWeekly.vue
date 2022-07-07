@@ -2,16 +2,14 @@
   <div id="home-weekly" class="full-bleed">
     <Background :y="weekNow > 2? 2 : 1"/>
     <RoomCardView @showCard="showCardFunc($event)" :week-now="weekNow"/>
-    <MediaWeekly v-if="weekNow > 2"></MediaWeekly>
+    <MediaWeekly v-if="weekNow > 2" :week-now="weekNow"/>
 <!--    <PictureFrames2/>-->
     <Footer />
     <transition name="zoom">
-      <CardWeekly v-if="showCard" @showCard="showCardFunc($event)" :week-now="weekNow"/>
+      <CardWeekly v-if="showCard" @showCard="showCardFunc($event)" :week-now="weekNow" :start-date="startDate"/>
     </transition>
 <!--    <NavToArchive />-->
     <Navbar />
-
-
   </div>
 </template>
 
@@ -30,7 +28,8 @@ export default {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
       showCard: true,
-      weekNow: 3,
+      weekNow: 6,
+      startDate: new Date(2022, 6, 11),
     };
   },
   created() {

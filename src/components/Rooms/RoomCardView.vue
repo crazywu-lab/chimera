@@ -3,7 +3,7 @@
     <div class="room-card"
          v-for="room in rooms"
          :key="room.week"
-         :style="'left:'+100*room.week/7+'%'"
+         :style="'left:'+ 100 * (room.week/8 - 1/64) + '%'"
          :class="room.week === weekNow ? 'room-card-now' : weekNow > room.week ? 'room-card-old' : 'room-card-future'">
       <div v-if="room.week === weekNow"
            class="link"
@@ -14,17 +14,17 @@
            class="link"
            style="border-top: var(--border)"
       >
-        DOWNLOAD TEXT
+        DOWNLOAD READING
       </div>
       <div v-if = "room.week === weekNow"
            class = "link"
            style="border-top: var(--border)">
-        UPLOAD <br>ANNOTATED<br> TEXT
+        UPLOAD <br>ANNOTATED<br> READING
       </div>
       <div div v-if = "room.week < weekNow && room.thumbnail" class="overlay-container">
         <div class="card-img-overlay">
-    <!--          have no idea why line 10 is not working...-->
-    <!--          <img :src="'../../assets/thumbnails/' + room.thumbnail">-->
+<!--           this is a placeholder-->
+<!--          <img :src="'../../assets/thumbnails/' + room.thumbnail">-->
             <img v-if="room.week === 1" src="../../assets/thumbnails/leguin_1986.jpg">
             <img v-if="room.week === 2" src="../../assets/thumbnails/mills_2011.jpg">
             <img v-if="room.week === 3" src="../../assets/thumbnails/malazita_2019.webp">
@@ -47,14 +47,14 @@
     },
     mounted(){
       // this.connectCards();
-      window.addEventListener('resize', this.connectCards);
+      // window.addEventListener('resize', this.connectCards);
     },
     props: {
       weekNow: Number
     },
     data() {
       return {
-        //// also need to be replaced with server communication
+        //// this is a placeholder
         thumbnailKeys: "",
         rooms: [
           {week: 1, title: "Carrier Bag Theory of Fiction", author: "Ursula Le Guin", year: 1986, thumbnail: 'leguin_1986.jpg'},
@@ -63,6 +63,7 @@
           {week: 4, title: "Rings of Saturn", author: "W.G. Sebald", year: 1995, thumbnail: 'sebald_1995.jpeg'},
           {week: 5, title: ""},
           {week: 6, title: ""},
+          {week: 7, title: ""},
         ]
       }
     },
@@ -120,8 +121,8 @@
   .room-card {
     position: absolute;
     top: 50vh;
-    width: calc((100vw - 10vw) / 6 - 3vw);
-    max-height: calc(((100vw - 10vw) / 6 - 3vw) * 11 / 8.5);
+    width: calc((100vw - 10vw) / 7 - 3vw);
+    max-height: calc(((100vw - 10vw) / 7 - 3vw) * 11 / 8.5);
     min-width: 150px;
     min-height: 194px;
     aspect-ratio: 8.5 / 11;
