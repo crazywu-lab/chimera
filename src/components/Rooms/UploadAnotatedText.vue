@@ -7,7 +7,7 @@
       <div class="message-body">{{ message }}</div>
     </div>
     <div class="field">
-      <label for="file" class="label">Upload Annotated Text</label>
+      <label for="file" class="label">UPLOAD ANNOTATED TEXT</label>
 
       <input type="file" ref="file" @change="selectFile" required />
     </div>
@@ -71,7 +71,7 @@ export default {
             console.log(response.data);
             eventBus.$emit("upload-pdf-success", {
               data: response.data,
-              
+
             });
           });
         this.message = "File has been uploaded";

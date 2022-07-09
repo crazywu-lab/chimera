@@ -6,6 +6,8 @@ html {
     font-family: "Roboto Mono", monospace;
     font-weight: 400;
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 

@@ -22,7 +22,7 @@ body {
 }
 
 #app {
-    scroll-snap-type: y proximity;
+    /*scroll-snap-type: y proximity;*/
     overflow-y: scroll;
     overflow-x:hidden;
     height: 100vh;
@@ -108,9 +108,9 @@ a {
 }
 
 a:hover {
-    text-decoration: underline;
-    text-decoration-color: yellowgreen;
+    text-decoration: underline yellowgreen;
 }
+
 a:visited {
     color: inherit;
 }
@@ -135,6 +135,17 @@ button {
     cursor: pointer;
     text-align:center;
 }
+
+.link:hover {
+    text-decoration: underline;
+}
+.link > a:visited {
+    color: black;
+}
+.link > a:hover {
+    text-decoration: none;
+}
+
 
 .card-simple{
     position: absolute;
