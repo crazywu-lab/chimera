@@ -1,6 +1,7 @@
 <template>
   <div id="home-weekly" class="full-bleed">
     <Background :y="weekNow > 2? 2 : 1"/>
+    <h1>Reading Group - {{group.group_name}}</h1>
     <h1 class="current-week">
       Week {{ group.currentWeek }}/{{ group.members_num - 1 }}
     </h1>

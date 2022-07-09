@@ -31,6 +31,9 @@
         SIGN IN
       </div>
       <div class="link">
+        <router-link class="router-link" to="/0">START READING</router-link>
+      </div>
+      <div class="link">
         <a href="mailto:hi@chimera.place">
           QUESTION & FEEDBACK
         </a>

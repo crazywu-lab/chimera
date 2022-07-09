@@ -223,19 +223,19 @@ export default {
 </script>
 
 <style scoped>
-  .room-card {
-    position: absolute;
-    top: 50vh;
-    width: calc((100vw - 10vw) / 7 - 3vw);
-    max-height: calc(((100vw - 10vw) / 7 - 3vw) * 11 / 8.5);
-    min-width: 150px;
-    min-height: 194px;
-    aspect-ratio: 8.5 / 11;
-    transform: translate(-50%, -50%);
-    border: 1px solid #757575;
-    margin: 1.5vw;
-    align-self: center;
-  }
+.room-card {
+  position: absolute;
+  top: 50vh;
+  width: calc((100vw - 10vw) / 7 - 3vw);
+  max-height: calc(((100vw - 10vw) / 7 - 3vw) * 11 / 8.5);
+  min-width: 150px;
+  min-height: 194px;
+  aspect-ratio: 8.5 / 11;
+  transform: translate(-50%, -50%);
+  border: 1px solid #757575;
+  margin: 1.5vw;
+  align-self: center;
+}
 
 .room-card-old {
   background: #333333;
@@ -256,15 +256,32 @@ export default {
   box-shadow: var(--shadow), inset 0px 0px 0px 10px #333333;
 }
 
-  .room-card-now {
-    background: white;
-    min-width: 170px;
-    min-height: 220px;
-    box-shadow: var(--shadow), inset 0px 0px 0px 2px #333333;
-    z-index: 10;
-  }
+.room-card-now {
+  background: white;
+  min-width: 170px;
+  min-height: 220px;
+  box-shadow: var(--shadow), inset 0px 0px 0px 2px #333333;
+  z-index: 10;
+}
 
-  /*border: 5px solid black;*/
+/*border: 5px solid black;*/
+
+.card-overlay {
+  opacity: 0.85;
+  background: #333333;
+}
+
+.card-overlay:hover {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card-img-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .card-overlay {
@@ -285,26 +302,8 @@ export default {
   padding: 0;
 }
 
-  .card-overlay {
-    opacity: 0.85;
-    background: #333333;
-  }
-
-  .card-overlay:hover {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  .card-img-overlay img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  .link{
-    width: 100%;
-    height: 33.33%;
-  }
+.link {
+  width: 100%;
+  height: 33.33%;
+}
 </style>

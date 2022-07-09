@@ -96,7 +96,7 @@ export default {
   },
   created() {
     eventBus.$on(
-      ["delete-member-success", "upload-pdf-success", "delete-pdf-success"],
+      ["delete-member-success", "delete-pdf-success"],
       () => {
         this.getRoom();
       }
