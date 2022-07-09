@@ -12,8 +12,8 @@
       PDF before <b>{{getDeadline.toLocaleString('default', { month: 'long' })}} {{getDeadline.getDate()}}</b>.
     </p>
     <div class="flex-box">
-      <div class="link" style="border-top: var(--border); border-bottom: var(--border)">
-        DOWNLOAD TEXT
+      <div class="link" style="border-top: var(--border); border-bottom: var(--border)" @click="downloadLatestPDF">
+        DOWNLOAD READING
       </div>
     </div>
     <div v-if="weekNow === 1">
@@ -143,10 +143,14 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "CardWeekly",
   props: {
     weekNow: Number,
+    group_name: String,
+    room_name: String,
+    room: Object,
     startDate: Date,
   },
   data() {
@@ -174,18 +178,20 @@ export default {
       this.$refs["input"].reset();
     },
     // addDropZone() {
-    //   const dropzone = document.querySelector('.image-upload');
+    //   const dropzone = document.querySelector('.media-upload');
+
     //   dropzone.addEventListener('dragenter', event => {
     //     event.preventDefault();
     //   });
+
     //   dropzone.addEventListener('dragleave', event => {
     //     event.preventDefault();
     //   });
-    //
+
     //   dropzone.addEventListener('dragover', event => {
     //     event.preventDefault();
     //   });
-    //
+
     //   dropzone.addEventListener('drop', event => {
     //     event.preventDefault();
     //     const file = event.dataTransfer.files[0];
@@ -198,10 +204,31 @@ export default {
     //       let svg = dropzone.querySelector("svg");
     //       dropzone.appendChild(img);
     //       svg.remove();
-    //
+
     //     })
     //   });
-    // }
+    // },
+    downloadLatestPDF() {
+      axios
+        .get(
+          `/api/groups/downloadLatest/${this.group_name}/${this.room_name}`,
+          {
+            responseType: "blob",
+          }
+        )
+        .then((response) => {
+          var file = window.URL.createObjectURL(new Blob([response.data]));
+          var docUrl = document.createElement('a');
+          docUrl.href = file;
+          docUrl.download = this.room.readings[this.room.readings.length-1].originalname;
+          docUrl.click();
+        })
+        .catch((error) => {
+          if (error.response && error.response.status != 200) {
+            alert(error.response.data.error);
+          }
+        });
+    },
   }
 }
 </script>
