@@ -85,7 +85,7 @@ export default ({
           eventBus.$emit("signup-success", {
             data: response.data,
           });
-          this.$router.push("/admin/signin");
+          // this.$router.push("/");
         })
         // .catch((error) => {
         //   if (error.response && error.response.status != 200){

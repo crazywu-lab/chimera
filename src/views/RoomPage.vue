@@ -179,7 +179,7 @@ export default {
           var file = window.URL.createObjectURL(new Blob([response.data]));
           var docUrl = document.createElement('a');
           docUrl.href = file;
-          docUrl.download = 'my.pdf';
+          docUrl.download = this.room.readings[this.room.readings.length-1].originalname;
           docUrl.click();
         })
         .catch((error) => {
