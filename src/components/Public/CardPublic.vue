@@ -30,8 +30,8 @@
       <div v-if="!userName" class="link" v-on:click="showSignIn($event)">
         SIGN IN
       </div>
-      <div class="link">
-        <router-link class="router-link" to="/0">START READING</router-link>
+      <div v-if="userName" class="link">
+        <router-link class="link" to="/0">START READING</router-link>
       </div>
       <div class="link">
         <a href="mailto:hi@chimera.place">
@@ -39,32 +39,6 @@
         </a>
       </div>
     </div>
-    <div v-if="!signedIn" class="flex-box">
-      <div
-        class="link"
-        v-on:click="showSignUp($event)"
-        style="border-right: var(--border);"
-      >
-        SIGN UP
-      </div>
-      <div class="link" v-on:click="showSignIn($event)">
-        SIGN IN
-      </div>
-    </div>
-    <div v-if="signedIn" class="flex-box">
-      <!-- <div class="link" v-on:click="showUploadCard($event)" style="width: 100%">
-            START READING
-          </div> -->
-      <router-link class="link" to="/0" style="width: 100%">
-        START READING
-      </router-link>
-    </div>
-    <div class="flex-box">
-      <a href="mailto:que@mit.edu" class="link" style="width: 100%">
-        QUESTION & FEEDBACK
-      </a>
-    </div>
-
     <transition name="zoom">
       <div v-if="readMore" class="card-simple" id="card-read-more">
         <div class="flex-box close-button-container">
@@ -225,13 +199,19 @@ export default {
 </script>
 
 <style scoped>
-  #card-public{
+  #card-public {
+    width: 400px;
+  }
+  #card-read-more {
     width: 380px;
   }
-  header{
+  #card-read-more > p {
+    font-size: 0.85rem;
+  }
+  header {
     border-bottom: var(--border-dashed);
   }
-  .link{
+  .link {
     border-top: var(--border);
   }
   a {
@@ -241,8 +221,6 @@ export default {
     font-size: var(--font-med);
     font-style: italic;
   }
-  #card-read-more{
-    width: 400px;
-  }
+
 
 </style>

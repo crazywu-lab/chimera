@@ -7,15 +7,18 @@
       (For admin)
     </router-link> -->
     <Footer />
-
+<!--    <card-public-->
+<!--      @showSignIn="showSignInFunc($event)"-->
+<!--      @showSignUp="showSignUpFunc($event)"-->
+<!--      @showUploadCard="showUploadCardFunc($event)"-->
+<!--    />-->
     <card-public
-      @showSignUp="showSignUpFunc($event)"
-      @showSignIn="showSignInFunc($event)"
-      @showUploadCard="showUploadCardFunc($event)"
+        @showSignIn="showSignInFunc($event)"
+        @showUploadCard="showUploadCardFunc($event)"
     />
-    <transition name="zoom">
-      <sign-up-form v-if="showSignUp" @showSignUp="showSignUpFunc($event)" />
-    </transition>
+<!--    <transition name="zoom">-->
+<!--      <sign-up-form v-if="showSignUp" @showSignUp="showSignUpFunc($event)" />-->
+<!--    </transition>-->
     <transition name="zoom">
       <sign-in-form v-if="showSignIn" @showSignIn="showSignInFunc($event)" />
     </transition>
@@ -27,9 +30,6 @@
     </transition>
 <!--    <nav-to-archive />-->
     <Navbar />
-    <br>
-    <br>
-
   </div>
 </template>
 
@@ -39,7 +39,7 @@ import Navbar from "../components/NavBar/Navbar.vue";
 import Footer from "../components/NavBar/Footer.vue";
 import CardPublic from "../components/Public/CardPublic.vue";
 import PictureFrames from "../components/Background/PictureFrames.vue";
-import SignUpForm from "../components/Users/SignUpForm.vue";
+// import SignUpForm from "../components/Users/SignUpForm.vue";
 import SignInForm from "../components/Users/SignInForm.vue";
 import UploadCard from "../components/Room/UploadCard.vue";
 // import NavToArchive from "../components/NavBar/NavToArchive.vue";
@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
-      showSignUp: false,
+      // showSignUp: false,
       showSignIn: false,
       showUploadCard: false,
     };
@@ -58,7 +58,7 @@ export default {
   created() {
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
-        this.showSignUp = false;
+        // this.showSignUp = false;
         this.showSignIn = false;
         this.showUploadCard = false;
       }
@@ -71,15 +71,15 @@ export default {
     CardPublic,
     Navbar,
     Footer,
-    SignUpForm,
+    // SignUpForm,
     SignInForm,
     Background,
     UploadCard,
   },
   methods: {
-    showSignUpFunc(showSignUp) {
-      this.showSignUp = showSignUp;
-    },
+    // showSignUpFunc(showSignUp) {
+    //   this.showSignUp = showSignUp;
+    // },
     showSignInFunc(showSignIn) {
       this.showSignIn = showSignIn;
     },

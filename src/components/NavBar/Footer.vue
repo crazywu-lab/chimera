@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div>
-      <p>credit<br>
+      <p>Chimera Team<br>
         designed and developed by <a>Kii Kang</a><br>
         back-end development by <a href="charles-wu.com" target="_blank">Charles Wu</a><br>
         project development by <a href="http://kwanq.cargo.site/" target="_blank">Kwan Q Li</a> & <a>Weihan Jiang</a>

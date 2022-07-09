@@ -22,19 +22,25 @@
            <router-link v-else class="dropdown-item" to="/signin">Sign In</router-link>
          </div>
      </div> -->
-    <div class="nav-btn link" v-on:click="triggerDropDown">
+    <div class="nav-btn" v-on:click="triggerDropDown">
       &#9776;
     </div>
     <transition name="zoom-topright">
       <div v-if="DropDown" id="nav-dropdown" class="">
+        <router-link class="link" to="/" style="border-bottom: var(--border)">
+          HOME
+        </router-link>
         <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignInForm">
-          Sign In
+          SIGN IN
         </button>
+        <router-link v-if="!userName" class="link" to="/0" style="border-bottom: var(--border)">
+          READINGS
+        </router-link>
         <!-- <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignUpForm">
           Sign Up
         </button> -->
         <button v-if="userName" class="btn-signout link" v-on:click="signOut">
-          Sign Out
+          SIGN OUT
         </button>
         <router-link class="link" to="/admin/dashboard">
           (For admin)
@@ -165,6 +171,7 @@ button {
   margin: 0;
   opacity: 0.6;
   user-select: none;
+  cursor: pointer;
 }
 
 .nav-btn:hover{

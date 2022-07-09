@@ -51,11 +51,11 @@
         </div>
       </div>
     </div>
-    <div v-if="weekNow === 3">
-      <p>
-        For this week, upload an image inspired by the reading of this week, be it a collage, sketch, stock image,
-        or anything that came up in your mind while reading.
-      </p>
+<!--    <div v-if="weekNow === 3">-->
+<!--      <p>-->
+<!--        For this week, upload an image inspired by the reading of this week, be it a collage, sketch, stock image,-->
+<!--        or anything that came up in your mind while reading.-->
+<!--      </p>-->
 <!--      <p class="caption-top">IMAGE TITLE</p>-->
 <!--      <input-->
 <!--          :id="'weekly_media_title'+weekNow"-->
@@ -65,17 +65,16 @@
 <!--          placeholder=''-->
 <!--          v-model="weekly_media_title" >-->
 
-      <div class="flex-box">
-        <div class="media-upload image-upload">
-<!--        <div class="media-upload image-upload" v-on:drop.prevent="handleDrop($event)">-->
-          <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
-            <path d="M0,0 l320,320"></path>
-            <path d="m320,0 l-320,320"></path>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div v-if="weekNow === 4">
+<!--      <div class="flex-box">-->
+<!--        <div class="media-upload image-upload">-->
+<!--          <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">-->
+<!--            <path d="M0,0 l320,320"></path>-->
+<!--            <path d="m320,0 l-320,320"></path>-->
+<!--          </svg>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div v-if="weekNow === 3">
       <p>
         For this week, share one favorite quote from this week's reading.
       </p>
@@ -85,7 +84,7 @@
           placeholder=''
           v-model="weekly_media_text"/>
     </div>
-    <div v-if="weekNow === 5">
+    <div v-if="weekNow === 4">
       <p>
         For this week, upload a screenshot of one annotation in your current reading, and your interaction with it.
         Do you like the annotation your reading mates made? Or do you have different opinions, or add anything to it?
@@ -100,7 +99,7 @@
         </div>
       </div>
     </div>
-    <div v-if="weekNow === 6">
+    <div v-if="weekNow === 5">
       <p>
         For this week, upload an audio recording of your reading environment,
         or any audio footage you took this week. Feel free to mix it with other
@@ -124,9 +123,9 @@
       </div>
 
     </div>
-    <div v-if="weekNow === 7">
+    <div v-if="weekNow === 6">
       <p>
-        Congratulations for making it to the final week!
+        Congratulations on making it to the final week!
         For this week, add tags that best describe the reading that you contributed.
         This will be used as the interactive bibliography.
       </p>
