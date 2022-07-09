@@ -1,6 +1,6 @@
 <template>
   <div id="home-weekly" class="full-bleed">
-    <Background :y="2" />
+    <Background :y="weekNow > 2? 2 : 1"/>
     <h1 class="current-week">
       Week {{ group.currentWeek }}/{{ group.members_num - 1 }}
     </h1>
@@ -16,7 +16,7 @@
       :group_name="group.group_name"
       :room_name="room.room_name"
     />
-    <MediaWeekly></MediaWeekly>
+    <MediaWeekly v-if="weekNow > 2" :week-now="weekNow" />
     <!--    <PictureFrames2/>-->
     <Footer />
 
@@ -28,6 +28,7 @@
         :group_name="group.group_name"
         :room_name="room.room_name"
         :room="room"
+        :start-date="startDate"
       />
     </transition>
     <!--    <NavToArchive />-->
@@ -45,8 +46,6 @@ import RoomCardView from "../components/Rooms/RoomCardView.vue";
 import CardWeekly from "../components/Public/CardWeekly.vue";
 import Footer from "../components/NavBar/Footer.vue";
 import MediaWeekly from "../components/Public/MediaWeekly.vue";
-// import PictureFrames2 from "../components/Background/PictureFrames2";
-// import NavToArchive from "../components/NavBar/NavToArchive.vue";
 
 export default {
   name: "HomeWeekly",
@@ -54,7 +53,8 @@ export default {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
       showCard: false,
-      weekNow: 1,
+      weekNow: 6,
+      startDate: new Date(2022, 6, 11),
       group: {},
       room: {},
     };

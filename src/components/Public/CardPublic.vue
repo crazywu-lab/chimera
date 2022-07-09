@@ -2,58 +2,66 @@
   <div id="card-public-wrapper">
     <div class="card-simple" id="card-public">
       <header>
-        <h1>WELCOME TO CHIMERA</h1>
+        <h1>CHIMERA.PLACE</h1>
       </header>
+      <p class="quote text-center">
+        "How can we embody rhizomatic knowledge in hybrid realities?"
+      </p>
       <p>
-        <i
-          ><center>
-            "How can we embody rhizomatic knowledge in hybrid realities?"
-          </center></i
-        ><br />
         Chimera is an experimental reading group that advocates reading as a
-        social form. Our periodic iteration consists of a circulation of
+        social form. Our periodic iteration consists of the circulation of
         participant-contributed reading materials and a collective annotation
-        process. Funded by the
+        process. The pilot scheme of Chimera has completed in the summer of 2021
+        thanks to funding from the
         <a href="http://transmedia.mit.edu/" target="_blank"
           >Transmedia Storytelling Initiative</a
-        >, the pilot scheme of Chimera was completed in summer 2021 with
-        participants from Art, Architecture, Media Lab and Comparative Media
-        Studies program at MIT.
+        >. Launched in the summer of 2022, this web portal was developed with
+        artists and designers from the Art, Culture, and Technology Program and
+        the Department of Architecture at MIT.
       </p>
       <div class="flex-box-horizontal flex-box">
-        <div style="width:50%">
+        <div style="width:45%">
           <p>> <a v-on:click="toggleReadMore">read more</a></p>
         </div>
-        <div style="width:50%">
-          <p>> <a v-on:click="toggleAboutUs">about us</a></p>
+        <div style="width:55%">
+          <p>> <a v-on:click="togglePilot">pilot: summer 2021</a></p>
         </div>
       </div>
-      <div v-if="!signedIn" class="flex-box">
-        <div
-          class="link"
-          v-on:click="showSignUp($event)"
-          style="border-right: var(--border);"
-        >
-          SIGN UP
-        </div>
-        <div class="link" v-on:click="showSignIn($event)">
-          SIGN IN
-        </div>
+      <div v-if="!userName" class="link" v-on:click="showSignIn($event)">
+        SIGN IN
       </div>
-      <div v-if="signedIn" class="flex-box">
-        <!-- <div class="link" v-on:click="showUploadCard($event)" style="width: 100%">
-            START READING
-          </div> -->
-        <router-link class="link" to="/0" style="width: 100%">
-          START READING
-        </router-link>
-      </div>
-      <div class="flex-box">
-        <a href="mailto:que@mit.edu" class="link" style="width: 100%">
+      <div class="link">
+        <a href="mailto:hi@chimera.place">
           QUESTION & FEEDBACK
         </a>
       </div>
     </div>
+    <div v-if="!signedIn" class="flex-box">
+      <div
+        class="link"
+        v-on:click="showSignUp($event)"
+        style="border-right: var(--border);"
+      >
+        SIGN UP
+      </div>
+      <div class="link" v-on:click="showSignIn($event)">
+        SIGN IN
+      </div>
+    </div>
+    <div v-if="signedIn" class="flex-box">
+      <!-- <div class="link" v-on:click="showUploadCard($event)" style="width: 100%">
+            START READING
+          </div> -->
+      <router-link class="link" to="/0" style="width: 100%">
+        START READING
+      </router-link>
+    </div>
+    <div class="flex-box">
+      <a href="mailto:que@mit.edu" class="link" style="width: 100%">
+        QUESTION & FEEDBACK
+      </a>
+    </div>
+
     <transition name="zoom">
       <div v-if="readMore" class="card-simple" id="card-read-more">
         <div class="flex-box close-button-container">
@@ -92,13 +100,13 @@
           Chimera moments which will be uploaded to the web portal. Some of the
           past social prompts include: 1. Take a picture of how your Chimera
           reading activity takes place; 2. Share a favorite quote from your
-          assigned reading this week; 3. An audio submission that can respond to
+          assigned reading this week; 3. An audio submission as a response to
           the specific weekly reading, etc.
         </p>
       </div>
-      <div v-if="aboutUs" class="card-simple" id="card-about-us">
+      <div v-if="showPilot" class="card-simple" id="card-about-us">
         <div class="flex-box close-button-container">
-          <button class="close-button" v-on:click="toggleAboutUs">
+          <button class="close-button" v-on:click="togglePilot">
             <svg
               style=" stroke-width: 1px; stroke: black"
               xmlns="http://www.w3.org/2000/svg"
@@ -109,10 +117,45 @@
             </svg>
           </button>
         </div>
-        <p>
-          Kwan Queenie Li is ...<br />
-          Weihan Jiang is ...<br />
-          Wonki(Kii) Kang is ...<br />
+        <div style="border-bottom: var(--border)">
+          <p class="quote text-center" style="font-size: 0.8rem">
+            “The aggregative nature of Chimera made participating as a reader
+            especially exciting! Texts that have been published for years were
+            suddenly made mutable through close reading and annotation. Seeing
+            the notes accumulate over time and the meaning of the texts change
+            each week because of that was truly stimulating. Being in anonymous
+            intellectual conversation and debate in the margins was liberating
+            in ways I rarely get to experience with academic reading.”
+          </p>
+          <p style="text-align: center">
+            - Participant’s Testimony -
+          </p>
+        </div>
+        <div style="border-bottom: var(--border)">
+          <h2>
+            SUMMER 2021 PILOT ROUND PARTICIPANTS
+          </h2>
+          <p class="text-center">
+            Kat Huang<br />
+            Weihan Jiang<br />
+            <a href="https://www.shannonljohnson.com/" target="_blank"
+              >Shannon L. Johnson</a
+            ><br />
+            Kii Kang<br />
+            <a href="https://kwanq.cargo.site/" target="_blank">Kwan Q Li</a
+            ><br />
+            <a href="https://www.tzutung.com/" target="_blank">Lee Tzu Tung</a
+            ><br />
+            Meriam Soltan
+          </p>
+        </div>
+        <h2>DOCUMENTATION</h2>
+        <p class="text-center">
+          <a href="https://vimeo.com/592175448/5a0182a663" target="_blank"
+            >Video Journal</a
+          ><br />
+          (credit: Weihan Jiang)<br /><br />
+          Interactive Bibliography<br />(coming in Fall 2022)<br />
         </p>
       </div>
     </transition>
@@ -120,20 +163,23 @@
 </template>
 
 <script>
+import axios from "axios";
+import {eventBus} from "../../main";
+
 export default {
   name: "CardPublic",
   data() {
     return {
+      userName: this.$cookie.get("chimera-place-auth"),
       readMore: false,
-      aboutUs: false,
-      signedIn: true,
-    };
+      showPilot: false,
+    }
   },
   created() {
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         this.readMore = false;
-        this.aboutUs = false;
+        this.showPilot = false;
       }
     });
   },
@@ -141,8 +187,8 @@ export default {
     toggleReadMore() {
       this.readMore = !this.readMore;
     },
-    toggleAboutUs() {
-      this.aboutUs = !this.aboutUs;
+    togglePilot(){
+      this.showPilot=!this.showPilot
     },
     showSignUp(event) {
       console.log(event);
@@ -156,24 +202,44 @@ export default {
       console.log(event);
       this.$emit("showUploadCard", true);
     },
-  },
-};
+    signOut() {
+      axios
+          .post("/api/users/session/signout", {})
+          .then(() => {
+            console.log("signed out!");
+            eventBus.$emit("signout-success", true);
+          })
+          .catch((error) => {
+            eventBus.$emit("signout-success", true);
+            if (error.response && error.response.status != 200) {
+              this.error = error.response.data.error;
+            }
+          });
+    },
+
+  }
+}
 </script>
 
 <style scoped>
-#card-public {
-  width: 380px;
-  z-index: 999;
-}
-#card-read-more {
-  border-left: var(--border);
-}
-header {
-  border-bottom: var(--border-dashed);
-}
-.link {
-  width: 50%;
-  border-top: var(--border);
-  cursor: pointer;
-}
+  #card-public{
+    width: 380px;
+  }
+  header{
+    border-bottom: var(--border-dashed);
+  }
+  .link{
+    border-top: var(--border);
+  }
+  a {
+    color: #4d4d4d;
+  }
+  .quote {
+    font-size: var(--font-med);
+    font-style: italic;
+  }
+  #card-read-more{
+    width: 400px;
+  }
+
 </style>

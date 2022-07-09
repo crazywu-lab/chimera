@@ -1,15 +1,15 @@
 <template>
   <div class="card-simple" id="card-weekly">
     <div class="flex-box close-button-container">
-      <button type="close" class="close-button" v-on:click="showCard">
+      <button type="close" class="close-button" v-on:click="hideCard">
         <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <line x2="20" y2="20"/><line x1="20" y2="20"/>
         </svg>
       </button>
     </div>
     <p>
-      This week's reading has arrived! Download the pdf file below, and upload the annotated
-      version before {{}}.
+      Your reading for week {{weekNow}} has arrived! Download the reading below, and upload the annotated
+      PDF before <b>{{getDeadline.toLocaleString('default', { month: 'long' })}} {{getDeadline.getDate()}}</b>.
     </p>
     <div class="flex-box">
       <div class="link" style="border-top: var(--border); border-bottom: var(--border)" @click="downloadLatestPDF">
@@ -18,7 +18,12 @@
     </div>
     <div v-if="weekNow === 1">
       <p>
-        ...
+        In the following weeks, there will be social prompts to foster a sense of community within the reading groups.
+        You will be asked to share multimedia items that represent their Chimera moments that can be uploaded to the web portal.
+        Some of the prompts include:
+        <br> > Photography of where your reading activity is taking place
+        <br> > Favorite quote from the reading
+        <br> > Audio recording or composition as a response to the specific weekly reading
       </p>
     </div>
     <div v-if="weekNow === 2">
@@ -27,19 +32,21 @@
         It could be a photo of a park on a nice summer day, on your couch with your pet taking a nap next to
         you.
       </p>
-      <p class="caption-top">IMAGE TITLE</p>
-      <input
-          class="input-item"
-          id="weekly_media_title"
-          name="weekly_media_title"
-          placeholder=''
-          v-model="weekly_media_title" >
+<!--      <p class="caption-top">IMAGE TITLE</p>-->
+<!--      <input-->
+<!--          :id="'weekly_media_title'+weekNow"-->
+<!--          ref="input"-->
+<!--          class="input-item"-->
+<!--          name="weekly_media_title"-->
+<!--          placeholder=''-->
+<!--          v-model="weekly_media_title" >-->
 
       <div class="flex-box">
-        <div class="media-upload">
-          <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
-            <path d="M0,0 l300,300"></path>
-            <path d="m300,0 l-300,300"></path>
+        <div class="media-upload image-upload">
+<!--        <div class="media-upload image-upload" v-on:drop.prevent="handleDrop($event)">-->
+          <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l320,320"></path>
+            <path d="m320,0 l-320,320"></path>
           </svg>
         </div>
       </div>
@@ -49,19 +56,21 @@
         For this week, upload an image inspired by the reading of this week, be it a collage, sketch, stock image,
         or anything that came up in your mind while reading.
       </p>
-      <p class="caption-top">IMAGE TITLE</p>
-      <input
-          class="input-item"
-          id="weekly_media_title"
-          name="weekly_media_title"
-          placeholder=''
-          v-model="weekly_media_title" >
+<!--      <p class="caption-top">IMAGE TITLE</p>-->
+<!--      <input-->
+<!--          :id="'weekly_media_title'+weekNow"-->
+<!--          ref="input"-->
+<!--          class="input-item"-->
+<!--          name="weekly_media_title"-->
+<!--          placeholder=''-->
+<!--          v-model="weekly_media_title" >-->
 
       <div class="flex-box">
-        <div class="media-upload">
-          <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
-            <path d="M0,0 l300,300"></path>
-            <path d="m300,0 l-300,300"></path>
+        <div class="media-upload image-upload">
+<!--        <div class="media-upload image-upload" v-on:drop.prevent="handleDrop($event)">-->
+          <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l320,320"></path>
+            <path d="m320,0 l-320,320"></path>
           </svg>
         </div>
       </div>
@@ -70,7 +79,11 @@
       <p>
         For this week, share one favorite quote from this week's reading.
       </p>
-      <textarea rows="10" name="fav-quote"></textarea>
+      <textarea
+          rows="10"
+          name="fav-quote"
+          placeholder=''
+          v-model="weekly_media_text"/>
     </div>
     <div v-if="weekNow === 5">
       <p>
@@ -78,10 +91,11 @@
         Do you like the annotation your reading mates made? Or do you have different opinions, or add anything to it?
       </p>
       <div class="flex-box">
-        <div class="media-upload">
-          <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
-            <path d="M0,0 l300,300"></path>
-            <path d="m300,0 l-300,300"></path>
+        <div class="media-upload image-upload">
+<!--        <div class="media-upload image-upload" v-on:drop.prevent="handleDrop($event)">-->
+          <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l320,320"></path>
+            <path d="m320,0 l-320,320"></path>
           </svg>
         </div>
       </div>
@@ -93,21 +107,35 @@
         sources of audio. You can use copyright-free materials online
         such as <a href="http://freesound.org" target="_blank">Freesound</a>, but
         make sure to include at least one source of sound that you recorded or made.
-      </p><br>
-      <audio controls>
-        <source>
-      </audio><br><br>
+      </p>
+<!--      <p class="caption-top">AUDIO TITLE</p>-->
+<!--      <input-->
+<!--          :id="'weekly_media_title'+weekNow"-->
+<!--          ref="input"-->
+<!--          class="input-item"-->
+<!--          name="weekly_media_title"-->
+<!--          placeholder=''-->
+<!--          v-model="weekly_media_title" >-->
+      <div class="media-upload audio-upload">
+        <img src="../../assets/upload.svg" height="24px">
+<!--        <audio controls>-->
+<!--          <source>-->
+<!--        </audio>-->
+      </div>
+
     </div>
     <div v-if="weekNow === 7">
       <p>
-
+        Congratulations for making it to the final week!
+        For this week, add tags that best describe the reading that you contributed.
+        This will be used as the interactive bibliography.
       </p>
     </div>
-    <div class="flex-box" style="border-top: var(--border)">
-      <div class="link" style="border-right: var(--border)">
+    <div v-if="weekNow !== 1" class="flex-box" style="border-top: var(--border)">
+      <div class="link" id="media-submit" style="border-right: var(--border)">
         SUBMIT
       </div>
-      <div class="link" id="media-delete" v-on:click="handleClick">
+      <div class="link" id="media-delete" v-on:click="clearValues">
         DELETE
       </div>
     </div>
@@ -123,54 +151,63 @@ export default {
     group_name: String,
     room_name: String,
     room: Object,
+    startDate: Date,
   },
   data() {
     return {
-      showSelf: true,
-      weekly_media_title: "",
+      // weekly_media_title: "",
+      weekly_media_text: "",
     }
   },
   mounted(){
-    this.addDropZone();
+    // this.addDropZone();
+  },
+  computed: {
+    getDeadline() {
+      let deadline = new Date();
+      deadline.setDate(this.startDate.getDate() + 7 * this.weekNow);
+      return deadline;
+    }
   },
   methods: {
-    showCard(){
+    hideCard(){
       this.$emit("showCard", false);
     },
-    handleClick(){
+    clearValues(){
       document.querySelector("textarea").value = '';
+      this.$refs["input"].reset();
     },
-    addDropZone() {
-      const dropzone = document.querySelector('.media-upload');
+    // addDropZone() {
+    //   const dropzone = document.querySelector('.media-upload');
 
-      dropzone.addEventListener('dragenter', event => {
-        event.preventDefault();
-      });
+    //   dropzone.addEventListener('dragenter', event => {
+    //     event.preventDefault();
+    //   });
 
-      dropzone.addEventListener('dragleave', event => {
-        event.preventDefault();
-      });
+    //   dropzone.addEventListener('dragleave', event => {
+    //     event.preventDefault();
+    //   });
 
-      dropzone.addEventListener('dragover', event => {
-        event.preventDefault();
-      });
+    //   dropzone.addEventListener('dragover', event => {
+    //     event.preventDefault();
+    //   });
 
-      dropzone.addEventListener('drop', event => {
-        event.preventDefault();
-        const file = event.dataTransfer.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.addEventListener('loadend', () => {
-          const img = document.createElement('img');
-          img.src = reader.result;
-          img.style = "width: 330px; height: 333px; object-fit: cover; "
-          let svg = dropzone.querySelector("svg");
-          dropzone.appendChild(img);
-          svg.remove();
+    //   dropzone.addEventListener('drop', event => {
+    //     event.preventDefault();
+    //     const file = event.dataTransfer.files[0];
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.addEventListener('loadend', () => {
+    //       const img = document.createElement('img');
+    //       img.src = reader.result;
+    //       img.style = "width: 330px; height: 333px; object-fit: cover; "
+    //       let svg = dropzone.querySelector("svg");
+    //       dropzone.appendChild(img);
+    //       svg.remove();
 
-        })
-      });
-    },
+    //     })
+    //   });
+    // },
     downloadLatestPDF() {
       axios
         .get(
@@ -198,23 +235,33 @@ export default {
 
 <style scoped>
 #card-weekly{
-  width: 330px;
   position: fixed;
   z-index: 10;
 }
 
 .media-upload{
-  width: 300px;
-  border: var(--border);
+  width: 320px;
   margin: 15px auto;
   top: 0;
   left: 0;
-  padding-bottom: -1px;
-
 }
-.media-upload img {
-  width: 300px;
-  height: 300px;
+
+.image-upload{
+  border: var(--border);
+  padding-bottom: -1px;
+}
+
+.audio-upload{
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: var(--border-dashed);
+}
+
+.image-upload img {
+  width: 320px;
+  height: 320px;
   object-fit: cover;
   margin: 0;
   padding: 0;
@@ -224,6 +271,7 @@ export default {
   padding: 0;
   margin: 0;
 }
+
 textarea {
   width: calc(100% - 30px);
   margin: 15px auto;
