@@ -55,7 +55,22 @@ async function addOne(group_name, members_num, members, files, creator) {
   }
 }
 
-
+async function findOneByUser(username) {
+  try {
+    const groups = await Group.find();
+    const result = groups.filter(group => {
+      for(let i = 0; i < group.members.length; i++){
+        if(group.members[i] == username){
+          return true;
+        }
+      }
+      return false;
+    })
+    return result[result.length - 1];
+  } catch (err) {
+    return false;
+  }
+}
 
 async function findAll() {
   try {
@@ -78,12 +93,53 @@ async function deleteOne(name) {
 async function rotation(group_name) {
   try {
     const group = await Group.findOne({ group_name: group_name });
+    const rooms = group.rooms;
+
+    for(let i = 0; i < rooms.length; i++){
+      let currentReaderIndex = group.members.indexOf(rooms[i].currentReader);
+
+      let newCurrentReaderIndex = 0;
+      if(currentReaderIndex == 0){
+        newCurrentReaderIndex = rooms.length - 1;
+      }else {
+        newCurrentReaderIndex = currentReaderIndex - 1;
+      }
+      rooms[i].currentReader = group.members[newCurrentReaderIndex];
+    }
     let currentWeek = group.currentWeek + 1;
     const newGroup = await Group.updateOne(
       {group_name: group_name},
-      { $set: {"currentWeek": currentWeek}}
+      [
+        { $set: {"currentWeek": currentWeek}},
+        { $set: {"rooms": rooms}}
+      ]
+      
     );
     return newGroup;
+  } catch (err) {
+    return false;
+  }
+}
+
+async function uploadAnnotatedText(group_name, room_name, creator, uploaded_pdf) {
+  try {
+    const group = await Group.findOne({ group_name: group_name});
+    const rooms = group.rooms;
+    const room = rooms[room_name];
+    const readings = [...room.readings];
+    readings.push(uploaded_pdf);
+    const readings_creators = [...room.readings_creators];
+    readings_creators.push(creator);
+    room.readings = readings;
+    room.readings_creators = readings_creators;
+
+    const newGroup = await Group.updateOne(
+      {group_name: group_name},
+      { $set: {"rooms": rooms}}
+    )
+    return newGroup;
+
+    
   } catch (err) {
     return false;
   }
@@ -96,4 +152,6 @@ module.exports = Object.freeze({
   findAll,
   rotation,
   deleteOne,
+  findOneByUser,
+  uploadAnnotatedText
 });

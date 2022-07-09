@@ -81,7 +81,6 @@ export default {
     createGroup() {
       const formData = new FormData();
       for (let i = 0; i < parseInt(this.group.members_num, 10); i++) {
-        
         // formData.append("files", imageData, {
         //   contentType: 'application/pdf'
         // });
@@ -97,7 +96,7 @@ export default {
         formData.append("members", this.group.members[i]);
       }
       // formData.append("file", this.group.files[0]);
-      
+
       formData.append("group_name", this.group.group_name);
       formData.append("members_num", this.group.members_num);
       axios

@@ -60,7 +60,7 @@ export default ({
         })
         .then((response) => {
           eventBus.$emit("login-success", response.data.username);
-          this.$router.push("/admin/dashboard");
+          this.$router.push("/");
           console.log(response.data.message);
         })
         .catch((error) => {

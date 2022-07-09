@@ -83,6 +83,26 @@ router.get("/getGroup/:group_name?", async (req, res) => {
     .end();
 });
 
+router.get("/getGroupByUser/:username?", async (req, res) => {
+  const group = await Groups.findOneByUser(req.params.username);
+  res
+    .status(200)
+    .json(group)
+    .end();
+});
+
+router.get("/getRoomByUser/:username?", async (req, res) => {
+  const group = await Groups.findOneByUser(req.params.username);
+  const rooms = group.rooms.filter(
+    (room) => room.currentReader == req.params.username
+  );
+  const room = rooms[rooms.length - 1];
+  res
+    .status(200)
+    .json(room)
+    .end();
+});
+
 router.get("/getRoom/:group_name?/:room_name?", async (req, res) => {
   const group = await Groups.findOne(req.params.group_name);
   const room = group.rooms[req.params.room_name];
@@ -93,11 +113,11 @@ router.get("/getRoom/:group_name?/:room_name?", async (req, res) => {
 });
 
 router.get("/downloadLatest/:group_name?/:room_name?", async (req, res) => {
-  // const latest_file = await Groups.findLatestFile(
-  //   req.params.group_name,
-  //   req.params.room_name
-  // );
-  const fileKey = "81efdc88f635a02e17618339bc46ba6a";
+  const latest_file = await Groups.findLatestFile(
+    req.params.group_name,
+    req.params.room_name
+  );
+  const fileKey = latest_file.filename;
   const downloadParams = {
     Key: fileKey,
     Bucket: bucketName,
@@ -159,6 +179,26 @@ router.put(
   async (req, res) => {
     const group = await Groups.rotation(req.params.group_name);
     console.log(group);
+    res
+      .status(200)
+      .json(group)
+      .end();
+  }
+);
+
+router.put(
+  "/uploadAnnotatedText/:group_name?/:room_name?",
+  [authorizeThat.signedIn],
+  upload.single("file"),
+  async (req, res) => {
+    await uploadPDF(req.file);
+    await unlinkFile(req.file.path);
+    const group = await Groups.uploadAnnotatedText(
+      req.params.group_name,
+      req.params.room_name,
+      req.body.creator,
+      req.file
+    );
     res
       .status(200)
       .json(group)

@@ -12,7 +12,7 @@
       version before {{}}.
     </p>
     <div class="flex-box">
-      <div class="link" style="border-top: var(--border); border-bottom: var(--border)">
+      <div class="link" style="border-top: var(--border); border-bottom: var(--border)" @click="downloadLatestPDF">
         DOWNLOAD TEXT
       </div>
     </div>
@@ -115,10 +115,14 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "CardWeekly",
   props: {
-    weekNow: Number
+    weekNow: Number,
+    group_name: String,
+    room_name: String,
+    room: Object,
   },
   data() {
     return {
@@ -166,7 +170,28 @@ export default {
 
         })
       });
-    }
+    },
+    downloadLatestPDF() {
+      axios
+        .get(
+          `/api/groups/downloadLatest/${this.group_name}/${this.room_name}`,
+          {
+            responseType: "blob",
+          }
+        )
+        .then((response) => {
+          var file = window.URL.createObjectURL(new Blob([response.data]));
+          var docUrl = document.createElement('a');
+          docUrl.href = file;
+          docUrl.download = this.room.readings[this.room.readings.length-1].originalname;
+          docUrl.click();
+        })
+        .catch((error) => {
+          if (error.response && error.response.status != 200) {
+            alert(error.response.data.error);
+          }
+        });
+    },
   }
 }
 </script>

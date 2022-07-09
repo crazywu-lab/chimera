@@ -1,21 +1,43 @@
 <template>
   <div id="home-weekly" class="full-bleed">
-    <Background :y="2"/>
-    <RoomCardView @showCard="showCardFunc($event)" :week-now="weekNow"/>
+    <Background :y="2" />
+    <h1 class="current-week">
+      Week {{ group.currentWeek }}/{{ group.members_num - 1 }}
+    </h1>
+    <br />
+    <br />
+    <router-link class="link" to="/">
+      HOME
+    </router-link>
+
+    <RoomCardView
+      @showCard="showCardFunc($event)"
+      :week-now="weekNow"
+      :group_name="group.group_name"
+      :room_name="room.room_name"
+    />
     <MediaWeekly></MediaWeekly>
-<!--    <PictureFrames2/>-->
+    <!--    <PictureFrames2/>-->
     <Footer />
+
     <transition name="zoom">
-      <CardWeekly v-if="showCard" @showCard="showCardFunc($event)" :week-now="weekNow"/>
+      <CardWeekly
+        v-if="showCard"
+        @showCard="showCardFunc($event)"
+        :week-now="weekNow"
+        :group_name="group.group_name"
+        :room_name="room.room_name"
+        :room="room"
+      />
     </transition>
-<!--    <NavToArchive />-->
+    <!--    <NavToArchive />-->
     <Navbar />
-
-
   </div>
 </template>
 
 <script>
+import axios from "axios";
+// import { eventBus } from "@/main";
 
 import Background from "../components/Background/Background.vue";
 import Navbar from "../components/NavBar/Navbar.vue";
@@ -31,13 +53,16 @@ export default {
   data() {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
-      showCard: true,
-      weekNow: 3,
+      showCard: false,
+      weekNow: 1,
+      group: {},
+      room: {},
     };
   },
   created() {
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+    // this.getGroupByUser();
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
         this.showCard = false;
       }
     });
@@ -52,12 +77,48 @@ export default {
     Background,
     CardWeekly,
   },
+  mounted() {
+    this.getGroupByUser();
+    this.getRoomByUser();
+  },
   methods: {
-    showCardFunc(showCard){
-      this.showCard = showCard
+    showCardFunc(showCard) {
+      this.showCard = showCard;
     },
-  }
-
-}
+    getGroupByUser() {
+      axios
+        .get(
+          "/api/groups/getGroupByUser/" + this.$cookie.get("chimera-place-auth")
+        )
+        .then((response) => {
+          this.group = response.data;
+          this.weekNow = response.data.currentWeek;
+          console.log(this.weekNow);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    },
+    getRoomByUser() {
+      axios
+        .get(
+          "/api/groups/getRoomByUser/" + this.$cookie.get("chimera-place-auth")
+        )
+        .then((response) => {
+          this.room = response.data;
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    },
+  },
+};
 </script>
-
+<style scoped>
+.link {
+  width: 50%;
+  border-top: var(--border);
+  cursor: pointer;
+  z-index: 10;
+}
+</style>
