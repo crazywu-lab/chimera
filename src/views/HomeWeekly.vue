@@ -1,15 +1,15 @@
 <template>
   <div id="home-weekly" class="full-bleed">
     <Background :y="weekNow > 2? 2 : 1"/>
-<!--    <h1>Reading Group - {{group.group_name}}</h1>-->
-<!--    <h1 class="current-week">-->
-<!--      Week {{ group.currentWeek }}/{{ group.members_num - 1 }}-->
-<!--    </h1>-->
-<!--    <br />-->
-<!--    <br />-->
-<!--    <router-link class="link" to="/">-->
-<!--      HOME-->
-<!--    </router-link>-->
+    <h1>Reading Group - {{group.group_name}}</h1>
+    <h1 class="current-week">
+      Week {{ group.currentWeek }}/{{ group.members_num - 1 }}
+    </h1>
+    <br />
+    <br />
+    <router-link class="link" to="/">
+      HOME
+    </router-link>
 
     <RoomCardView
       @showCard="showCardFunc($event)"
@@ -54,7 +54,7 @@ export default {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
       showCard: false,
-      weekNow: 5,
+      weekNow: 6,
       startDate: new Date(2022, 6, 11),
       group: {},
       room: {},

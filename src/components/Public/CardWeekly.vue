@@ -13,7 +13,7 @@
     </p>
     <div class="flex-box">
       <div class="link" style="border-top: var(--border); border-bottom: var(--border)" @click="downloadLatestPDF">
-        DOWNLOAD READING
+        DOWNLOAD TEXT
       </div>
     </div>
     <div v-if="weekNow === 1">

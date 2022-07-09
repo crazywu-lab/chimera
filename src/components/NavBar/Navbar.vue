@@ -30,9 +30,9 @@
         <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignInForm">
           Sign In
         </button>
-        <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignUpForm">
+        <!-- <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignUpForm">
           Sign Up
-        </button>
+        </button> -->
         <button v-if="userName" class="btn-signout link" v-on:click="signOut">
           Sign Out
         </button>
@@ -44,9 +44,9 @@
     <transition name="zoom">
       <SignInForm v-if="SignInForm" @eventname="closeSignInForm"/>
     </transition>
-    <transition name="zoom">
+    <!-- <transition name="zoom">
       <SignUpForm v-if="SignUpForm" @eventname="closeSignUpForm"/>
-    </transition>
+    </transition> -->
   </div>
 </template>
 
@@ -55,7 +55,7 @@ import axios from "axios";
 import { eventBus } from "../../main";
 
 import SignInForm from "../Users/SignInForm.vue";
-import SignUpForm from "../Users/SignUpForm.vue";
+// import SignUpForm from "../Users/SignUpForm.vue";
 
 export default {
   name: "Navbar",
@@ -69,7 +69,8 @@ export default {
     };
   },
   components: {
-    SignInForm,SignUpForm
+    SignInForm,
+    // SignUpForm
   },
   created() {
     eventBus.$on("login-success", (username) => {

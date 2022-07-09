@@ -4,7 +4,7 @@
       class="room-card"
       v-for="room in rooms"
       :key="room.week"
-      :style="'left:' + 100 * (room.week / 7 - 1 / 64) + '%'"
+      :style="'left:' + 100 * (room.week / 8 - 1 / 64) + '%'"
       :class="
         room.week === weekNow
           ? 'room-card-now'
@@ -226,8 +226,8 @@ export default {
 .room-card {
   position: absolute;
   top: 50vh;
-  width: calc((100vw - 10vw) / 6 - 3vw);
-  max-height: calc(((100vw - 10vw) / 6 - 3vw) * 11 / 8.5);
+  width: calc((100vw - 10vw) / 7 - 3vw);
+  max-height: calc(((100vw - 10vw) / 7 - 3vw) * 11 / 8.5);
   min-width: 150px;
   min-height: 194px;
   aspect-ratio: 8.5 / 11;
@@ -278,7 +278,7 @@ export default {
 
 .card-img-overlay img {
   width: 100%;
-  max-height: 100%;
+  height: 100%;
   object-fit: cover;
   margin: 0 auto;
   padding: 0;
