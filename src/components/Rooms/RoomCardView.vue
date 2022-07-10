@@ -14,22 +14,22 @@
       "
     >
       <div v-if="room.week === weekNow" class="link" v-on:click="showCard">
-        WEEKLY PROMPT
+        WEEK {{weekNow}}
       </div>
-      <div
+      <!-- <div
         v-if="room.week === weekNow"
         class="link"
         style="border-top: var(--border)"
       >
         DOWNLOAD READING
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         v-if="room.week === weekNow"
         class="link"
         style="border-top: var(--border)"
       >
         <UploadAnotatedText :room_name="room_name" :group_name="group_name" />
-      </div>
+      </div> -->
       <div
         div
         v-if="room.week < weekNow && room.thumbnail"
@@ -63,7 +63,7 @@
 
 <script>
 // import * as d3 from "d3";
-import UploadAnotatedText from "./UploadAnotatedText.vue";
+// import UploadAnotatedText from "./UploadAnotatedText.vue";
 
 export default {
   name: "RoomCardView",
@@ -80,9 +80,9 @@ export default {
     group_name: String,
     room_name: Number,
   },
-  components: {
-    UploadAnotatedText,
-  },
+  // components: {
+  //   UploadAnotatedText,
+  // },
   data() {
     return {
       //// also need to be replaced with server communication
