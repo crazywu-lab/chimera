@@ -25,7 +25,7 @@ import { eventBus } from "../../main";
 export default {
   name: "initialUpload",
   props: {
-    room_name: String,
+    room_name: Number,
     // roomNumber: String,
     group_name: String,
   },
