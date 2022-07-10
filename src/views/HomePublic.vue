@@ -15,21 +15,26 @@
     <card-public
         @showSignIn="showSignInFunc($event)"
         @showUploadCard="showUploadCardFunc($event)"
+        @showReadMore="showReadMoreFunc($event)"
+        @showPilot="showPilotFunc($event)"
     />
 <!--    <transition name="zoom">-->
 <!--      <sign-up-form v-if="showSignUp" @showSignUp="showSignUpFunc($event)" />-->
 <!--    </transition>-->
     <transition name="zoom">
-      <sign-in-form v-if="showSignIn" @showSignIn="showSignInFunc($event)" />
-    </transition>
-    <transition name="zoom">
+      <sign-in-form v-if="showSignIn"
+                    @showSignIn="showSignInFunc($event)" />
+      <card-read-more v-if="showReadMore"
+                      @showReadMore="showReadMoreFunc($event)"/>
+      <card-pilot v-if="showPilot"
+                  @showPilot = "showPilotFunc($event)"/>
       <upload-card
         v-if="showUploadCard"
         @showUploadCard="showUploadCardFunc($event)"
       />
     </transition>
 <!--    <nav-to-archive />-->
-    <Navbar />
+    <Navbar @showSignIn="showSignInFunc($event)"/>
   </div>
 </template>
 
@@ -39,9 +44,11 @@ import Navbar from "../components/NavBar/Navbar.vue";
 import Footer from "../components/NavBar/Footer.vue";
 import CardPublic from "../components/Public/CardPublic.vue";
 import PictureFrames from "../components/Background/PictureFrames.vue";
-// import SignUpForm from "../components/Users/SignUpForm.vue";
 import SignInForm from "../components/Users/SignInForm.vue";
 import UploadCard from "../components/Room/UploadCard.vue";
+import CardReadMore from "../components/Public/CardReadMore.vue";
+import CardPilot from "../components/Public/CardPilot.vue";
+// import SignUpForm from "../components/Users/SignUpForm.vue";
 // import NavToArchive from "../components/NavBar/NavToArchive.vue";
 // import AudioPlayer from "../components/Background/AudioPlayer.vue";
 
@@ -53,6 +60,8 @@ export default {
       // showSignUp: false,
       showSignIn: false,
       showUploadCard: false,
+      showReadMore: false,
+      showPilot: false,
     };
   },
   created() {
@@ -61,6 +70,8 @@ export default {
         // this.showSignUp = false;
         this.showSignIn = false;
         this.showUploadCard = false;
+        this.showReadMore = false;
+        this.showPilot = false;
       }
     });
   },
@@ -75,17 +86,25 @@ export default {
     SignInForm,
     Background,
     UploadCard,
+    CardReadMore,
+    CardPilot,
   },
   methods: {
     // showSignUpFunc(showSignUp) {
     //   this.showSignUp = showSignUp;
     // },
-    showSignInFunc(showSignIn) {
-      this.showSignIn = showSignIn;
+    showSignInFunc(bool) {
+      this.showSignIn = bool;
     },
-    showUploadCardFunc(showUploadCard) {
-      this.showUploadCard = showUploadCard;
+    showUploadCardFunc(bool) {
+      this.showUploadCard = bool;
     },
+    showReadMoreFunc(bool) {
+      this.showReadMore = bool;
+    },
+    showPilotFunc(bool) {
+      this.showPilot = bool;
+    }
   },
 };
 </script>

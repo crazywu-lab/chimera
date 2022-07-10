@@ -18,7 +18,6 @@
       :room_name="room.room_name"
     />
     <MediaWeekly v-if="weekNow > 2" :week-now="weekNow" />
-    <!--    <PictureFrames2/>-->
     <Footer />
 
     <transition name="zoom">
@@ -53,8 +52,8 @@ export default {
   data() {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
-      showCard: false,
-      weekNow: 5,
+      showCard: true,
+      weekNow: 2,
       startDate: new Date(2022, 6, 11),
       group: {},
       room: {},

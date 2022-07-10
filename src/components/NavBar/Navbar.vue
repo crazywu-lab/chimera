@@ -22,7 +22,7 @@
            <router-link v-else class="dropdown-item" to="/signin">Sign In</router-link>
          </div>
      </div> -->
-    <div class="nav-btn" v-on:click="triggerDropDown">
+    <div class="nav-btn" v-on:click="toggleDropDown">
       &#9776;
     </div>
     <transition name="zoom-topright">
@@ -30,15 +30,15 @@
         <router-link class="link" to="/" style="border-bottom: var(--border)">
           HOME
         </router-link>
-        <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignInForm">
+        <button v-if="!userName" class="btn-signout link" v-on:click="showSignIn(); toggleDropDown();">
           SIGN IN
         </button>
         <router-link v-if="!userName" class="link" to="/0" style="border-bottom: var(--border)">
           READINGS
         </router-link>
-        <!-- <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignUpForm">
-          Sign Up
-        </button> -->
+<!--        <button v-if="!userName" class="btn-signout link" v-on:click="toggleSignUpForm()">-->
+<!--          Sign Up-->
+<!--        </button>-->
         <button v-if="userName" class="btn-signout link" v-on:click="signOut">
           SIGN OUT
         </button>
@@ -47,12 +47,12 @@
         </router-link>
       </div>
     </transition>
-    <transition name="zoom">
-      <SignInForm v-if="SignInForm" @eventname="closeSignInForm"/>
-    </transition>
-    <!-- <transition name="zoom">
-      <SignUpForm v-if="SignUpForm" @eventname="closeSignUpForm"/>
-    </transition> -->
+<!--    <transition name="zoom">-->
+<!--      <SignInForm v-if="SignInForm" @eventname="closeSignInForm"/>-->
+<!--    </transition>-->
+<!--    <transition name="zoom">-->
+<!--      <SignUpForm v-if="SignUpForm" @eventname="closeSignUpForm"/>-->
+<!--    </transition>-->
   </div>
 </template>
 
@@ -60,7 +60,7 @@
 import axios from "axios";
 import { eventBus } from "../../main";
 
-import SignInForm from "../Users/SignInForm.vue";
+// import SignInForm from "../Users/SignInForm.vue";
 // import SignUpForm from "../Users/SignUpForm.vue";
 
 export default {
@@ -71,14 +71,20 @@ export default {
       LogoHover: false,
       DropDown: false,
       SignInForm: false,
-      SignUpForm: false,
+      // SignUpForm: false,
     };
   },
-  components: {
-    SignInForm,
-    // SignUpForm
-  },
+  // components: {
+  //   SignInForm,
+  //   SignUpForm
+  // },
   created() {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.DropDown = false;
+      }
+    });
+
     eventBus.$on("login-success", (username) => {
       this.$cookie.set("chimera-place-auth", username);
       this.SignInForm = false;
@@ -106,21 +112,22 @@ export default {
           }
         });
     },
-    triggerDropDown() {
+    toggleDropDown() {
       this.DropDown = !this.DropDown;
     },
-    triggerSignInForm() {
-      this.SignInForm = !this.SignInForm;
+    showSignIn(event) {
+      console.log(event);
+      this.$emit("showSignIn", true);
     },
-    closeSignInForm(variable) {
-      this.SignInForm = variable;
-    },
-    triggerSignUpForm() {
-      this.SignUpForm = !this.SignUpForm;
-    },
-    closeSignUpForm(variable) {
-      this.SignUpForm = variable;
-    },
+    // closeSignInForm(variable) {
+    //   this.SignInForm = variable;
+    // },
+    // toggleSignUpForm() {
+    //   this.SignUpForm = !this.SignUpForm;
+    // },
+    // closeSignUpForm(variable) {
+    //   this.SignUpForm = variable;
+    // },
   },
 };
 </script>
@@ -146,7 +153,7 @@ img {
   justify-content: space-between;
   /*align-items: center;*/
   /*vertical-align: middle;*/
-  z-index: 999;
+  z-index: 998;
 }
 
 button {
@@ -159,8 +166,9 @@ button {
   border: 1px solid #757575;
   background-color: white;
   box-shadow: var(--shadow);
-  top: 8vh;
+  top: 70px;
   right: 15px;
+  z-index: 999;
 }
 
 .nav-btn {
@@ -179,22 +187,22 @@ button {
   opacity: 0.9;
 }
 
-.dropdown-content {
-  position: absolute;
-  background-color: white;
-  border: 1px solid #757575;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
+/*.dropdown-content {*/
+/*  position: absolute;*/
+/*  background-color: white;*/
+/*  border: 1px solid #757575;*/
+/*  min-width: 160px;*/
+/*  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/
+/*}*/
 
-.dropdown-item {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
+/*.dropdown-item {*/
+/*  float: none;*/
+/*  color: black;*/
+/*  padding: 12px 16px;*/
+/*  text-decoration: none;*/
+/*  display: block;*/
+/*  text-align: left;*/
+/*}*/
 
 .zoom-topright-enter-active,
 .zoom-topright-leave-active {
