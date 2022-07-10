@@ -67,6 +67,10 @@ export default {
         this.showCard = false;
       }
     });
+    eventBus.$on("signout-success", () => {
+      this.userName = "";
+      this.$router.push("/").catch(() => {});
+    })
   },
   components: {
     MediaWeekly,
