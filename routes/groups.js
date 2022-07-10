@@ -192,6 +192,7 @@ router.put(
   upload.single("file"),
   async (req, res) => {
     await uploadPDF(req.file);
+    console.log(req.file);
     await unlinkFile(req.file.path);
     const group = await Groups.uploadAnnotatedText(
       req.params.group_name,

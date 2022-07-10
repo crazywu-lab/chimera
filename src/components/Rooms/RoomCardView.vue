@@ -71,14 +71,14 @@ export default {
   beforeMount() {
     this.importImages(require.context("../../assets/thumbnails/"));
   },
-  mounted() {
-    this.connectCards();
-    window.addEventListener("resize", this.connectCards);
-  },
+  // mounted() {
+  //   this.connectCards();
+  //   window.addEventListener("resize", this.connectCards);
+  // },
   props: {
     weekNow: Number,
     group_name: String,
-    room_name: String,
+    room_name: Number,
   },
   components: {
     UploadAnotatedText,
@@ -86,7 +86,7 @@ export default {
   data() {
     return {
       //// also need to be replaced with server communication
-      thumbnailKeys: "",
+      thumbnailKeys: [],
       rooms: [
         {
           week: 1,
@@ -126,98 +126,46 @@ export default {
     showCard() {
       this.$emit("showCard", true);
     },
-    mounted() {
-      // this.connectCards();
-      // window.addEventListener('resize', this.connectCards);
+    importImages(r) {
+      r.keys().forEach((key) => {
+        this.thumbnailKeys.push(key);
+      });
     },
-    props: {
-      weekNow: Number,
-    },
-    data() {
-      return {
-        //// this is a placeholder
-        thumbnailKeys: "",
-        rooms: [
-          {
-            week: 1,
-            title: "Carrier Bag Theory of Fiction",
-            author: "Ursula Le Guin",
-            year: 1986,
-            thumbnail: "leguin_1986.jpg",
-          },
-          {
-            week: 2,
-            title: "On Disability and Cybernetics",
-            author: "Mara Mills",
-            year: 2011,
-            thumbnail: "mills_2011.jpg",
-          },
-          {
-            week: 3,
-            title:
-              "Infrastructures of abstraction: how computer science education produces anti-political subjects",
-            author: "James W. Malazita & Korryn Resetar",
-            year: 2019,
-            thumbnail: "malazita_2019.webp",
-          },
-          {
-            week: 4,
-            title: "Rings of Saturn",
-            author: "W.G. Sebald",
-            year: 1995,
-            thumbnail: "sebald_1995.jpeg",
-          },
-          { week: 5, title: "" },
-          { week: 6, title: "" },
-          { week: 7, title: "" },
-        ],
-      };
-    },
-    methods: {
-      showCard() {
-        this.$emit("showCard", true);
-      },
-      importImages(r) {
-        r.keys().forEach((key) => {
-          this.thumbnailKeys.push(key);
-        });
-      },
-      // connectCards() {
-      //   let cards = document.querySelectorAll(".room-card");
-      //   let svg = d3.select('svg');
-      //   for (let i = 1; i < cards.length; i++) {
-      //     let rect0 = cards.item(i-1).getBoundingClientRect();
-      //     let rect1 = cards.item(i).getBoundingClientRect();
-      //     let x1 = rect0.right, x2 = rect1.left;
-      //     let y1 = (rect0.top + rect0.bottom)/2, y2 = (rect1.top + rect1.bottom)/2;
-      //     svg.append('line')
-      //         .attr('x1', x1)
-      //         .attr('y1', y1)
-      //         .attr('x2', x2)
-      //         .attr('y2', y2)
-      //         .style("stroke", "rgba(75,75,75,1)")
-      //         .style('stroke-width', 2)
-      //         .style("stroke-dasharray", ("3, 3"));
-      //     // draw X for future cards
-      //     if (i >= this.weekNow) {
-      //       svg.append('line')
-      //           .attr('x1', rect1.left)
-      //           .attr('y1', rect1.top)
-      //           .attr('x2', rect1.right)
-      //           .attr('y2', rect1.bottom)
-      //           .style("stroke", "rgba(75,75,75,0.3)")
-      //           .style('stroke-width', 1);
-      //       svg.append('line')
-      //           .attr('x1', rect1.right)
-      //           .attr('y1', rect1.top)
-      //           .attr('x2', rect1.left)
-      //           .attr('y2', rect1.bottom)
-      //           .style("stroke", "rgba(75,75,75,0.3)")
-      //           .style('stroke-width', 1)
-      //     }
-      //   }
-      // }
-    },
+    // connectCards() {
+    //   let cards = document.querySelectorAll(".room-card");
+    //   let svg = d3.select('svg');
+    //   for (let i = 1; i < cards.length; i++) {
+    //     let rect0 = cards.item(i-1).getBoundingClientRect();
+    //     let rect1 = cards.item(i).getBoundingClientRect();
+    //     let x1 = rect0.right, x2 = rect1.left;
+    //     let y1 = (rect0.top + rect0.bottom)/2, y2 = (rect1.top + rect1.bottom)/2;
+    //     svg.append('line')
+    //         .attr('x1', x1)
+    //         .attr('y1', y1)
+    //         .attr('x2', x2)
+    //         .attr('y2', y2)
+    //         .style("stroke", "rgba(75,75,75,1)")
+    //         .style('stroke-width', 2)
+    //         .style("stroke-dasharray", ("3, 3"));
+    //     // draw X for future cards
+    //     if (i >= this.weekNow) {
+    //       svg.append('line')
+    //           .attr('x1', rect1.left)
+    //           .attr('y1', rect1.top)
+    //           .attr('x2', rect1.right)
+    //           .attr('y2', rect1.bottom)
+    //           .style("stroke", "rgba(75,75,75,0.3)")
+    //           .style('stroke-width', 1);
+    //       svg.append('line')
+    //           .attr('x1', rect1.right)
+    //           .attr('y1', rect1.top)
+    //           .attr('x2', rect1.left)
+    //           .attr('y2', rect1.bottom)
+    //           .style("stroke", "rgba(75,75,75,0.3)")
+    //           .style('stroke-width', 1)
+    //     }
+    //   }
+    // }
   },
 };
 </script>
