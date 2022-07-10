@@ -39,7 +39,7 @@
 
 <script>
 import axios from "axios";
-// import { eventBus } from "@/main";
+import { eventBus } from "@/main";
 
 import Background from "../components/Background/Background.vue";
 import Navbar from "../components/NavBar/Navbar.vue";
