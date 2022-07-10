@@ -60,10 +60,10 @@ export default {
     showPilot(){
       this.$emit("showPilot", true);
     },
-    showSignUp(event) {
-      console.log(event);
-      this.$emit("showSignUp", true);
-    },
+    // showSignUp(event) {
+    //   console.log(event);
+    //   this.$emit("showSignUp", true);
+    // },
     showSignIn(event) {
       console.log(event);
       this.$emit("showSignIn", true);

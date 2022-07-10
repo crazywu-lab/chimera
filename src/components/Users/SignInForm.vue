@@ -1,7 +1,7 @@
 <template>
   <form class="card-simple" @submit.prevent="signIn">
       <div class="flex-box close-button-container">
-        <button class="close-button" v-on:click="closeCard">
+        <button class="close-button" v-on:click="closeSignIn()">
           <svg style=" stroke-width: 1px; stroke: black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <line x2="20" y2="20"/><line x1="20" y2="20"/>
           </svg>
@@ -49,7 +49,7 @@ export default ({
     //   console.log(event)
     //   this.$emit("showSignIn", false);
     // },
-    closeCard(){
+    closeSignIn(){
       this.$emit("showSignIn", false);
     },
     signIn() {

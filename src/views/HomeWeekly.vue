@@ -18,6 +18,7 @@
       :room_name="room.room_name"
     />
     <MediaWeekly v-if="weekNow > 2" :week-now="weekNow" />
+    <!--    <PictureFrames2/>-->
     <Footer />
 
     <transition name="zoom">
@@ -32,7 +33,16 @@
       />
     </transition>
     <!--    <NavToArchive />-->
-    <Navbar />
+    <Navbar
+        :showNavDropDown="showNavDropDown"
+        @showNavDropDown="showNavDropDownFunc($event)"
+    />
+    <transition name="zoom-topright">
+      <nav-drop-down v-if = "showNavDropDown"
+                     @showNavDropDown="showNavDropDownFunc($event)"
+                     @showSignIn="showSignInFunc($event)"
+      />
+    </transition>
   </div>
 </template>
 
@@ -46,14 +56,16 @@ import RoomCardView from "../components/Rooms/RoomCardView.vue";
 import CardWeekly from "../components/Public/CardWeekly.vue";
 import Footer from "../components/NavBar/Footer.vue";
 import MediaWeekly from "../components/Public/MediaWeekly.vue";
+import NavDropDown from "../components/NavBar/NavDropDown.vue";
 
 export default {
   name: "HomeWeekly",
   data() {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
-      showCard: true,
-      weekNow: 2,
+      showCard: false,
+      showNavDropDown: false,
+      weekNow: 5,
       startDate: new Date(2022, 6, 11),
       group: {},
       room: {},
@@ -76,6 +88,7 @@ export default {
     Footer,
     Background,
     CardWeekly,
+    NavDropDown,
   },
   mounted() {
     this.getGroupByUser();
@@ -84,6 +97,9 @@ export default {
   methods: {
     showCardFunc(showCard) {
       this.showCard = showCard;
+    },
+    showNavDropDownFunc(bool) {
+      this.showNavDropDown = bool;
     },
     getGroupByUser() {
       axios

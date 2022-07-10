@@ -22,37 +22,37 @@
            <router-link v-else class="dropdown-item" to="/signin">Sign In</router-link>
          </div>
      </div> -->
-    <div class="nav-btn" v-on:click="toggleDropDown">
+    <div class="nav-btn" v-on:click="toggleNavDropDown()">
       &#9776;
     </div>
-    <transition name="zoom-topright">
-      <div v-if="DropDown" id="nav-dropdown" class="">
-        <router-link class="link" to="/" style="border-bottom: var(--border)">
-          HOME
-        </router-link>
-        <button v-if="!userName" class="btn-signout link" v-on:click="showSignIn(); toggleDropDown();">
-          SIGN IN
-        </button>
-        <router-link v-if="!userName" class="link" to="/0" style="border-bottom: var(--border)">
-          READINGS
-        </router-link>
-<!--        <button v-if="!userName" class="btn-signout link" v-on:click="toggleSignUpForm()">-->
-<!--          Sign Up-->
+<!--    <transition name="zoom-topright">-->
+<!--      <div v-if="DropDown" id="nav-dropdown" class="">-->
+<!--        <router-link class="link" to="/" style="border-bottom: var(&#45;&#45;border)">-->
+<!--          HOME-->
+<!--        </router-link>-->
+<!--        <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignInForm">-->
+<!--          SIGN IN-->
 <!--        </button>-->
-        <button v-if="userName" class="btn-signout link" v-on:click="signOut">
-          SIGN OUT
-        </button>
-        <router-link class="link" to="/admin/dashboard">
-          (For admin)
-        </router-link>
-      </div>
+<!--        <router-link v-if="!userName" class="link" to="/0" style="border-bottom: var(&#45;&#45;border)">-->
+<!--          READINGS-->
+<!--        </router-link>-->
+<!--        &lt;!&ndash; <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignUpForm">-->
+<!--          Sign Up-->
+<!--        </button> &ndash;&gt;-->
+<!--        <button v-if="userName" class="btn-signout link" v-on:click="signOut">-->
+<!--          SIGN OUT-->
+<!--        </button>-->
+<!--        <router-link class="link" to="/admin/dashboard">-->
+<!--          (For admin)-->
+<!--        </router-link>-->
+<!--      </div>-->
+<!--    </transition>-->
+    <transition name="zoom">
+      <SignInForm v-if="SignInForm" @eventname="closeSignInForm"/>
     </transition>
-<!--    <transition name="zoom">-->
-<!--      <SignInForm v-if="SignInForm" @eventname="closeSignInForm"/>-->
-<!--    </transition>-->
-<!--    <transition name="zoom">-->
-<!--      <SignUpForm v-if="SignUpForm" @eventname="closeSignUpForm"/>-->
-<!--    </transition>-->
+    <!-- <transition name="zoom">
+      <SignUpForm v-if="SignUpForm" @eventname="closeSignUpForm"/>
+    </transition> -->
   </div>
 </template>
 
@@ -60,31 +60,28 @@
 import axios from "axios";
 import { eventBus } from "../../main";
 
-// import SignInForm from "../Users/SignInForm.vue";
+import SignInForm from "../Users/SignInForm.vue";
 // import SignUpForm from "../Users/SignUpForm.vue";
 
 export default {
   name: "Navbar",
+  props: {
+    showNavDropDown: Boolean,
+  },
   data() {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
       LogoHover: false,
       DropDown: false,
       SignInForm: false,
-      // SignUpForm: false,
+      SignUpForm: false,
     };
   },
-  // components: {
-  //   SignInForm,
-  //   SignUpForm
-  // },
+  components: {
+    SignInForm,
+    // SignUpForm
+  },
   created() {
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        this.DropDown = false;
-      }
-    });
-
     eventBus.$on("login-success", (username) => {
       this.$cookie.set("chimera-place-auth", username);
       this.SignInForm = false;
@@ -112,17 +109,16 @@ export default {
           }
         });
     },
-    toggleDropDown() {
-      this.DropDown = !this.DropDown;
+    triggerSignInForm() {
+      this.SignInForm = !this.SignInForm;
     },
-    showSignIn(event) {
-      console.log(event);
-      this.$emit("showSignIn", true);
+    closeSignInForm(variable) {
+      this.SignInForm = variable;
     },
-    // closeSignInForm(variable) {
-    //   this.SignInForm = variable;
-    // },
-    // toggleSignUpForm() {
+    toggleNavDropDown(){
+      this.$emit("showNavDropDown", !this.showNavDropDown);
+    }
+    // triggerSignUpForm() {
     //   this.SignUpForm = !this.SignUpForm;
     // },
     // closeSignUpForm(variable) {
@@ -153,23 +149,9 @@ img {
   justify-content: space-between;
   /*align-items: center;*/
   /*vertical-align: middle;*/
-  z-index: 998;
+  z-index: 997;
 }
 
-button {
-  border-bottom: var(--border);
-}
-#nav-dropdown{
-  transform: none;
-  position: fixed;
-  width: 180px;
-  border: 1px solid #757575;
-  background-color: white;
-  box-shadow: var(--shadow);
-  top: 70px;
-  right: 15px;
-  z-index: 999;
-}
 
 .nav-btn {
   width: 40px;
@@ -187,45 +169,21 @@ button {
   opacity: 0.9;
 }
 
-/*.dropdown-content {*/
-/*  position: absolute;*/
-/*  background-color: white;*/
-/*  border: 1px solid #757575;*/
-/*  min-width: 160px;*/
-/*  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/
-/*}*/
-
-/*.dropdown-item {*/
-/*  float: none;*/
-/*  color: black;*/
-/*  padding: 12px 16px;*/
-/*  text-decoration: none;*/
-/*  display: block;*/
-/*  text-align: left;*/
-/*}*/
-
-.zoom-topright-enter-active,
-.zoom-topright-leave-active {
-  animation-duration: 150ms;
-  animation-fill-mode: both;
-  animation-name: zoom-topright;
+.dropdown-content {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #757575;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
-.zoom-topright-leave-active {
-  animation-direction: reverse;
-}
-
-@keyframes zoom-topright {
-  from {
-    opacity: 0;
-    transform: scale(0.3);
-    transform-origin: top right;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-    transform-origin: top right;
-  }
+.dropdown-item {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
 }
 
 </style>

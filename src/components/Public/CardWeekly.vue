@@ -40,29 +40,16 @@
 <!--          name="weekly_media_title"-->
 <!--          placeholder=''-->
 <!--          v-model="weekly_media_title" >-->
-      <file-pond
-          name="test"
-          class="media-upload"
-          ref="pond"
-          label-idle="Drop files here..."
-          accepted-file-types="image/jpeg, image/png"
-          server="/api"
-          v-bind:files="myFiles"
-          v-on:init="handleFilePondInit"
-          stylePanelLayout="compact"
-          stylePanelAspectRatio="1:1"
-          credits="false"
-      />
 
-<!--      <div class="flex-box">-->
-<!--        <div class="media-upload image-upload">-->
-<!--&lt;!&ndash;        <div class="media-upload image-upload" v-on:drop.prevent="handleDrop($event)">&ndash;&gt;-->
-<!--          <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">-->
-<!--            <path d="M0,0 l320,320"></path>-->
-<!--            <path d="m320,0 l-320,320"></path>-->
-<!--          </svg>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="flex-box">
+        <div class="media-upload image-upload">
+<!--        <div class="media-upload image-upload" v-on:drop.prevent="handleDrop($event)">-->
+          <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" style="stroke-width:1px; stroke:#757575;">
+            <path d="M0,0 l320,320"></path>
+            <path d="m320,0 l-320,320"></path>
+          </svg>
+        </div>
+      </div>
     </div>
 <!--    <div v-if="weekNow === 3">-->
 <!--      <p>-->
@@ -156,30 +143,6 @@
 
 <script>
 import axios from "axios";
-// Import Vue FilePond
-import vueFilePond from "vue-filepond";
-
-// Import FilePond styles
-import "filepond/dist/filepond.min.css";
-
-// Import FilePond plugins
-// Please note that you need to install these plugins separately
-
-// Import image preview plugin styles
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
-
-// Import image preview and file type validation plugins
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.esm.js';
-
-// Create component
-const FilePond = vueFilePond(
-    FilePondPluginFileValidateType,
-    FilePondPluginImagePreview
-);
-
-
-
 export default {
   name: "CardWeekly",
   props: {
@@ -193,7 +156,6 @@ export default {
     return {
       // weekly_media_title: "",
       weekly_media_text: "",
-      myFiles: [],
     }
   },
   mounted(){
@@ -213,14 +175,8 @@ export default {
     clearValues(){
       document.querySelector("textarea").value = '';
       // this.$refs["input"].reset();
-      document.querySelector("file-pond").removeFile();
     },
-
-    handleFilePondInit: function () {
-      console.log("FilePond has initialized");
-    },
-
-      // addDropZone() {
+    // addDropZone() {
     //   const dropzone = document.querySelector('.media-upload');
 
     //   dropzone.addEventListener('dragenter', event => {
@@ -272,17 +228,14 @@ export default {
           }
         });
     },
-  },
-  components: {
-    FilePond,
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
 #card-weekly{
   position: fixed;
-  z-index: 999;
+  z-index: 10;
 }
 
 .media-upload{
@@ -322,11 +275,6 @@ textarea {
   width: calc(100% - 30px);
   margin: 15px auto;
   display: block;
-}
-
-file-pond {
-  background-color: white;
-  border: var(--border);
 }
 
 </style>

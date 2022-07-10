@@ -7,9 +7,9 @@
       <div class="message-body">{{ message }}</div>
     </div>
     <div class="field">
-      <label for="file" class="label">UPLOAD ANNOTATED TEXT</label>
+      <label for="fileUpload" class="label">UPLOAD ANNOTATED</label>
 
-      <input type="file" ref="file" @change="selectFile" required />
+      <input id="fileUpload" type="file" ref="file" @change="selectFile" required />
     </div>
 
     <div v-if="file" class="field">
@@ -86,4 +86,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+  .message-body {
+    font-size: 0.5rem;
+  }
+  input {
+    display: none;
+  }
+</style>
