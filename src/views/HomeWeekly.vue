@@ -25,7 +25,7 @@
       <CardWeekly
         v-if="showCard"
         @showCard="showCardFunc($event)"
-        :week-now="weekNow"
+        :weekNow="weekNow"
         :group_name="group.group_name"
         :room_name="room.room_name"
         :room="room"
@@ -54,7 +54,7 @@ export default {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
       showCard: false,
-      weekNow: 5,
+      weekNow: 1,
       startDate: new Date(2022, 6, 11),
       group: {},
       room: {},

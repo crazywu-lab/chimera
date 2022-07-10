@@ -1,100 +1,173 @@
-let roomsData = [];
+const express = require("express");
 
-// Need ability to generate random IDs (primary/foreign keys)
-const uuid = require("uuid");
+const Rooms = require("./rooms-controller");
+const validateThat = require('../middleware/validation');
+const authorizeThat = require('../middleware/authorization');
+
+const router = express.Router();
 
 /**
- * @typedef rooms
+ * View Rooms by all
  *
- * @prop {Array} items - list of items in room
- * @prop {string} creatorID -  user ID of room author
- * @prop {string} roomID - roomID
- * @prop {string} name - room name
- * @prop {Array} members - list of users we are members of the room
+ * @name GET /api/Rooms
+ *
+ * @return {rooms[]} - list of all stored Rooms if author is not given, else list of stored Rooms with given author
+ * */
+router.get("/all", async (req, res) => {
+  const rooms = await Rooms.findAll();
+  res.status(200).json(rooms).end();
+});
+
+router.get("/getRoom/:room_name?", async (req, res) => {
+  const room = await Rooms.findOne(req.params.room_name);
+  res.status(200).json(room).end();
+});
+
+
+/**
+ * Create a room (must signed in first)
+ *
+ * @name POST /api/Rooms/
+ *
+ * @param {string} userID - authorID (req.session.userID)
+ * @param {string} content - content of freet
+ * @return {room} - the posted freet
+ * @throws {401} - if the user is not logged in
+ * @throws {400} - if content is not filled
+ * */
+router.post("/:group_name?", [validateThat.roomDuplicate], async (req, res) => {
+  let creator = (req.session.username == undefined) ? 'anonymous' : req.session.username;
+  const room = await Rooms.addOne(req.body.room_name, creator, req.params.group_name);
+  if(room !== false){
+    res.status(201).json(room).end();
+  }
+  console.log(room);
+});
+
+/**
+ * Delete a room (must login).
+ *
+ * @name DELETE /api/Rooms/:id?
+ *
+ * @param {string} id - freetID (req.query.id)
+ * @return {200} - freet has been deleted
+ * @throws {401} - if the user is not logged in
+ * @throws {400} - if freetID is not filled
+ * @throws {404} - if the freet is not found
+ * @throws {401} - if the freet's authorID does not match the userID in the current session
  */
+ router.delete("/:room_name?", [authorizeThat.signedIn], async (req, res) => {
+   // return the updated freet list created by the current account to show the success of deletion
+   const room = await Rooms.deleteOne(req.params.room_name);
+   res
+     .status(200)
+     .json(room)
+     .end();
+ });
 
-class Rooms {
-  /**
-   * Add a freet to the collection.
-   *
-   * @prop {Array[Item]} items - list of items in room
-   * @prop {string} creatorUsername - user ID of room author
-   * @prop {string} roomID - roomID
-   * @prop {string} name - room name
-   * @prop {Array} members - list of users we are members of the room
-   * @return {room} - the newly created freet
-   */
-  static addOne(name, creator) {
-    const roomID = uuid.v4();
-    const items = [];
-    const members = [];
-    const numMembers = members.length;
-    const room = {
-      roomID,
-      creator,
-      items,
-      members,
-      name,
-      numMembers,
-    };
-    roomsData.push(room);
-    console.log(roomsData)
-    return room;
-  }
+//Delete a pdf
+ router.delete("/deletePDF/:room_name?/:filename?", [authorizeThat.signedIn], async (req, res) => {
+  // return the updated freet list created by the current account to show the success of deletion
+  const room = await Rooms.deleteItem(req.params.filename, req.params.room_name);
+  res
+    .status(200)
+    .json(room)
+    .end();
+});
 
-  static deleteOne(id) {
-    roomsData = roomsData.filter((room) => !(room.roomID == id));
-    return roomsData;
-  }
+/**
+ * Create an Item. You have to be a signed in user.
+ * 
+ * @name POST /api/Rooms/create
+ * @return {Item} - the created Item, as well as 200 status code for success, 403 for user not logged in 
+ */
+//  router.post("/create", (req, res) => {
+//   const item = Items.addOne(req.body.newItem, req.session.userID, req.session.username);
+//   Users.addItem(item.id, req.session.userID);
+//   Fridges.addItem(item.id, item.fridge)
+//   res.status(200).json(item).end();
+// });
 
-  static deleteAuthorAll(creatorID) {
-    roomsData = roomsData.filter(
-      (room) => !(room.CreatorID === creatorID)
-    );
-    return roomsData;
-  }
+// /**
+//  * Edit a freet.
+//  *
+//  * @name PUT /api/Rooms/:id?
+//  *
+//  * @param {string} id - freetID (req.body.id)
+//  * @param {string} content - content of freet
+//  * @return {200} - freet has been updated
+//  * @throws {401} - if the user is not logged in
+//  * @throws {401} - if the freetID is not filled
+//  * @throws {404} - if the freetID is not found
+//  * @throws {400} - if content is not filled
+//  * @throws {401} - if content is not filled
+//  */
+// router.put(
+//   "/:id?",
+//   [
+//     validateThat.userIsLoggedIn,
+//   ],
+//   (req, res) => {
+//     // return the updated freet with new content
+//     res
+//       .status(200)
+//       .json(
+//         Rooms.updateOne(req.params.id, req.body.content, req.session.userID)
+//       )
+//       .end();
+//   }
+// );
 
-  static findAll() {
-    return roomsData;
-  }
+// /**
+//  * Add Member to room.
+//  *
+//  * @name PUT /api/Rooms/:id?
+//  *
+//  * @param {string} id - freetID (req.body.id)
+//  * @param {string} content - content of freet
+//  * @return {200} - freet has been updated
+//  * @throws {401} - if the user is not logged in
+//  * @throws {401} - if the freetID is not filled
+//  * @throws {404} - if the freetID is not found
+//  * @throws {400} - if content is not filled
+//  * @throws {401} - if content is not filled
+//  */
+//  router.put(
+//   "/addMember/:id?",
+//   [
+//     // validateThat.userIsLoggedIn,
+//     validateThat.checkroomHasUser,
+//     validateThat.memberExists
+//   ],
+//   (req, res) => {
+//     // return the updated freet with new content
+//     res
+//       .status(200)
+//       .json(
+//         Rooms.addMember(req.params.id, req.body.newmember)
+//       )
+//       .end();
+//     console.log(req.body)
+//   }
+// );
 
-  static findById(id) {
-    return roomsData.filter((room) => room.roomID === id)[0];
-  }
 
-  static findAuthorAll(creatorID) {
-    console.log(creatorID)
-    console.log(roomsData)
-    console.log(roomsData.filter((room) => room.creatorID === creatorID))
-    return roomsData.filter((room) => room.creatorID === creatorID);
-  }
 
-  static addItem(item, roomID) {
-    const room = Rooms.findById(roomID);
-    room.items.push(item);
-    console.log(room)
-    return room;
-  }
+// /**
+//  * Delete a room member(must login).
+//  *
+//  * @name DELETE /api/Rooms/:id?
+//  *
+//  * @param {string} id - freetID (req.query.id)
+//  * @return {200} - freet has been deleted
+//  * @throws {401} - if the user is not logged in
+//  * @throws {400} - if freetID is not filled
+//  * @throws {404} - if the freet is not found
+//  * @throws {401} - if the freet's authorID does not match the userID in the current session
+//  */
+//  router.delete("/removeMember/:id?/:member?", [validateThat.userIsLoggedIn], (req, res) => {
+//   res.status(200).json(Rooms.deleteMember(req.params.id, req.params.member)).end();
+// });
 
-  static addMember(roomID, username) {
-    const room = Rooms.findById(roomID);
-    room.members.push(username);
-    return room;
-  }
 
-  static findMemberInroom(roomID, username) {
-    const room = Rooms.findById(roomID);
-    return room.members.filter((member) => member === username);
-  }
-
-  static deleteMember(roomID, username) {
-    const room = Rooms.findById(roomID);
-    console.log(username);
-    room.members = room.members.filter((member) => member !== username);
-    console.log(room);
-    return room;
-  }
-
-}
-
-module.exports = Rooms;
+module.exports = router;

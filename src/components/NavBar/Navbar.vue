@@ -33,7 +33,7 @@
         <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignInForm">
           SIGN IN
         </button>
-        <router-link v-if="!userName" class="link" to="/0" style="border-bottom: var(--border)">
+        <router-link v-if="userName" class="link" to="/0" style="border-bottom: var(--border)">
           READINGS
         </router-link>
         <!-- <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignUpForm">
@@ -42,7 +42,7 @@
         <button v-if="userName" class="btn-signout link" v-on:click="signOut">
           SIGN OUT
         </button>
-        <router-link class="link" to="/admin/dashboard">
+        <router-link v-if="isAdmin" class="link" to="/admin/dashboard">
           (For admin)
         </router-link>
       </div>
@@ -72,6 +72,7 @@ export default {
       DropDown: false,
       SignInForm: false,
       SignUpForm: false,
+      isAdmin: false,
     };
   },
   components: {
@@ -88,6 +89,7 @@ export default {
     eventBus.$on("signout-success", () => {
       this.$cookie.set("chimera-place-auth", "");
       this.userName = "";
+      this.isAdmin = false;
       console.log("cookie!");
     });
   },
@@ -98,6 +100,7 @@ export default {
         .then(() => {
           console.log("signed out!");
           eventBus.$emit("signout-success", true);
+          this.$router.push("/").catch(() => {});
         })
         .catch((error) => {
           eventBus.$emit("signout-success", true);
@@ -121,6 +124,11 @@ export default {
     closeSignUpForm(variable) {
       this.SignUpForm = variable;
     },
+    checkIsAdmin() {
+      if(this.userName == "adminadmin"){
+        this.isAdmin = true;
+      }
+    }
   },
 };
 </script>

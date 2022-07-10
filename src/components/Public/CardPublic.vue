@@ -159,6 +159,9 @@ export default {
         this.showPilot = false;
       }
     });
+    eventBus.$on("signout-success", () => {
+      this.userName = "";
+    })
   },
   methods: {
     toggleReadMore() {

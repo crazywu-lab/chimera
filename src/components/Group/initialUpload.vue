@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import { eventBus } from "../../main";
+// import axios from "axios";
+// import { eventBus } from "../../main";
 
 export default {
   name: "initialUpload",
@@ -51,28 +51,6 @@ export default {
         this.message = tooLarge
           ? `Too large. Max size is ${MAX_SIZE / 1000000} Mb.`
           : "Only pdf files are allowed.";
-      }
-    },
-
-    async sendFile() {
-      console.log(this.file);
-      const formData = new FormData();
-      formData.append("file", this.file);
-      formData.append("room_name", this.room_name);
-      formData.append("creator", this.userName);
-      try {
-        await axios.post("/api/upload/uploadPDF", formData)
-        .then((response) => {
-          eventBus.$emit("upload-pdf-success", {
-            data: response.data
-          });
-        });
-        this.message = "File has been uploaded";
-        this.file = "";
-        this.error = false;
-      } catch (err) {
-        this.message = err.response.data.error;
-        this.error = true;
       }
     },
   },
