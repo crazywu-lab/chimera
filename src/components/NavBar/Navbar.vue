@@ -33,7 +33,7 @@
         <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignInForm">
           SIGN IN
         </button>
-        <router-link v-if="userName" class="link" to="/0" style="border-bottom: var(--border)">
+        <router-link v-if="userName && !isAdmin" class="link" to="/0" style="border-bottom: var(--border)">
           READINGS
         </router-link>
         <!-- <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignUpForm">
