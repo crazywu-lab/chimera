@@ -29,12 +29,14 @@
         DOWNLOAD TEXT
       </div>
     </div>
-    <div class="flex-box">
-      <div
-
-        style="border-top: var(--border); border-bottom: var(--border)"
-      >
+    <div v-if="!isUploaded" class="flex-box">
+      <div style="border-top: var(--border); border-bottom: var(--border)">
         <UploadAnotatedText :room_name="room_name" :group_name="group_name" />
+      </div>
+    </div>
+    <div v-if="isUploaded" class="flex-box">
+      <div style="border-top: var(--border); border-bottom: var(--border)">
+        You've already uploaded for this week.
       </div>
     </div>
 
@@ -194,6 +196,7 @@ export default {
     room_name: Number,
     room: Object,
     startDate: Date,
+    
   },
   components: {
     UploadAnotatedText,
@@ -201,11 +204,14 @@ export default {
   data() {
     return {
       // weekly_media_title: "",
+      userName: this.$cookie.get("chimera-place-auth"),
       weekly_media_text: "",
+      isUploaded: false
     };
   },
   mounted() {
     // this.addDropZone();
+    this.checkIsUploaded();
   },
   computed: {
     getDeadline() {
@@ -221,6 +227,14 @@ export default {
     clearValues() {
       document.querySelector("textarea").value = "";
       this.$refs["input"].reset();
+    },
+    checkIsUploaded() {
+      let readings_creators = this.room.readings_creators;
+      const latestUploader = readings_creators[readings_creators.length - 1];
+
+      if(latestUploader == this.userName) {
+        this.isUploaded = true;
+      }
     },
     // addDropZone() {
     //   const dropzone = document.querySelector('.media-upload');

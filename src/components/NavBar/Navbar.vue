@@ -30,10 +30,19 @@
         <router-link class="link" to="/" style="border-bottom: var(--border)">
           HOME
         </router-link>
-        <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignInForm">
+        <button
+          v-if="!userName"
+          class="btn-signout link"
+          v-on:click="triggerSignInForm"
+        >
           SIGN IN
         </button>
-        <router-link v-if="userName && !isAdmin" class="link" to="/0" style="border-bottom: var(--border)">
+        <router-link
+          v-if="userName && !isAdmin"
+          class="link"
+          to="/0"
+          style="border-bottom: var(--border)"
+        >
           READINGS
         </router-link>
         <!-- <button v-if="!userName" class="btn-signout link" v-on:click="triggerSignUpForm">
@@ -48,7 +57,7 @@
       </div>
     </transition>
     <transition name="zoom">
-      <SignInForm v-if="SignInForm" @eventname="closeSignInForm"/>
+      <SignInForm v-if="SignInForm" @showSignIn="closeSignInForm" />
     </transition>
     <!-- <transition name="zoom">
       <SignUpForm v-if="SignUpForm" @eventname="closeSignUpForm"/>
@@ -82,7 +91,7 @@ export default {
   created() {
     this.checkIsAdmin();
     eventBus.$on("login-success", (username) => {
-      this.$cookie.set("chimera-place-auth", username);
+      this.$cookie.set("chimera-place-auth", username, { expires: "1h" });
       this.SignInForm = false;
       this.checkIsAdmin();
       location.reload();
@@ -128,10 +137,10 @@ export default {
       this.SignUpForm = variable;
     },
     checkIsAdmin() {
-      if(this.userName == "adminadmin"){
+      if (this.userName == "adminadmin") {
         this.isAdmin = true;
       }
-    }
+    },
   },
 };
 </script>
@@ -142,7 +151,7 @@ img {
   z-index: 10;
 }
 
-.card-simple{
+.card-simple {
   left: calc(50vw - 20px);
 }
 .navbar {
@@ -163,7 +172,7 @@ img {
 button {
   border-bottom: var(--border);
 }
-#nav-dropdown{
+#nav-dropdown {
   transform: none;
   position: fixed;
   width: 180px;
@@ -185,7 +194,7 @@ button {
   cursor: pointer;
 }
 
-.nav-btn:hover{
+.nav-btn:hover {
   transition: 500ms ease-in-out;
   opacity: 0.9;
 }
@@ -230,5 +239,4 @@ button {
     transform-origin: top right;
   }
 }
-
 </style>

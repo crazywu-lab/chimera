@@ -5,7 +5,7 @@
     <td>{{file.creator_id}}</td>
     <td class="pdf-size">{{ file.size / 1000 }} Kb</td>
     <td>
-      <button class="btn-delete" v-on:click="deletePDF">Delete</button>
+      <button class="btn-delete">Delete (not available)</button>
     </td>
   </tr>
 </template>
@@ -18,23 +18,7 @@ export default {
   name: "PdfCard",
   props: ["file", "roomName"],
   methods: {
-    deletePDF() {
-      axios
-        .delete(
-          "/api/rooms/deletePDF/" + this.roomName + "/" + this.file.filename,
-          {}
-        )
-        .then((response) => {
-          eventBus.$emit("delete-pdf-success", {
-            data: response.data,
-          });
-        })
-        .catch((error) => {
-          if (error.response && error.response.status != 200) {
-            alert(error.response.data.error);
-          }
-        });
-    },
+    
   },
 };
 </script>

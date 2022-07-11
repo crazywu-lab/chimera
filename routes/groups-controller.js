@@ -23,6 +23,17 @@ async function findLatestFile(group_name, room_name) {
   }
 }
 
+async function findPDF(group_name, room_name, index) {
+  try {
+    const group = await Group.findOne({ group_name: group_name });
+    const readings = group.rooms[room_name].readings;
+    const pdfFile = readings[index];
+    return pdfFile;
+  } catch (err) {
+    return false;
+  }
+}
+
 async function addOne(group_name, members_num, members, files, creator) {
   try {
     const user = await User.findOne({ username: creator });
@@ -153,5 +164,6 @@ module.exports = Object.freeze({
   rotation,
   deleteOne,
   findOneByUser,
-  uploadAnnotatedText
+  uploadAnnotatedText,
+  findPDF
 });

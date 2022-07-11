@@ -68,6 +68,10 @@ db.mongoose
 // Set up user session
 app.use(session({
     secret: 'chimera-place',
+    cookie: {
+      maxAge: 3600000,
+      secure: false
+    },
     resave: true,
     saveUninitialized: true
 }))

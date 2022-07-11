@@ -127,6 +127,22 @@ router.get("/downloadLatest/:group_name?/:room_name?", async (req, res) => {
   readStream.pipe(res);
 });
 
+router.get("/downloadPDF/:group_name?/:room_name?/:index?", async (req, res) => {
+  const latest_file = await Groups.findPDF(
+    req.params.group_name,
+    req.params.room_name,
+    req.params.index
+  );
+  const fileKey = latest_file.filename;
+  const downloadParams = {
+    Key: fileKey,
+    Bucket: bucketName,
+  };
+
+  const readStream = s3.getObject(downloadParams).createReadStream();
+  readStream.pipe(res);
+});
+
 /**
  * Create a group (must signed in first)
  *
