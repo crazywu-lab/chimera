@@ -85,7 +85,7 @@ export default {
       this.$cookie.set("chimera-place-auth", username);
       this.SignInForm = false;
       this.checkIsAdmin();
-      location.reload();
+      this.$router.push("/").catch(() => {});
     });
 
     eventBus.$on("signout-success", () => {
