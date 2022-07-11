@@ -262,6 +262,7 @@ export default {
     //     })
     //   });
     // },
+    
     downloadLatestPDF() {
       axios
         .get(
