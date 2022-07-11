@@ -50,7 +50,7 @@ export default ({
     //   this.$emit("showSignIn", false);
     // },
     closeSignIn(){
-      this.$emit("eventname", false);
+      this.$emit("showSignIn", false);
     },
     signIn() {
       axios

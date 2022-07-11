@@ -154,7 +154,7 @@ export default {
     }
   },
   created() {
-    this.checkIsAdin();
+    this.checkIsAdmin();
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         this.readMore = false;
@@ -166,7 +166,7 @@ export default {
     })
   },
   methods: {
-    checkIsAdin() {
+    checkIsAdmin() {
       if(this.userName == 'adminadmin'){
         this.isAdmin = true;
       }
