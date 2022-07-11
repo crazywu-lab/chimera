@@ -20,7 +20,6 @@
         let W = window.innerWidth, H = window.innerHeight * this.y;
         divBG.style.width = W;
         divBG.style.height = H;
-        console.log(W, H);
         let NX = Math.floor(W/60), NY = Math.floor(H/60);
         let w = W/NX, h = H/NY;
         for (let x = 1; x < NX; x++){

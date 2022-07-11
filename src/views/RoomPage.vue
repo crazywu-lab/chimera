@@ -43,12 +43,14 @@
         <th>Delete</th>
       </tr>
       <tr v-for="(file, index) in room.readings" :key="file.filename">
-        <td class="pdf-name">{{ file.originalname }}</td>
+        <td @click="downloadPDF(index)" class="pdf-name">
+          {{ file.originalname }}
+        </td>
         <td>{{ room.readings_creators[index] }}</td>
         <td>placeholder</td>
         <td class="pdf-size">{{ file.size / 1000 }} Kb</td>
         <td>
-          <button class="btn-delete" v-on:click="deletePDF">Delete</button>
+          <button class="btn-delete">Delete (not available)</button>
         </td>
       </tr>
       <!-- <PdfCard
@@ -95,12 +97,9 @@ export default {
     };
   },
   created() {
-    eventBus.$on(
-      ["delete-member-success", "delete-pdf-success"],
-      () => {
-        this.getRoom();
-      }
-    );
+    eventBus.$on(["delete-member-success", "delete-pdf-success"], () => {
+      this.getRoom();
+    });
     this.getRoom();
     this.getReaders();
   },
@@ -113,6 +112,29 @@ export default {
     );
   },
   methods: {
+    downloadPDF(index) {
+      axios
+        .get(
+          `/api/groups/downloadPDF/${this.$route.params.group_name}/${this.$route.params.room_name}/${index}`,
+          {
+            responseType: "blob",
+          }
+        )
+        .then((response) => {
+          var file = window.URL.createObjectURL(new Blob([response.data]));
+          var docUrl = document.createElement("a");
+          docUrl.href = file;
+          docUrl.download = this.room.readings[
+            this.room.readings.length - 1
+          ].originalname;
+          docUrl.click();
+        })
+        .catch((error) => {
+          if (error.response && error.response.status != 200) {
+            alert(error.response.data.error);
+          }
+        });
+    },
     addReader() {
       axios
         .put("/api/rooms/addMember/" + this.room.room_name, this.reader)
@@ -150,23 +172,6 @@ export default {
           alert(error);
         });
     },
-    deletePDF() {
-      axios
-        .delete(
-          "/api/rooms/deletePDF/" + this.roomName + "/" + this.file.filename,
-          {}
-        )
-        .then((response) => {
-          eventBus.$emit("delete-pdf-success", {
-            data: response.data,
-          });
-        })
-        .catch((error) => {
-          if (error.response && error.response.status != 200) {
-            alert(error.response.data.error);
-          }
-        });
-    },
     downloadLatestPDF() {
       axios
         .get(
@@ -177,9 +182,11 @@ export default {
         )
         .then((response) => {
           var file = window.URL.createObjectURL(new Blob([response.data]));
-          var docUrl = document.createElement('a');
+          var docUrl = document.createElement("a");
           docUrl.href = file;
-          docUrl.download = this.room.readings[this.room.readings.length-1].originalname;
+          docUrl.download = this.room.readings[
+            this.room.readings.length - 1
+          ].originalname;
           docUrl.click();
         })
         .catch((error) => {
@@ -305,5 +312,12 @@ th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+.pdf-name {
+  text-decoration: underline;
+}
+.pdf-name:hover {
+  cursor: pointer;
 }
 </style>
