@@ -6,14 +6,14 @@
     >
       <div class="message-body">{{ message }}</div>
     </div>
-    <div class="field">
-      <label for="fileUpload" class="label">UPLOAD ANNOTATED</label>
+    <div v-if="!file" class="field">
+      <label for="fileUpload" class="label">UPLOAD ANNOTATED TEXT</label>
 
       <input id="fileUpload" type="file" ref="file" @change="selectFile" required />
     </div>
 
     <div v-if="file" class="field">
-      <button class="button is-info" @click="sendFile">Upload</button>
+      <button class="button is-info" @click="sendFile"> FILE LOADED! CLICK TO UPLOAD </button>
     </div>
   </form>
 </template>
@@ -118,5 +118,31 @@ export default {
   }
   input {
     display: none;
+  }
+  form {
+    width: 100%;
+    height: 100%;
+  }
+  .field {
+    width: 100%;
+    height: 100%;
+    /*display: flex;*/
+  }
+  label {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    justify-content: center;
+  }
+  button {
+    display: inline-flex;
+    border: none;
+    background-color: #c4c4c4;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    align-items: center;
   }
 </style>
