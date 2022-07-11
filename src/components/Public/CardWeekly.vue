@@ -201,7 +201,7 @@ export default {
       // weekly_media_title: "",
       userName: this.$cookie.get("chimera-place-auth"),
       weekly_media_text: "",
-      isUploaded: false
+      isUploaded: false,
     };
   },
   mounted() {
@@ -227,7 +227,7 @@ export default {
       let readings_creators = this.room.readings_creators;
       const latestUploader = readings_creators[readings_creators.length - 1];
 
-      if(latestUploader == this.userName) {
+      if (latestUploader == this.userName) {
         this.isUploaded = true;
       }
     },
@@ -262,6 +262,7 @@ export default {
     //     })
     //   });
     // },
+    
     downloadLatestPDF() {
       axios
         .get(
@@ -274,9 +275,7 @@ export default {
           var file = window.URL.createObjectURL(new Blob([response.data]));
           var docUrl = document.createElement("a");
           docUrl.href = file;
-          docUrl.download = this.room.readings[
-            this.room.readings.length - 1
-          ].originalname;
+          docUrl.download = this.room.readings[0].originalname;
           docUrl.click();
         })
         .catch((error) => {
