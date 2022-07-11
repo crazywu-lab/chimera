@@ -30,7 +30,7 @@
       <div v-if="!userName" class="link" v-on:click="showSignIn($event)">
         SIGN IN
       </div>
-      <div v-if="userName" class="link">
+      <div v-if="userName && !isAdmin" class="link">
         <router-link class="link" to="/0">START READING</router-link>
       </div>
       <div class="link">
@@ -150,9 +150,11 @@ export default {
       userName: this.$cookie.get("chimera-place-auth"),
       readMore: false,
       showPilot: false,
+      isAdmin: false,
     }
   },
   created() {
+    this.checkIsAdin();
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         this.readMore = false;
@@ -164,6 +166,11 @@ export default {
     })
   },
   methods: {
+    checkIsAdin() {
+      if(this.userName == 'adminadmin'){
+        this.isAdmin = true;
+      }
+    },
     toggleReadMore() {
       this.readMore = !this.readMore;
     },

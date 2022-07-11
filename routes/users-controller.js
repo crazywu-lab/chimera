@@ -12,7 +12,9 @@ async function findAll(){
 async function findOne(name){
   try{
     const user = await User.findOne({username: name});
-    return user;
+
+    if(user) return user;
+    else return false;
   } catch(err){
     return false;
   }
