@@ -29,7 +29,16 @@
       />
     </transition>
 <!--    <nav-to-archive />-->
-    <Navbar />
+    <Navbar
+        :showNavDropDown="showNavDropDown"
+        @showNavDropDown="showNavDropDownFunc($event)"
+    />
+    <transition name="zoom-topright">
+      <nav-drop-down v-if = "showNavDropDown"
+                     @showNavDropDown="showNavDropDownFunc($event)"
+                     @showSignIn="showSignInFunc($event)"
+      />
+    </transition>
   </div>
 </template>
 
@@ -42,6 +51,7 @@ import PictureFrames from "../components/Background/PictureFrames.vue";
 // import SignUpForm from "../components/Users/SignUpForm.vue";
 import SignInForm from "../components/Users/SignInForm.vue";
 import UploadCard from "../components/Room/UploadCard.vue";
+import NavDropDown from "../components/NavBar/NavDropDown.vue";
 // import NavToArchive from "../components/NavBar/NavToArchive.vue";
 // import AudioPlayer from "../components/Background/AudioPlayer.vue";
 
@@ -53,6 +63,7 @@ export default {
       // showSignUp: false,
       showSignIn: false,
       showUploadCard: false,
+      showNavDropDown: false,
     };
   },
   created() {
@@ -61,10 +72,12 @@ export default {
         // this.showSignUp = false;
         this.showSignIn = false;
         this.showUploadCard = false;
+        this.showNavDropDown = false;
       }
     });
   },
   components: {
+    NavDropDown,
     // AudioPlayer,
     // NavToArchive,
     PictureFrames,
@@ -80,12 +93,15 @@ export default {
     // showSignUpFunc(showSignUp) {
     //   this.showSignUp = showSignUp;
     // },
-    showSignInFunc(showSignIn) {
-      this.showSignIn = showSignIn;
+    showSignInFunc(bool) {
+      this.showSignIn = bool;
     },
-    showUploadCardFunc(showUploadCard) {
-      this.showUploadCard = showUploadCard;
+    showUploadCardFunc(bool) {
+      this.showUploadCard = bool;
     },
+    showNavDropDownFunc(bool) {
+      this.showNavDropDown = bool;
+    }
   },
 };
 </script>

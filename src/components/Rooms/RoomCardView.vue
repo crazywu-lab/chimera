@@ -252,6 +252,6 @@ export default {
 
 .link {
   width: 100%;
-  height: 33.33%;
+  height: 100%;
 }
 </style>
