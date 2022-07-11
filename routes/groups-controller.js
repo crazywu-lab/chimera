@@ -6,7 +6,7 @@ const User = require("../models/User");
 async function findOne(name) {
   try {
     const group = await Group.findOne({ group_name: name });
-    return group;
+    if(group) return group;
   } catch (err) {
     return false;
   }

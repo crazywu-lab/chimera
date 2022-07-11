@@ -80,9 +80,11 @@ export default {
     // SignUpForm
   },
   created() {
+    this.checkIsAdmin();
     eventBus.$on("login-success", (username) => {
       this.$cookie.set("chimera-place-auth", username);
       this.SignInForm = false;
+      this.checkIsAdmin();
       location.reload();
     });
 
@@ -100,7 +102,7 @@ export default {
         .then(() => {
           console.log("signed out!");
           eventBus.$emit("signout-success", true);
-          // this.$router.push("/").catch(() => {});
+          this.$router.push("/").catch(() => {});
         })
         .catch((error) => {
           eventBus.$emit("signout-success", true);

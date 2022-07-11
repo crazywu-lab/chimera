@@ -13,7 +13,7 @@
 
     <RoomCardView
       @showCard="showCardFunc($event)"
-      :week-now="weekNow"
+      :weekNow="weekNow"
       :group_name="group.group_name"
       :room_name="room.room_name"
     />
