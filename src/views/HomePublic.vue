@@ -13,14 +13,14 @@
 <!--      @showUploadCard="showUploadCardFunc($event)"-->
 <!--    />-->
     <card-public
-        @showSignIn="showSignInFunc($event)"
+        @showSignIn="showSignInFunc"
         @showUploadCard="showUploadCardFunc($event)"
     />
 <!--    <transition name="zoom">-->
 <!--      <sign-up-form v-if="showSignUp" @showSignUp="showSignUpFunc($event)" />-->
 <!--    </transition>-->
     <transition name="zoom">
-      <sign-in-form v-if="showSignIn" @showSignIn="showSignInFunc($event)" />
+      <SignInForm v-if="showSignIn" @showSignIn="showSignInFunc($event)" />
     </transition>
     <transition name="zoom">
       <upload-card

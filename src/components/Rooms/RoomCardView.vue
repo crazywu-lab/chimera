@@ -14,23 +14,22 @@
       "
     >
       <div v-if="room.week === weekNow" class="link" v-on:click="showCard">
-        WEEKLY PROMPT
+        WEEK {{weekNow}}
       </div>
-      <div
+      <!-- <div
         v-if="room.week === weekNow"
         class="link"
         style="border-top: var(--border)"
-        @click="downloadLatestPDF"
       >
         DOWNLOAD READING
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         v-if="room.week === weekNow"
         class="link"
         style="border-top: var(--border)"
       >
         <UploadAnotatedText :room_name="room_name" :group_name="group_name" />
-      </div>
+      </div> -->
       <div
         div
         v-if="room.week < weekNow && room.thumbnail"
@@ -64,8 +63,7 @@
 
 <script>
 // import * as d3 from "d3";
-import UploadAnotatedText from "./UploadAnotatedText.vue";
-import axios from "axios";
+// import UploadAnotatedText from "./UploadAnotatedText.vue";
 
 export default {
   name: "RoomCardView",
@@ -82,9 +80,9 @@ export default {
     group_name: String,
     room_name: Number,
   },
-  components: {
-    UploadAnotatedText,
-  },
+  // components: {
+  //   UploadAnotatedText,
+  // },
   data() {
     return {
       //// also need to be replaced with server communication
@@ -132,27 +130,6 @@ export default {
       r.keys().forEach((key) => {
         this.thumbnailKeys.push(key);
       });
-    },
-    downloadLatestPDF() {
-      axios
-          .get(
-              `/api/groups/downloadLatest/${this.group_name}/${this.room_name}`,
-              {
-                responseType: "blob",
-              }
-          )
-          .then((response) => {
-            var file = window.URL.createObjectURL(new Blob([response.data]));
-            var docUrl = document.createElement('a');
-            docUrl.href = file;
-            docUrl.download = this.room.readings[this.room.readings.length-1].originalname;
-            docUrl.click();
-          })
-          .catch((error) => {
-            if (error.response && error.response.status != 200) {
-              alert(error.response.data.error);
-            }
-          });
     },
     // connectCards() {
     //   let cards = document.querySelectorAll(".room-card");

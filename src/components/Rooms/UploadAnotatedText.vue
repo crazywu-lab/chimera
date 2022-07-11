@@ -35,10 +35,32 @@ export default {
       message: "",
       error: false,
       userName: this.$cookie.get("chimera-place-auth"),
+      isUploading: false,
     };
   },
 
+  beforeMount() {
+    window.addEventListener("beforeunload", this.preventNav);
+    this.$once("hook:beforeDestroy", () => {
+      window.removeEventListener("beforeunload", this.preventNav);
+    });
+  },
+
+  beforeRouteLeave(to, from, next) {
+    if (this.isEditing) {
+      if (!window.confirm("Leave without saving?")) {
+        return;
+      }
+    }
+    next();
+  },
+
   methods: {
+    preventNav(event) {
+      if (!this.isEditing) return
+      event.preventDefault()
+      event.returnValue = ""
+    },
     selectFile() {
       const file = this.$refs.file.files[0];
       console.log(file);
@@ -48,6 +70,8 @@ export default {
       if (allowedTypes.includes(file.type) && !tooLarge) {
         this.file = file;
         this.error = false;
+        this.isUploading = true;
+        console.log(this.isUploading);
         this.message = "";
         // this.$emit("eventname", this.roomNumber, this.file);
       } else {
@@ -66,17 +90,19 @@ export default {
       formData.append("creator", this.userName);
       try {
         await axios
-          .put(`/api/groups/uploadAnnotatedText/${this.group_name}/${this.room_name}`, formData)
+          .put(
+            `/api/groups/uploadAnnotatedText/${this.group_name}/${this.room_name}`,
+            formData
+          )
           .then((response) => {
-            console.log(response.data);
             eventBus.$emit("upload-pdf-success", {
               data: response.data,
-
             });
           });
         this.message = "File has been uploaded";
         this.file = "";
         this.error = false;
+        this.isUploading = false;
       } catch (err) {
         this.message = err.response.data.error;
         this.error = true;

@@ -13,7 +13,7 @@
 
     <RoomCardView
       @showCard="showCardFunc($event)"
-      :week-now="weekNow"
+      :weekNow="weekNow"
       :group_name="group.group_name"
       :room_name="room.room_name"
     />
@@ -25,7 +25,7 @@
       <CardWeekly
         v-if="showCard"
         @showCard="showCardFunc($event)"
-        :week-now="weekNow"
+        :weekNow="weekNow"
         :group_name="group.group_name"
         :room_name="room.room_name"
         :room="room"
@@ -33,22 +33,13 @@
       />
     </transition>
     <!--    <NavToArchive />-->
-    <Navbar
-        :showNavDropDown="showNavDropDown"
-        @showNavDropDown="showNavDropDownFunc($event)"
-    />
-    <transition name="zoom-topright">
-      <nav-drop-down v-if = "showNavDropDown"
-                     @showNavDropDown="showNavDropDownFunc($event)"
-                     @showSignIn="showSignInFunc($event)"
-      />
-    </transition>
+    <Navbar />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-// import { eventBus } from "@/main";
+import { eventBus } from "@/main";
 
 import Background from "../components/Background/Background.vue";
 import Navbar from "../components/NavBar/Navbar.vue";
@@ -56,7 +47,6 @@ import RoomCardView from "../components/Rooms/RoomCardView.vue";
 import CardWeekly from "../components/Public/CardWeekly.vue";
 import Footer from "../components/NavBar/Footer.vue";
 import MediaWeekly from "../components/Public/MediaWeekly.vue";
-import NavDropDown from "../components/NavBar/NavDropDown.vue";
 
 export default {
   name: "HomeWeekly",
@@ -64,8 +54,7 @@ export default {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
       showCard: false,
-      showNavDropDown: false,
-      weekNow: 5,
+      weekNow: 1,
       startDate: new Date(2022, 6, 11),
       group: {},
       room: {},
@@ -78,6 +67,10 @@ export default {
         this.showCard = false;
       }
     });
+    eventBus.$on("signout-success", () => {
+      this.userName = "";
+      this.$router.push("/").catch(() => {});
+    })
   },
   components: {
     MediaWeekly,
@@ -88,7 +81,6 @@ export default {
     Footer,
     Background,
     CardWeekly,
-    NavDropDown,
   },
   mounted() {
     this.getGroupByUser();
@@ -97,9 +89,6 @@ export default {
   methods: {
     showCardFunc(showCard) {
       this.showCard = showCard;
-    },
-    showNavDropDownFunc(bool) {
-      this.showNavDropDown = bool;
     },
     getGroupByUser() {
       axios

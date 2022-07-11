@@ -6,7 +6,7 @@ const User = require("../models/User");
 async function findOne(name) {
   try {
     const group = await Group.findOne({ group_name: name });
-    return group;
+    if(group) return group;
   } catch (err) {
     return false;
   }
@@ -18,6 +18,17 @@ async function findLatestFile(group_name, room_name) {
     const readings = group.rooms[room_name].readings;
     const latest_file = readings[readings.length-1];
     return latest_file;
+  } catch (err) {
+    return false;
+  }
+}
+
+async function findPDF(group_name, room_name, index) {
+  try {
+    const group = await Group.findOne({ group_name: group_name });
+    const readings = group.rooms[room_name].readings;
+    const pdfFile = readings[index];
+    return pdfFile;
   } catch (err) {
     return false;
   }
@@ -153,5 +164,6 @@ module.exports = Object.freeze({
   rotation,
   deleteOne,
   findOneByUser,
-  uploadAnnotatedText
+  uploadAnnotatedText,
+  findPDF
 });

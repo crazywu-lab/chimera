@@ -14,9 +14,9 @@ const history = require('connect-history-api-fallback');
 // Import all the express routes we will be using
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const roomsRouter = require('./routes/rooms');
+// const roomsRouter = require('./routes/rooms');
 const groupsRouter = require('./routes/groups');
-const uploadRouter = require('./routes/uploadPDF');
+// const uploadRouter = require('./routes/uploadPDF');
 
 // Create our app
 const app = express();
@@ -68,6 +68,10 @@ db.mongoose
 // Set up user session
 app.use(session({
     secret: 'chimera-place',
+    cookie: {
+      maxAge: 3600000,
+      secure: false
+    },
     resave: true,
     saveUninitialized: true
 }))
@@ -94,9 +98,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Connect url hierarchies to our routers
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
-app.use('/api/rooms', roomsRouter);
+// app.use('/api/rooms', roomsRouter);
 app.use('/api/groups', groupsRouter);
-app.use('/api/upload', uploadRouter);
+// app.use('/api/upload', uploadRouter);
 
 app.all('*', (req, res) => {
   const errorMessage = `
