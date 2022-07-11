@@ -22,7 +22,7 @@ body {
 }
 
 #app {
-    /*scroll-snap-type: y proximity;*/
+    scroll-snap-type: y proximity;
     overflow-y: scroll;
     overflow-x:hidden;
     height: 100vh;
@@ -157,7 +157,7 @@ button {
     width: 350px;
     text-align: center;
     top: 50vh;
-    z-index: 999;
+    z-index: 998;
 }
 
 
@@ -200,6 +200,16 @@ nav {
     vertical-align: middle;
 }
 
+.full-bleed{
+    position: relative;
+    /*overflow: hidden;*/
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    scroll-snap-align: start;
+}
+
+
 /*Vue transition*/
 /*zoom*/
 
@@ -225,13 +235,29 @@ nav {
     }
 }
 
-.full-bleed{
-    position: relative;
-    /*overflow: hidden;*/
-    width: 100vw;
-    height: 100vh;
-    margin: 0 auto;
-    scroll-snap-align: start;
+.zoom-topright-enter-active,
+.zoom-topright-leave-active {
+    animation-duration: 150ms;
+    animation-fill-mode: both;
+    animation-name: zoom-topright;
+}
+
+.zoom-topright-leave-active {
+    animation-direction: reverse;
+}
+
+
+@keyframes zoom-topright {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+        transform-origin: top right;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        transform-origin: top right;
+    }
 }
 
 /*mobile devices responsive*/

@@ -20,7 +20,7 @@
         {{ getDeadline.getDate() }}</b
       >.
     </p>
-    <div class="flex-box">
+    <div class="flex-box flex-box-vertical">
       <div
         class="link"
         style="border-top: var(--border); border-bottom: var(--border)"
@@ -28,18 +28,13 @@
       >
         DOWNLOAD TEXT
       </div>
-    </div>
-    <div v-if="!isUploaded" class="flex-box">
-      <div style="border-top: var(--border); border-bottom: var(--border)">
+      <div v-if="!isUploaded" class="link" style="border-bottom: var(--border)">
         <UploadAnotatedText :room_name="room_name" :group_name="group_name" />
       </div>
-    </div>
-    <div v-if="isUploaded" class="flex-box">
-      <div style="border-top: var(--border); border-bottom: var(--border)">
-        You've already uploaded for this week.
+      <div v-if="isUploaded" class="message" style="border-bottom: var(--border); background-color: #757575; color: white;">
+        You have uploaded your file successfully
       </div>
     </div>
-
     <div v-if="weekNow === 1">
       <p>
         In the following weeks, there will be social prompts to foster a sense
@@ -196,7 +191,7 @@ export default {
     room_name: Number,
     room: Object,
     startDate: Date,
-    
+
   },
   components: {
     UploadAnotatedText,
@@ -337,5 +332,13 @@ textarea {
   width: calc(100% - 30px);
   margin: 15px auto;
   display: block;
+}
+
+.message {
+  display: inline-flex;
+  font-size: 0.8rem;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
 }
 </style>
