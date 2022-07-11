@@ -129,7 +129,7 @@ const sessionNull = (req, res, next) => {
 
 const usernameDuplicate = async (req, res, next) => {
   const user = await Users.findOne(req.body.username);
-  if (user !== null) {
+  if (user !== false) {
     res
       .status(400)
       .json({

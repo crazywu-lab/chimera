@@ -92,6 +92,7 @@ export default {
       this.$cookie.set("chimera-place-auth", "");
       this.userName = "";
       this.isAdmin = false;
+      // this.$router.push("/").catch(() => {});
       console.log("cookie!");
     });
   },

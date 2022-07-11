@@ -87,11 +87,11 @@ export default ({
           });
           // this.$router.push("/");
         })
-        // .catch((error) => {
-        //   if (error.response && error.response.status != 200){
-        //     this.error = error.response.data.error;
-        //   }
-        // })
+        .catch((error) => {
+          if (error.response && error.response.status != 200){
+            this.error = error.response.data.error;
+          }
+        })
     },
       // onSubmit(){
       //   this.error = null;
