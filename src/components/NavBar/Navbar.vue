@@ -26,7 +26,7 @@
       &#9776;
     </div>
     <transition name="zoom-topright">
-      <div v-if="DropDown" id="nav-dropdown" class="">
+      <div v-if="DropDown" id="nav-dropdown">
         <router-link class="link" to="/" style="border-bottom: var(--border)">
           HOME
         </router-link>
@@ -169,9 +169,6 @@ img {
   z-index: 999;
 }
 
-button {
-  border-bottom: var(--border);
-}
 #nav-dropdown {
   transform: none;
   position: fixed;
@@ -179,7 +176,7 @@ button {
   border: 1px solid #757575;
   background-color: white;
   box-shadow: var(--shadow);
-  top: 8vh;
+  top: 60px;
   right: 15px;
 }
 
@@ -239,4 +236,31 @@ button {
     transform-origin: top right;
   }
 }
+
+@media (max-width: 500px) {
+  #nav-dropdown {
+    transform: scale(0.85);
+    transform-origin: top right;
+  }
+  .nav-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    line-height: 30px;
+  }
+  @keyframes zoom-topright {
+    from {
+      opacity: 0;
+      transform: scale(0.3);
+      transform-origin: top right;
+    }
+    100% {
+      transform: scale(0.85);
+      opacity: 1;
+      transform-origin: top right;
+    }
+  }
+
+}
+
 </style>

@@ -31,7 +31,7 @@
         SIGN IN
       </div>
       <div v-if="userName && !isAdmin" class="link">
-        <router-link class="link" to="/0">START READING</router-link>
+        <router-link to="/0">START READING</router-link>
       </div>
       <div class="link">
         <a href="mailto:hi@chimera.place">

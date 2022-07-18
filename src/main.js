@@ -15,8 +15,8 @@ import HomeWeekly from "./views/HomeWeekly.vue";
 import GroupPage from './views/GroupPage.vue';
 import CreateGroupPage from './views/CreateGroupPage.vue';
 import ErrorPage from './views/ErrorPage.vue';
-import Archive from "./views/Archive.vue";
 import SignUp from "./components/Users/SignUpForm.vue";
+// import Archive from "./views/Archive.vue";
 
 export const eventBus = new Vue();
 
@@ -37,7 +37,7 @@ export const router = new VueRouter({
     { path: '/admin/signin', name: 'public', component: Home, props: true },
     { path: '/admin/group/:name', name: 'group', component: GroupPage, props: true },
     { path: "/admin/createGroup", component: CreateGroupPage, props: true},
-    { path: "/archive", component: Archive, props: true},
+    // { path: "/archive", component: Archive, props: true},
     { path: "/*", component: ErrorPage, props: true},
   ]
 });

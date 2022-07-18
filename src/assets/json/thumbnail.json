@@ -1,0 +1,86 @@
+[
+  {
+    "group_name": 1,
+    "room_no": 1,
+    "room_name": "Ingold",
+    "user_name": "MaraJovanovic"
+  },
+  {
+    "group_name": 1,
+    "room_no": 2,
+    "room_name": "Tuck_Yang",
+    "user_name": "egrandjean"
+  },
+  {
+    "group_name": 1,
+    "room_no": 3,
+    "room_name": "Harman",
+    "user_name": "18005882300"
+  },
+  {
+    "group_name": 1,
+    "room_no": 4,
+    "room_name": "Alcoff_Hobsbawm",
+    "user_name": "mingjiachen"
+  },
+  {
+    "group_name": 1,
+    "room_no": 5,
+    "room_name": "Jue",
+    "user_name": "2369901429"
+  },
+  {
+    "group_name": 1,
+    "room_no": 6,
+    "room_name": "Lewis",
+    "user_name": "noamori"
+  },
+  {
+    "group_name": 1,
+    "room_no": 7,
+    "room_name": "ODonohue_Gibran",
+    "user_name": "lilykeyes"
+  },
+  {
+    "group_name": 2,
+    "room_no": 1,
+    "room_name": "Berlant",
+    "user_name": "quekwanli"
+  },
+  {
+    "group_name": 2,
+    "room_no": 2,
+    "room_name": "Goodman",
+    "user_name": "layerification"
+  },
+  {
+    "group_name": 2,
+    "room_no": 3,
+    "room_name": "Taitingfong",
+    "user_name": "wskamau"
+  },
+  {
+    "group_name": 2,
+    "room_no": 4,
+    "room_name": "Fritsch",
+    "user_name": "noopin10"
+  },
+  {
+    "group_name": 2,
+    "room_no": 5,
+    "room_name": "Brown",
+    "user_name": "MIT1994"
+  },
+  {
+    "group_name": 2,
+    "room_no": 6,
+    "room_name": "Saussure",
+    "user_name": "selena"
+  },
+  {
+    "group_name": 2,
+    "room_no": 7,
+    "room_name": "Flusser",
+    "user_name": "harrisac"
+  }
+]
