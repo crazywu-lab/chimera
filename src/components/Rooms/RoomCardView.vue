@@ -43,6 +43,7 @@ export default {
     this.buildRoomData()
   },
   props: {
+    show_card: Boolean,
     weekNow: Number,
     user_name: String,
   },
@@ -57,7 +58,11 @@ export default {
   },
   methods: {
     showCard() {
-      this.$emit("showCard", true);
+      if (this.show_card) {
+        this.$emit("showCard", false);
+      } else {
+        this.$emit("showCard", true);
+      }
     },
     buildRoomData() {
       console.log("username:", this.user_name);
