@@ -7,15 +7,11 @@
       :style="'left:' + 100 * (room.week / 7 - 1 / 64) + '%'"
       :class="
         room.week === weekNow
-          ? 'room-card-now'
-          : weekNow > room.week
-          ? 'room-card-old'
-          : 'room-card-future'
+          ? 'room-card-now' : weekNow > room.week
+          ? 'room-card-old' : 'room-card-future'
       "
     >
-      <div v-if="room.week === weekNow" class="link" v-on:click="showCard">
-        WEEK {{weekNow}}
-      </div>
+      <div v-if="room.week === weekNow" class="card-overlay" v-on:click="showCard" />
       <!-- <div
         v-if="room.week === weekNow"
         class="link"
@@ -30,106 +26,63 @@
       >
         <UploadAnotatedText :room_name="room_name" :group_name="group_name" />
       </div> -->
-      <div
-        div
-        v-if="room.week < weekNow && room.thumbnail"
-        class="overlay-container"
-      >
-        <div class="card-img-overlay">
-          <!--           this is a placeholder-->
-          <!--          <img :src="'../../assets/thumbnails/' + room.thumbnail">-->
-          <img
-            v-if="room.week === 1"
-            src="../../assets/thumbnails/leguin_1986.jpg"
-          />
-          <img
-            v-if="room.week === 2"
-            src="../../assets/thumbnails/mills_2011.jpg"
-          />
-          <img
-            v-if="room.week === 3"
-            src="../../assets/thumbnails/malazita_2019.webp"
-          />
-          <img
-            v-if="room.week === 4"
-            src="../../assets/thumbnails/sebald_1995.jpeg"
-          />
-        </div>
-        <div class="card-overlay" />
+      <div v-if="room.week <= weekNow && room.room_name" class="card-img-overlay">
+        <img :src = "getImage(room.room_name)">
       </div>
+<!--      <div class="card-overlay" />-->
     </div>
   </div>
 </template>
 
 <script>
-// import * as d3 from "d3";
-// import UploadAnotatedText from "./UploadAnotatedText.vue";
+import json from "../../assets/json/thumbnail.json";
 
 export default {
   name: "RoomCardView",
-  //// need to be replaced with server communication
-  beforeMount() {
-    this.importImages(require.context("../../assets/thumbnails/"));
+  mounted() {
+    this.buildRoomData()
   },
-  // mounted() {
-  //   this.connectCards();
-  //   window.addEventListener("resize", this.connectCards);
-  // },
   props: {
     weekNow: Number,
-    group_name: String,
-    room_name: Number,
+    user_name: String,
   },
   // components: {
   //   UploadAnotatedText,
   // },
   data() {
     return {
-      //// also need to be replaced with server communication
-      thumbnailKeys: [],
-      rooms: [
-        {
-          week: 1,
-          title: "Carrier Bag Theory of Fiction",
-          author: "Ursula Le Guin",
-          year: 1986,
-          thumbnail: "leguin_1986.jpg",
-        },
-        {
-          week: 2,
-          title: "On Disability and Cybernetics",
-          author: "Mara Mills",
-          year: 2011,
-          thumbnail: "mills_2011.jpg",
-        },
-        {
-          week: 3,
-          title:
-            "Infrastructures of abstraction: how computer science education produces anti-political subjects",
-          author: "James W. Malazita & Korryn Resetar",
-          year: 2019,
-          thumbnail: "malazita_2019.webp",
-        },
-        {
-          week: 4,
-          title: "Rings of Saturn",
-          author: "W.G. Sebald",
-          year: 1995,
-          thumbnail: "sebald_1995.jpeg",
-        },
-        { week: 5, title: "" },
-        { week: 6, title: "" },
-      ],
+      rooms: [],
+      group_name: "",
     };
   },
   methods: {
     showCard() {
       this.$emit("showCard", true);
     },
-    importImages(r) {
-      r.keys().forEach((key) => {
-        this.thumbnailKeys.push(key);
-      });
+    buildRoomData() {
+      console.log("username:", this.user_name);
+      let thisUser = json.filter(d => d.user_name === this.user_name)[0];
+      this.group_name = thisUser.group_name
+      let thisGroup = json.filter(d => d.group_name === this.group_name);
+      console.log("on week:",this.weekNow)
+      // console.log("members_num:", this.members_num);
+      for ( let i = 1; i < thisGroup.length; i++) {
+        let room_no = thisUser.room_no + i
+        if (room_no > thisGroup.length){
+          room_no -= thisGroup.length
+        }
+        let room = thisGroup.filter(d => d.room_no === room_no)[0].room_name
+        this.rooms.push(
+            {
+              "week": i,
+              "room_name": room,
+            }
+        )
+      }
+      console.log(this.rooms);
+    },
+    getImage(path){
+      return require('../../assets/thumbnail/' + this.group_name + '/' + path + '.jpeg');
     },
     // connectCards() {
     //   let cards = document.querySelectorAll(".room-card");
@@ -192,66 +145,56 @@ export default {
 
 .room-card-future {
   /*background: white;*/
+}
+
+.room-card-now {
+  min-width: 170px;
+  min-height: 220px;
+  box-shadow: var(--shadow);
+  z-index: 9;
+}
+
+.card-overlay {
+  opacity: 0.85;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  box-shadow: var(--shadow), inset 0 0 0 3px #333333;
+  cursor: pointer;
+}
+
+
+.card-img-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-img-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0 auto;
+  padding: 0;
   z-index: 1;
 }
 
-.room-card-now {
-  background: white;
-  display: flex;
-  flex-direction: column;
-  min-width: 170px;
-  min-height: 220px;
-  box-shadow: var(--shadow), inset 0px 0px 0px 10px #333333;
+.room-card-old > .card-img-overlay img {
+  filter: grayscale(95%) blur(2px);
 }
 
-.room-card-now {
-  background: white;
-  min-width: 170px;
-  min-height: 220px;
-  box-shadow: var(--shadow), inset 0px 0px 0px 2px #333333;
-  z-index: 10;
+.room-card-now > .card-img-overlay img {
+  box-shadow:  inset 0px 0px 0px 10px #333333;
 }
 
-/*border: 5px solid black;*/
-
-.card-overlay {
-  opacity: 0.85;
-  background: #333333;
+.room-card-old > .card-img-overlay img:hover {
+  transition: filter 0.3s ease-in-out;
+  filter: grayscale(20%);
 }
 
-.card-overlay:hover {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.card-img-overlay img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  margin: 0 auto;
-  padding: 0;
-}
-
-.card-overlay {
-  opacity: 0.85;
-  background: #333333;
-}
-
-.card-overlay:hover {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.card-img-overlay img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  margin: 0 auto;
-  padding: 0;
-}
-
-.link {
-  width: 100%;
-  height: 100%;
-}
 </style>
