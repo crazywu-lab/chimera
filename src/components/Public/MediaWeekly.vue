@@ -5,7 +5,7 @@
        :key="d.id"
        @mouseenter="bringToFront"
        @mouseleave="bringToBack">
-      <img v-if="weekNow !== 5 || weekNow !== 7" class="picture-frame" :src="d.path" :alt="d.title" :title="d.title"/>
+      <img v-if="weekNow !== 5 || weekNow !== 7" class="picture-frame" :src="d.path" :alt="d.id"/>
       <div v-if="weekNow === 5" class="quote">
         {{d.text}}
       </div>
@@ -15,7 +15,7 @@
 
 <script>
 // need to be replaced with the images in the media db from past week
-import json from "../../assets/json/img.json";
+import json from "../../assets/json/2.json";
 
 export default {
   name: "MediaWeekly",
@@ -28,7 +28,7 @@ export default {
     }
     else {
       // need to be replaced with the images in the media db from past week
-      this.importImages(require.context('../../assets/img/'));
+      this.importImages(require.context('../../assets/weekly/2'));
     }
   },
   mounted() {
@@ -48,39 +48,38 @@ export default {
               "id": d.id,
               "width": d.width,
               "height": d.height,
-              "title": d.title,
             });
       });
     },
     importTexts() {
       // this is a placeholder
-      this.data =
-           [
-             {"id": 1, "text": "Lorem ipsum dolor sit amet. Qui reprehenderit odio sit error molestiae ex voluptatem temporibus in fuga molestias cum tempora harum aut ipsam accusamus. Et iure iste 33 totam excepturi qui earum quidem est eligendi voluptas sed quod blanditiis nam doloribus voluptas. Nam assumenda harum nam odio aliquam At tenetur pariatur!"},
-             {"id": 2, "text": "Lorem ipsum dolor sit amet. Eos nostrum quidem et sint tempora ut magnam reiciendis. Et voluptas optio ut autem dolorum est neque nemo 33 magnam illo aut laboriosam dolores. Ut quam laudantium quo corporis sunt qui cupiditate nesciunt."},
-             {"id": 3, "text": "Lorem ipsum dolor sit amet. Qui reprehenderit odio sit error molestiae ex voluptatem temporibus in fuga molestias cum tempora harum aut ipsam accusamus. Et iure iste 33 totam excepturi qui earum quidem est eligendi voluptas sed quod blanditiis nam doloribus voluptas. Nam assumenda harum nam odio aliquam At tenetur pariatur!"},
-             {"id": 4, "text": "Lorem ipsum dolor sit amet. Eos nostrum quidem et sint tempora ut magnam reiciendis. Et voluptas optio ut autem dolorum est neque nemo 33 magnam illo aut laboriosam dolores. Ut quam laudantium quo corporis sunt qui cupiditate nesciunt."},
-             {"id": 5, "text": "Lorem ipsum dolor sit amet. Qui reprehenderit odio sit error molestiae ex voluptatem temporibus in fuga molestias cum tempora harum aut ipsam accusamus. Et iure iste 33 totam excepturi qui earum quidem est eligendi voluptas sed quod blanditiis nam doloribus voluptas. Nam assumenda harum nam odio aliquam At tenetur pariatur!"},
-             {"id": 6, "text": "Lorem ipsum dolor sit amet. Eos nostrum quidem et sint tempora ut magnam reiciendis. Et voluptas optio ut autem dolorum est neque nemo 33 magnam illo aut laboriosam dolores. Ut quam laudantium quo corporis sunt qui cupiditate nesciunt."},
-             {"id": 7, "text": "Lorem ipsum dolor sit amet. Eos nostrum quidem et sint tempora ut magnam reiciendis. Et voluptas optio ut autem dolorum est neque nemo 33 magnam illo aut laboriosam dolores. Ut quam laudantium quo corporis sunt qui cupiditate nesciunt."}
-           ]
+      // this.data =
+      //      [
+      //        {"id": 1, "text": "Lorem ipsum dolor sit amet. Qui reprehenderit odio sit error molestiae ex voluptatem temporibus in fuga molestias cum tempora harum aut ipsam accusamus. Et iure iste 33 totam excepturi qui earum quidem est eligendi voluptas sed quod blanditiis nam doloribus voluptas. Nam assumenda harum nam odio aliquam At tenetur pariatur!"},
+      //        {"id": 2, "text": "Lorem ipsum dolor sit amet. Eos nostrum quidem et sint tempora ut magnam reiciendis. Et voluptas optio ut autem dolorum est neque nemo 33 magnam illo aut laboriosam dolores. Ut quam laudantium quo corporis sunt qui cupiditate nesciunt."},
+      //        {"id": 3, "text": "Lorem ipsum dolor sit amet. Qui reprehenderit odio sit error molestiae ex voluptatem temporibus in fuga molestias cum tempora harum aut ipsam accusamus. Et iure iste 33 totam excepturi qui earum quidem est eligendi voluptas sed quod blanditiis nam doloribus voluptas. Nam assumenda harum nam odio aliquam At tenetur pariatur!"},
+      //        {"id": 4, "text": "Lorem ipsum dolor sit amet. Eos nostrum quidem et sint tempora ut magnam reiciendis. Et voluptas optio ut autem dolorum est neque nemo 33 magnam illo aut laboriosam dolores. Ut quam laudantium quo corporis sunt qui cupiditate nesciunt."},
+      //        {"id": 5, "text": "Lorem ipsum dolor sit amet. Qui reprehenderit odio sit error molestiae ex voluptatem temporibus in fuga molestias cum tempora harum aut ipsam accusamus. Et iure iste 33 totam excepturi qui earum quidem est eligendi voluptas sed quod blanditiis nam doloribus voluptas. Nam assumenda harum nam odio aliquam At tenetur pariatur!"},
+      //        {"id": 6, "text": "Lorem ipsum dolor sit amet. Eos nostrum quidem et sint tempora ut magnam reiciendis. Et voluptas optio ut autem dolorum est neque nemo 33 magnam illo aut laboriosam dolores. Ut quam laudantium quo corporis sunt qui cupiditate nesciunt."},
+      //        {"id": 7, "text": "Lorem ipsum dolor sit amet. Eos nostrum quidem et sint tempora ut magnam reiciendis. Et voluptas optio ut autem dolorum est neque nemo 33 magnam illo aut laboriosam dolores. Ut quam laudantium quo corporis sunt qui cupiditate nesciunt."}
+      //      ]
 
     },
     spreadMedia() {
       const wrappers = document.getElementsByClassName("media-container");
       let windowW = window.innerWidth, windowH = window.innerHeight;
       for (let i = 0; i < wrappers.length; i++) {
-        let isPortrait = this.data[i].width > this.data[i].height;
+        let isPortrait = this.data[i].width >= this.data[i].height;
         let theta = 2 * i * Math.PI/wrappers.length;
         let r = (Math.random() + 2)/8;
         let x = r * windowW * Math.cos(theta) + windowW/2;
         let y = r * windowH * Math.sin(theta) + windowH/2;
-        let w = parseInt((Math.random()+2)*(windowW+windowH)/12);
+        let w = parseInt((Math.random()+2)*(windowW+windowH)/15);
         if (isPortrait) {
           if ( x+w/2 > windowW ){ x = windowW-w/2 }
           if ( x-w/2 < 0 ){ x = w/2 }
         } else {
-          let h = parseInt((Math.random()+2)*(windowW+windowH)/12);
+          let h = parseInt((Math.random()+2)*(windowW+windowH)/15);
           w = h * this.data[i].width / this.data[i].height
           if ( y+h/2 > windowH-100 ){ y = windowH-h/2-100 }
           if ( y-h/2 < 0 ){ y = h/2 }
@@ -112,8 +111,13 @@ export default {
   position:absolute;
   max-width: 100%;
   transform: translate(-50%,-50%);
-  filter: blur(1px) grayscale(75%);
+  filter: grayscale(90%);
   box-shadow: var(--shadow);
+}
+
+.picture-frame:hover {
+  filter: grayscale(30%);
+  transition: filter 200ms;
 }
 .quote{
   position: absolute;

@@ -1,7 +1,7 @@
 <template>
   <div class="card-simple" id="card-weekly">
     <div class="flex-box close-button-container">
-      <button type="close" class="close-button" v-on:click="hideCard">
+      <button type="close" class="close-button" v-on:click="hideCardWeekly">
         <svg
           style=" stroke-width: 1px; stroke: black"
           xmlns="http://www.w3.org/2000/svg"
@@ -106,12 +106,12 @@
       <p>
         For this week, share one favorite quote from this week's reading.
       </p>
-      <textarea
-        rows="10"
-        name="fav-quote"
-        placeholder=""
-        v-model="weekly_media_text"
-      />
+<!--      <textarea-->
+<!--        rows="10"-->
+<!--        name="fav-quote"-->
+<!--        placeholder=""-->
+<!--        v-model="weekly_media_text"-->
+<!--      />-->
     </div>
     <div v-if="weekNow === 4">
       <p>
@@ -167,7 +167,7 @@
     </div>
 
     <p style="border: None; hyphenate-character: initial">
-      Send image directly to <a href="mailto: hi@chimera.place">hi@chimera.place</a> or click the button below.
+      Send the quote directly to <a href="mailto:hi@chimera.place">hi@chimera.place</a> or click the button below.
     </p>
 
     <div
@@ -182,7 +182,7 @@
 <!--        DELETE-->
 <!--      </div>-->
       <div class="link" id="media-submit">
-        SUBMIT WEEKLY PROMPT
+        <a href="mailto:hi@chimera.place">SUBMIT WEEKLY PROMPT</a>
       </div>
     </div>
   </div>
@@ -200,7 +200,7 @@ export default {
     room_name: Number,
     room: Object,
     startDate: Date,
-
+    showCard: Boolean,
   },
   components: {
     UploadAnotatedText,
@@ -215,6 +215,7 @@ export default {
   },
   mounted() {
     // this.addDropZone();
+    this.showCardWeekly();
     this.checkIsUploaded();
   },
   computed: {
@@ -225,13 +226,15 @@ export default {
     },
   },
   methods: {
-    hideCard() {
+    hideCardWeekly() {
       this.$emit("showCard", false);
     },
-    clearValues() {
-      document.querySelector("textarea").value = "";
-      this.$refs["input"].reset();
+    showCardWeekly() {
+      this.$emit("showCard", true);
     },
+    // clearValues() {
+    //   document.querySelector("textarea").value = "";
+    // },
     checkIsUploaded() {
       let readings_creators = this.room.readings_creators;
       const latestUploader = readings_creators[readings_creators.length - 1];
