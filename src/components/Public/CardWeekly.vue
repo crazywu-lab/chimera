@@ -299,7 +299,7 @@ export default {
 
 <style scoped>
 #card-weekly {
-  position: fixed;
+  position: absolute;
   z-index: 10;
 }
 
