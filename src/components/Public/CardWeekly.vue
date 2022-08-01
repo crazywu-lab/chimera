@@ -120,20 +120,20 @@
         reading mates made? Or do you have different opinions, or add anything
         to it?
       </p>
-      <div class="flex-box">
-        <div class="media-upload image-upload">
-          <!--        <div class="media-upload image-upload" v-on:drop.prevent="handleDrop($event)">-->
-          <svg
-            width="320"
-            height="320"
-            xmlns="http://www.w3.org/2000/svg"
-            style="stroke-width:1px; stroke:#757575;"
-          >
-            <path d="M0,0 l320,320"></path>
-            <path d="m320,0 l-320,320"></path>
-          </svg>
-        </div>
-      </div>
+<!--      <div class="flex-box">-->
+<!--        <div class="media-upload image-upload">-->
+<!--          &lt;!&ndash;        <div class="media-upload image-upload" v-on:drop.prevent="handleDrop($event)">&ndash;&gt;-->
+<!--          <svg-->
+<!--            width="320"-->
+<!--            height="320"-->
+<!--            xmlns="http://www.w3.org/2000/svg"-->
+<!--            style="stroke-width:1px; stroke:#757575;"-->
+<!--          >-->
+<!--            <path d="M0,0 l320,320"></path>-->
+<!--            <path d="m320,0 l-320,320"></path>-->
+<!--          </svg>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <div v-if="weekNow === 5">
       <p>
@@ -151,12 +151,9 @@
       <!--          name="weekly_media_title"-->
       <!--          placeholder=''-->
       <!--          v-model="weekly_media_title" >-->
-      <div class="media-upload audio-upload">
-        <img src="../../assets/upload.svg" height="24px" />
-        <!--        <audio controls>-->
-        <!--          <source>-->
-        <!--        </audio>-->
-      </div>
+<!--      <div class="media-upload audio-upload">-->
+<!--        <img src="../../assets/upload.svg" height="24px" />-->
+<!--      </div>-->
     </div>
     <div v-if="weekNow === 6">
       <p>
