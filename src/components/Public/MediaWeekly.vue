@@ -71,15 +71,15 @@ export default {
       for (let i = 0; i < wrappers.length; i++) {
         let isPortrait = this.data[i].width >= this.data[i].height;
         let theta = 2 * i * Math.PI/wrappers.length;
-        let r = (Math.random() + 2)/8;
+        let r = (Math.random() + 2)/9;
         let x = r * windowW * Math.cos(theta) + windowW/2;
         let y = r * windowH * Math.sin(theta) + windowH/2;
-        let w = parseInt((Math.random()+2)*(windowW+windowH)/15);
+        let w = parseInt((Math.random()+2)*(windowW+windowH)/16);
         if (isPortrait) {
           if ( x+w/2 > windowW ){ x = windowW-w/2 }
           if ( x-w/2 < 0 ){ x = w/2 }
         } else {
-          let h = parseInt((Math.random()+2)*(windowW+windowH)/15);
+          let h = parseInt((Math.random()+2)*(windowW+windowH)/16);
           w = h * this.data[i].width / this.data[i].height
           if ( y+h/2 > windowH-100 ){ y = windowH-h/2-100 }
           if ( y-h/2 < 0 ){ y = h/2 }
