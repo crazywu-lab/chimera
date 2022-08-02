@@ -115,11 +115,10 @@
     </div>
     <div v-if="weekNow === 4">
       <p>
-        For this week, send a screenshot of one annotation in your current
-        reading, and your interaction with it. Do you like the annotation your
-        reading mates made? Or do you have different opinions, or add anything
-        to it?
-      </p>
+        For this week, send a screenshot of one annotation in your current reading,
+        and/or your interaction with it. Select one that captivates you the most -
+        could be because of the insightful feedback, or the way how it is marked such as the color,
+        the handwriting, etc.      </p>
 <!--      <div class="flex-box">-->
 <!--        <div class="media-upload image-upload">-->
 <!--          &lt;!&ndash;        <div class="media-upload image-upload" v-on:drop.prevent="handleDrop($event)">&ndash;&gt;-->
