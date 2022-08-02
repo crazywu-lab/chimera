@@ -5,8 +5,8 @@
        :key="d.id"
        @mouseenter="bringToFront"
        @mouseleave="bringToBack">
-      <img v-if="weekNow !== 5 || weekNow !== 7" class="picture-frame" :src="d.path" :alt="d.id"/>
-      <div v-if="weekNow === 5" class="quote">
+      <img v-if="weekNow !== 4 || weekNow !== 7" class="picture-frame" :src="d.path" :alt="d.id"/>
+      <div v-if="weekNow === 4" class="quote">
         {{d.text}}
       </div>
     </div>
@@ -15,7 +15,8 @@
 
 <script>
 // need to be replaced with the images in the media db from past week
-import json from "../../assets/json/2.json";
+import json2 from "../../assets/json/2.json";
+import json3 from "../../assets/json/3.json";
 
 export default {
   name: "MediaWeekly",
@@ -23,7 +24,7 @@ export default {
     weekNow: Number,
   },
   beforeMount() {
-    if (this.weekNow === 5){
+    if (this.weekNow === 4){
       this.importTexts();
     }
     else {
@@ -42,7 +43,7 @@ export default {
   methods: {
     importImages(r) {
       r.keys().forEach((key, i) => {
-        let d = json[i];
+        let d = json2[i];
         this.data.push(
             {"path": r(key),
               "id": d.id,
@@ -53,6 +54,7 @@ export default {
     },
     importTexts() {
       // this is a placeholder
+      this.data = json3;
       // this.data =
       //      [
       //        {"id": 1, "text": "Lorem ipsum dolor sit amet. Qui reprehenderit odio sit error molestiae ex voluptatem temporibus in fuga molestias cum tempora harum aut ipsam accusamus. Et iure iste 33 totam excepturi qui earum quidem est eligendi voluptas sed quod blanditiis nam doloribus voluptas. Nam assumenda harum nam odio aliquam At tenetur pariatur!"},

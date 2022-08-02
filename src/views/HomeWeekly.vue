@@ -61,7 +61,7 @@ export default {
     return {
       userName: this.$cookie.get("chimera-place-auth"),
       showCard: false,
-      weekNow: 3,
+      weekNow: '',
       startDate: new Date(2022, 6, 11),
       group: {},
       room: {},
